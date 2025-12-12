@@ -981,6 +981,42 @@ h2 {
   background: linear-gradient(90deg, #ffbf00, #ff9500);
 }
 
+
+/* Doge Section Specific Layout */
+.meme-panel.doge-section .meme-panel__art {
+  right: auto;
+  left: -20px;
+}
+
+.meme-panel.doge-section .meme-panel__header {
+  justify-content: flex-end;
+}
+
+.meme-panel.doge-section .meme-panel__header-left {
+  flex-direction: row-reverse;
+}
+
+.meme-panel.doge-section .meme-panel__body {
+  padding-left: 350px; /* Space for character on left */
+  padding-right: 4rem;
+}
+
+/* Specific responsiveness for Doge flip */
+@media (max-width: 1200px) {
+  .meme-panel.doge-section .meme-panel__body {
+    padding-left: 200px;
+  }
+}
+
+@media (max-width: 960px) {
+  .meme-panel.doge-section .meme-panel__body {
+     padding-left: 30px; /* Reset on mobile */
+  }
+  .meme-panel.doge-section .meme-panel__art {
+    display: none;
+  }
+}
+
 .yeti-section .progress-bar__fill {
   background: linear-gradient(90deg, #c61ae7, #d33aff);
 }
