@@ -176,11 +176,14 @@ function MemeSection({ section }) {
 
   return (
     <section id={section.id} className={`meme-panel ${section.id}-section`}>
-      <div className="meme-panel__frame">
-        <div className="meme-panel__body">
-          <div className="meme-panel__header">
-            <div className="meme-panel__header-left">
-              <img src={section.titleImg} alt={section.label} className="meme-title" />
+      <div className="meme-panel__wrapper">
+        <div className="meme-panel__frame">
+          <div className="meme-panel__body">
+            <div className="meme-panel__header">
+              <div className="meme-panel__header-left">
+                <img src={section.titleImg} alt={section.label} className="meme-title" />
+                <button className="meme-panel__view-all">View all ›</button>
+              </div>
             </div>
             <button className="meme-panel__view-all">View all ›</button>
           </div>
@@ -298,12 +301,11 @@ export default function App() {
       </header>
 
       <main className="content">
-        <section className="panel">
+        <section className="top-launches-section">
           <div className="section-header">
-            <div>
-              <p className="eyebrow">Top Launches</p>
-              <h2>Fresh drops</h2>
-            </div>
+            <h2 className="section-title-pixel">
+              TOP <span className="text-purple">LAUNCHES</span>
+            </h2>
             <button className="pill pill-dark">View all ➜</button>
           </div>
           <div className="card-row">

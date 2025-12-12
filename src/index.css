@@ -499,7 +499,7 @@ a {
 .content {
   width: 100%;
   max-width: none;
-  padding: 0 5%;
+  padding: 0 24px;
   margin: 0 auto;
 }
 
@@ -771,9 +771,11 @@ a {
   position: absolute;
   inset: 1.5px; /* Border thickness */
   z-index: -1;
-  background: rgba(20, 10, 40, 0.35);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  /* Glass Effect Upgrade: Gradient opacity + Stronger Blur + Inner Glow */
+  background: linear-gradient(135deg, rgba(60, 30, 90, 0.5), rgba(20, 10, 40, 0.3));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05);
   clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px); 
   /* Adjusted clip path for inner to match outer roughly */
 }
@@ -947,14 +949,33 @@ a {
   padding: 18px 16px 22px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
   margin: 18px auto;
+  width: 98%;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* Align bottom like standard headers */
   gap: 10px;
-  padding: 0 4px 10px;
+  padding: 0 0 32px; /* Space below header */
+}
+
+.section-title-pixel {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.text-purple {
+  color: #be22ff;
+}
+
+.top-launches-section {
+  margin: 40px auto;
+  width: 98%;
 }
 
 .eyebrow {
@@ -973,30 +994,33 @@ h2 {
 .card-row,
 .meme-panel__list {
   display: grid;
-  gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
 .game-card {
-  background: rgba(19, 19, 42, 0.8);
-  border-radius: 16px;
-  border: 1px solid rgba(198, 26, 231, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 24px;
+  border: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .game-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 30px rgba(198, 26, 231, 0.4);
+  box-shadow: 0 8px 30px rgba(198, 26, 231, 0.25);
 }
 
 .game-card__media {
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  padding: 8px;
 }
 
 .game-card__media img {
@@ -1019,7 +1043,7 @@ h2 {
 }
 
 .game-card__body {
-  padding: 16px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1060,9 +1084,9 @@ h2 {
   color: white;
   border: none;
   border-radius: 999px;
-  padding: 12px 24px;
+  padding: 8px 16px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 11px;
   cursor: pointer;
   width: 100%;
   text-transform: uppercase;
@@ -1175,31 +1199,35 @@ h2 {
   background: transparent;
   border: none;
   padding: 0;
-  margin: 40px auto;
-  max-width: 1400px;
+  margin: 100px auto; /* Increased spacing */
+  max-width: none;
+  width: 98%;
   isolation: isolate;
+}
+
+.meme-panel__wrapper {
+  filter: 
+    drop-shadow(0 0 10px rgb(var(--meme-border-rgb, 62 244 192) / 0.6))
+    drop-shadow(0 0 30px rgb(var(--meme-border-rgb, 62 244 192) / 0.4));
 }
 
 .meme-panel__frame {
   position: relative;
   --cut-size: 60px;
   --border-w: 3px;
-}
-
-.meme-panel__frame::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: var(--border-w) solid var(--meme-border, #3ef4c0);
+  
+  /* New Border Logic: Background becomes the border */
+  background: var(--meme-border, #3ef4c0);
+  padding: var(--border-w); /* This padding creates the border thickness */
+  
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
       0 100%, 0 var(--cut-size));
-  pointer-events: none;
-  z-index: 3;
-  box-shadow:
-    0 0 10px rgba(var(--meme-border-rgb, 62 244 192), 0.9),
-    0 0 26px rgba(var(--meme-border-rgb, 62 244 192), 0.55),
-    0 0 60px rgba(var(--meme-border-rgb, 62 244 192), 0.22);
+}
+
+/* Remove old pseudo border logic */
+.meme-panel__frame::before {
+  display: none;
 }
 
 .meme-panel__header {
@@ -1207,7 +1235,7 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -1215,14 +1243,15 @@ h2 {
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-bottom: 1rem;
 }
 
 .meme-panel__view-all {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #fff;
   color: #fff;
   padding: 8px 20px;
-  border-radius: 8px;
+  border-radius: 999px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -1252,10 +1281,11 @@ h2 {
     linear-gradient(90deg, rgba(10, 10, 24, 0.82) 0%, rgba(10, 10, 24, 0.58) 55%, rgba(10, 10, 24, 0.82) 100%);
   border: none;
   border-radius: 0;
-  padding: 32px 40px 74px;
-  min-height: 450px;
-  overflow: hidden;
+  padding: 4rem;
+  min-height: 150px;
+  overflow: visible;
   isolation: isolate;
+  height: 100%; /* Ensure it fills the frame */
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
@@ -1332,16 +1362,17 @@ h2 {
 
 .meme-panel__art {
   position: absolute;
-  right: -120px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 0;
+  top: auto;
+  bottom: 0;
+  transform: none;
   z-index: 100;
   pointer-events: none;
 }
 
 .meme-panel__art img {
   width: auto;
-  height: 600px;
+  height: 700px;
   object-fit: contain;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.7));
 }
@@ -1349,9 +1380,8 @@ h2 {
 .meme-panel__cards {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding-right: 180px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .meme-panel__progress {
@@ -1384,6 +1414,42 @@ h2 {
 /* Different colors for different sections */
 .doge-section .progress-bar__fill {
   background: linear-gradient(90deg, #ffbf00, #ff9500);
+}
+
+
+/* Doge Section Specific Layout */
+.meme-panel.doge-section .meme-panel__art {
+  right: auto;
+  left: -20px;
+}
+
+.meme-panel.doge-section .meme-panel__header {
+  justify-content: flex-end;
+}
+
+.meme-panel.doge-section .meme-panel__header-left {
+  flex-direction: row-reverse;
+}
+
+.meme-panel.doge-section .meme-panel__body {
+  padding-left: 350px; /* Space for character on left */
+  padding-right: 4rem;
+}
+
+/* Specific responsiveness for Doge flip */
+@media (max-width: 1200px) {
+  .meme-panel.doge-section .meme-panel__body {
+    padding-left: 200px;
+  }
+}
+
+@media (max-width: 960px) {
+  .meme-panel.doge-section .meme-panel__body {
+     padding-left: 30px; /* Reset on mobile */
+  }
+  .meme-panel.doge-section .meme-panel__art {
+    display: none;
+  }
 }
 
 .yeti-section .progress-bar__fill {
@@ -1486,7 +1552,7 @@ h2 {
   }
 
   .meme-panel__art img {
-    height: 450px;
+    height: 600px;
   }
 }
 
@@ -1601,4 +1667,26 @@ h2 {
   .card-row {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
+}
+/* Button Pills Top Launches */
+.pill {
+  border-radius: 999px;
+  padding: 8px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-dark {
+  background: transparent;
+  border: 1px solid #fff; /* White border as requested */
+  color: #fff;
+}
+
+.pill-dark:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
