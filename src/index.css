@@ -523,9 +523,27 @@ a {
 .section-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* Align bottom like standard headers */
   gap: 10px;
-  padding: 0 4px 10px;
+  padding: 0 0 32px; /* Space below header */
+}
+
+.section-title-pixel {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.text-purple {
+  color: #be22ff;
+}
+
+.top-launches-section {
+  margin: 40px auto;
+  width: 100%;
 }
 
 .eyebrow {
@@ -1172,4 +1190,26 @@ h2 {
   .card-row {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
+}
+/* Button Pills Top Launches */
+.pill {
+  border-radius: 999px;
+  padding: 8px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-dark {
+  background: transparent;
+  border: 1px solid #fff; /* White border as requested */
+  color: #fff;
+}
+
+.pill-dark:hover {
+  background: rgba(255, 255, 255, 0.1);
 }

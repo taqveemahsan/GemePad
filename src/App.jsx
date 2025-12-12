@@ -219,12 +219,11 @@ export default function App() {
       </header>
 
       <main className="content">
-        <section className="panel">
+        <section className="top-launches-section">
           <div className="section-header">
-            <div>
-              <p className="eyebrow">Top Launches</p>
-              <h2>Fresh drops</h2>
-            </div>
+            <h2 className="section-title-pixel">
+              TOP <span className="text-purple">LAUNCHES</span>
+            </h2>
             <button className="pill pill-dark">View all ➜</button>
           </div>
           <div className="card-row">
