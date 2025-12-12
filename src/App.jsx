@@ -194,13 +194,13 @@ export default function App() {
 
 
         <div className="hero__frame" style={{ '--hero-bg': `url("${heroBg}")` }}>
+          <div className="hero__chips-container">
+            {chips.map((chip, idx) => (
+              <div key={chip} className={`hero-chip chip-${idx}`}>{chip}</div>
+            ))}
+          </div>
           <div className="hero__content">
             <div className="hero__center">
-              <div className="hero__chips-container">
-                {chips.map((chip, idx) => (
-                  <div key={chip} className={`hero-chip chip-${idx}`}>{chip}</div>
-                ))}
-              </div>
               <div className="hero__title-large">
                 <img src={heroTitleImg} alt="GEMEPAD" className="hero-title-img" />
               </div>

@@ -276,10 +276,10 @@ a {
 
 .hero__chips-container {
   position: absolute;
-  top: 6%;
-  left: 6%;
-  width: 88%;
-  height: 88%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 3;
 }
@@ -291,7 +291,7 @@ a {
   }
 
   50% {
-    transform: translateY(-12px) rotate(var(--rot));
+    transform: translateY(-8px) rotate(var(--rot));
   }
 
   100% {
@@ -316,68 +316,66 @@ a {
   -webkit-backdrop-filter: blur(8px);
   animation: float 6s ease-in-out infinite;
   white-space: nowrap;
-
-  /* Chamfered corners effect using clip-path could be added, but border-radius is requested "box" */
   transform: skew(-10deg);
-  /* Slight skew for "cyber" feel? Or just rotation. Keeping rotation in individual classes. */
 }
 
+/* SCATTERED POSITIONS - Final Polish (Pixel Perfect to Figma) */
+
 /* TOP ARC */
-.chip-0 {
-  /* Token */
-  top: 32%;
-  left: 20%;
-  --rot: -12deg;
+.chip-0 { /* Token */
+  top: 22%;
+  left: 16%;
+  --rot: -15deg;
   animation-delay: 0s;
 }
 
-.chip-1 {
-  /* P2E */
-  top: 18%;
-  left: 32%;
-  --rot: -6deg;
+.chip-1 { /* P2E */
+  top: 8%;
+  left: 33%;
+  --rot: -8deg;
   animation-delay: 1.5s;
 }
 
-.chip-2 {
-  /* Mini-app */
-  top: 18%;
-  left: 55%;
-  --rot: 6deg;
+.chip-2 { /* Mini-app */
+  top: 14%;
+  left: 46%;
+  --rot: 8deg;
   animation-delay: 0.5s;
 }
 
-.chip-3 {
-  /* Pair-Launch */
-  top: 32%;
-  left: 68%;
-  --rot: 12deg;
+.chip-3 { /* Pair-Launch */
+  top: 40%;
+  left: 50%;
+  right: auto;
+  --rot: 18deg;
   animation-delay: 1.1s;
 }
 
-/* BOTTOM ARC */
-.chip-4 {
-  /* No Code (Right side usually) - Index 4 is 'No Code' */
-  top: 62%;
-  left: 70%;
-  --rot: 10deg;
-  animation-delay: 1.8s;
+/* BOTTOM SIDES */
+.chip-6 { /* No Time (Left of Button) */
+  top: 52%;
+  left: 12%;
+  bottom: auto;
+  --rot: -12deg;
+  animation-delay: 0.7s;
 }
 
-.chip-5 {
-  /* No Tools (Bottom Center/Left?) - Index 5 is 'No Tools' */
-  top: 70%;
-  left: 45%;
-  --rot: 0deg;
+.chip-5 { /* No Tools (Bottom Left of Button) */
+  top: 75%;
+  left: 18%;
+  bottom: auto;
+  transform: translateX(0) skew(-10deg);
+  --rot: -5deg;
   animation-delay: 2.5s;
 }
 
-.chip-6 {
-  /* No Time (Left side) - Index 6 is 'No Time' */
-  top: 62%;
-  left: 20%;
-  --rot: -10deg;
-  animation-delay: 0.7s;
+.chip-4 { /* No Code (Right of Button) */
+  top: 68%;
+  left: 48%;
+  right: auto;
+  bottom: auto;
+  --rot: 15deg;
+  animation-delay: 1.8s;
 }
 
 
