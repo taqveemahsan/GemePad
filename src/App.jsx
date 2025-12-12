@@ -137,11 +137,11 @@ function MemeSection({ section }) {
           <div className="meme-panel__header">
             <div className="meme-panel__header-left">
               <img src={section.titleImg} alt={section.label} className="meme-title" />
+              <button className="meme-panel__view-all">View all ›</button>
             </div>
-            <button className="meme-panel__view-all">View all ›</button>
           </div>
           <div className="meme-panel__cards">
-            {section.cards.slice(0, 4).map((card, idx) => (
+            {section.cards.map((card, idx) => (
               <GameCard
                 key={card + idx}
                 title={`GAME NAME HERE`}
