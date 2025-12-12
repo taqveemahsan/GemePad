@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import heroBg from './assets/herosection/Mask group (3).png'
 import Bg01 from './assets/herosection/Bg01.png'
 import heroBot from './assets/herosection/Gemini_Generated_Image_k7u1zrk7u1zrk7u1 1.png'
@@ -29,6 +30,8 @@ import yetiCard2 from './assets/yetidyorgames/Frame 65-card2.png'
 import yetiCard3 from './assets/yetidyorgames/Frame 65-card3.png'
 import yetiCard4 from './assets/yetidyorgames/Frame 65-card4.png'
 import yetiCard5 from './assets/yetidyorgames/Frame 65-card5.png'
+import { navigate } from './navigation'
+import { useGames } from './hooks/useGames'
 
 const chips = ['Token', 'P2E', 'Mini-app', 'Pair-Launch', 'No Code', 'No Tools', 'No Time']
 
@@ -107,12 +110,27 @@ function TagChip({ label }) {
   return <span className="chip">{label}</span>
 }
 
-function GameCard({ title, img, tokenName, tokenImg }) {
+function LoadingCard() {
+  return (
+    <div className="game-card" style={{ opacity: 0.6 }}>
+      <div className="game-card__media" style={{ background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite' }}>
+        <div style={{ paddingTop: '100%' }} />
+      </div>
+      <div className="game-card__body">
+        <div style={{ height: '20px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px', marginBottom: '10px' }} />
+        <div style={{ height: '16px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px', width: '60%', marginBottom: '10px' }} />
+        <div style={{ height: '36px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px' }} />
+      </div>
+    </div>
+  )
+}
+
+function GameCard({ title, img, tokenName, tokenImg, onClick, playCount }) {
   return (
     <div className="game-card">
       <div className="game-card__media">
         <img src={img} alt={title} />
-        <div className="badge">12k Players</div>
+        <div className="badge">{playCount ? `${playCount} Players` : '12k Players'}</div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
@@ -123,13 +141,39 @@ function GameCard({ title, img, tokenName, tokenImg }) {
             <span>$0.058</span>
           </div>
         )}
-        <button className="btn-play">▶ PLAY</button>
+        <button className="btn-play" type="button" onClick={onClick}>
+          ▶ PLAY
+        </button>
       </div>
     </div>
   )
 }
 
 function MemeSection({ section }) {
+  const handleStaticGameClick = (cardImg, idx) => {
+    // Create dummy game data for static cards
+    const dummyGame = {
+      id: `${section.id}-${idx}`,
+      gameId: `${section.id}-${idx}`,
+      GameName: 'Coming Soon',
+      GameDescription: 'This game is coming soon! Stay tuned for updates.',
+      GameThumbnail: cardImg,
+      GameURL: '#',
+      playCount: Math.floor(Math.random() * 10000) + 1000,
+      tokens: [
+        {
+          name: 'Game Token',
+          symbol: 'GAME',
+          imageUrl: null,
+        }
+      ],
+      p2eEligibility: {
+        eligible: false
+      }
+    }
+    navigate(`/game?id=${dummyGame.id}`, { game: dummyGame })
+  }
+
   return (
     <section id={section.id} className={`meme-panel ${section.id}-section`}>
       <div className="meme-panel__frame">
@@ -143,10 +187,13 @@ function MemeSection({ section }) {
           <div className="meme-panel__cards">
             {section.cards.slice(0, 4).map((card, idx) => (
               <GameCard
-                key={card + idx}
-                title={`GAME NAME HERE`}
+                key={idx}
+                title="GAME NAME HERE"
                 img={card}
                 tokenName="Token Name"
+                tokenImg={null}
+                playCount={null}
+                onClick={() => handleStaticGameClick(card, idx)}
               />
             ))}
           </div>
@@ -165,6 +212,32 @@ function MemeSection({ section }) {
 }
 
 export default function App() {
+  const [tonConnectUI] = useTonConnectUI()
+  const wallet = useTonWallet()
+  const { games, loading, error } = useGames({
+    category: 'play-to-earn',
+    sortBy: 'desc',
+    page: 1,
+    limit: 12,
+  })
+
+  // Debug logging
+  console.log('🎯 App Component State:', {
+    gamesCount: games.length,
+    loading,
+    error,
+    firstGame: games[0]
+  })
+
+  const connectLabel = wallet?.account?.address
+    ? `${wallet.account.address.slice(0, 4)}…${wallet.account.address.slice(-4)}`
+    : 'CONNECT WALLET'
+
+  const handleGameClick = (game) => {
+    console.log('🎮 Game Clicked:', game)
+    navigate(`/game?id=${game.id || game.gameId}`, { game })
+  }
+
   return (
     <div className="page">
       <div className="page__bg-container">
@@ -188,7 +261,13 @@ export default function App() {
           {/* Right Group */}
           <div className="nav-right">
             <button className="btn-p2e">PLAY TO EARN</button>
-            <button className="btn-connect">CONNECT WALLET</button>
+            <button
+              className="btn-connect"
+              type="button"
+              onClick={() => tonConnectUI.openModal()}
+            >
+              {connectLabel}
+            </button>
           </div>
         </div>
 
@@ -228,9 +307,23 @@ export default function App() {
             <button className="pill pill-dark">View all ➜</button>
           </div>
           <div className="card-row">
-            {topLaunches.map((game) => (
-              <GameCard key={game.title} title={game.title} img={game.img} />
-            ))}
+            {loading ? (
+              Array.from({ length: 6 }).map((_, idx) => <LoadingCard key={idx} />)
+            ) : games.length > 0 ? (
+              games.slice(0, 6).map((game, idx) => (
+                <GameCard
+                  key={game.id || game.gameId || idx}
+                  title={game.GameName}
+                  img={game.GameThumbnail}
+                  tokenName={game.tokens && game.tokens[0] ? game.tokens[0].name : null}
+                  tokenImg={game.tokens && game.tokens[0] ? game.tokens[0].imageUrl : null}
+                  playCount={game.playCount}
+                  onClick={() => handleGameClick(game)}
+                />
+              ))
+            ) : (
+              <div style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>No games available</div>
+            )}
           </div>
         </section>
 
@@ -242,11 +335,17 @@ export default function App() {
           <p className="geme-world-header__description">
             Explore Geme Worlds like Pepe, Doge, Bonk & more — each with its own style, characters and unique mini-games to play.
           </p>
-          <button className="btn-explore-worlds">EXPLORE ALL WORLDS</button>
+          <button className="btn-explore-worlds" onClick={() => navigate('/explore')}>EXPLORE ALL WORLDS</button>
         </section>
 
         {memeSections.map((section) => (
-          <MemeSection key={section.id} section={section} />
+          <MemeSection
+            key={section.id}
+            section={section}
+            games={games}
+            onGameClick={handleGameClick}
+            loading={loading}
+          />
         ))}
 
         <section className="panel leaderboard">

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 :root {
   color: #fff;
   background: #0b0b1b;
@@ -52,6 +61,428 @@ a {
 .hero {
   width: 100%;
   max-width: none;
+}
+
+/* Game Details (/game) */
+.gd-main {
+  position: relative;
+  z-index: 10;
+  padding: 0 5% 120px;
+}
+
+.gd-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 26px;
+  align-items: stretch;
+  height: clamp(520px, 62vh, 640px);
+}
+
+.gd-left {
+  position: relative;
+  min-height: 0;
+}
+
+.gd-frame {
+  position: relative;
+  padding: 15px;
+  background: transparent;
+  border: none;
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.55),
+    0 0 70px rgba(255, 77, 238, 0.22);
+  overflow: hidden;
+  height: 100%;
+  isolation: isolate;
+  --cut: 35px;
+  clip-path: polygon(
+    var(--cut) 0%,
+    100% 0%,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0% 100%,
+    0% var(--cut)
+  );
+}
+
+.gd-frame::before,
+.gd-frame::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  clip-path: inherit;
+}
+
+.gd-frame::before {
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 58, 255, 1), rgba(169, 75, 255, 1), rgba(255, 58, 255, 1));
+  filter: drop-shadow(0 0 18px rgba(255, 77, 238, 0.55));
+  z-index: 0;
+}
+
+.gd-frame::after {
+  inset: 2px;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, rgba(255, 76, 226, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 85% 20%, rgba(120, 58, 255, 0.10), transparent 55%),
+    linear-gradient(180deg, rgba(20, 20, 55, 0.52), rgba(20, 20, 55, 0.36));
+  opacity: 1;
+  z-index: 1;
+}
+
+.gd-media {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 0;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 2;
+}
+
+.gd-media__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+}
+
+.gd-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+}
+
+.gd-top-controls {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.gd-control-btn {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.gd-control-btn:active {
+  transform: translateY(1px);
+}
+
+.gd-play {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  border: none;
+  border-radius: 999px;
+  padding: 14px 54px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #c433ff, #ff3aff);
+  box-shadow: 0 0 22px rgba(211, 58, 255, 0.5);
+  z-index: 2;
+}
+
+.gd-right {
+  position: relative;
+  min-height: 0;
+}
+
+.gd-panel {
+  border-radius: 26px;
+  padding: 18px;
+  background: transparent;
+  border: none;
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.55),
+    0 0 70px rgba(255, 77, 238, 0.16);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+  --cut: 35px;
+  clip-path: polygon(
+    var(--cut) 0%,
+    100% 0%,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0% 100%,
+    0% var(--cut)
+  );
+}
+
+.gd-panel::before,
+.gd-panel::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  clip-path: inherit;
+}
+
+.gd-panel::before {
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 58, 255, 1), rgba(169, 75, 255, 1), rgba(255, 58, 255, 1));
+  filter: drop-shadow(0 0 16px rgba(255, 77, 238, 0.45));
+  z-index: 0;
+}
+
+.gd-panel::after {
+  inset: 2px;
+  background:
+    radial-gradient(800px 500px at 30% 10%, rgba(255, 76, 226, 0.08), transparent 55%),
+    radial-gradient(700px 450px at 85% 25%, rgba(120, 58, 255, 0.10), transparent 55%),
+    linear-gradient(180deg, rgba(20, 20, 55, 0.54), rgba(20, 20, 55, 0.38));
+  opacity: 1;
+  z-index: 1;
+}
+
+.gd-panel__header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.gd-panel__scroll {
+  min-height: 0;
+  overflow: auto;
+  padding-right: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.gd-description {
+  padding: 12px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.9;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gd-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 58, 255, 0.85), rgba(120, 58, 255, 0.85));
+  box-shadow: 0 0 18px rgba(211, 58, 255, 0.35);
+}
+
+.gd-title__name {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.gd-title__sub {
+  opacity: 0.75;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.gd-progress {
+  margin: 12px 0 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gd-progress__top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.gd-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gd-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff3aff, #a94bff);
+  box-shadow: 0 0 16px rgba(211, 58, 255, 0.45);
+}
+
+.gd-pillgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.gd-pill {
+  border-radius: 14px;
+  padding: 10px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gd-pill__k {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.gd-pill__v {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.gd-stats {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gd-stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 7px 0;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gd-stat:last-child {
+  border-bottom: none;
+}
+
+.gd-stat__label {
+  opacity: 0.8;
+}
+
+.gd-stat__value {
+  font-weight: 700;
+  opacity: 0.95;
+}
+
+.gd-link {
+  color: #69d2ff;
+}
+
+.gd-trade {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gd-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.gd-tab {
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.gd-tab--active {
+  border-color: rgba(0, 255, 133, 0.55);
+  box-shadow: 0 0 18px rgba(0, 255, 133, 0.12);
+}
+
+.gd-form {
+  display: grid;
+  gap: 10px;
+}
+
+.gd-field {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+.gd-field input {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 0 12px;
+  outline: none;
+}
+
+.gd-receive {
+  font-size: 11px;
+  opacity: 0.7;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.gd-cta {
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: linear-gradient(90deg, #c433ff, #ff3aff);
+  box-shadow: 0 0 22px rgba(211, 58, 255, 0.45);
+}
+
+.gd-logo-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .gd-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .gd-pillgrid {
+    grid-template-columns: 1fr;
+  }
+  .gd-media {
+    min-height: 340px;
+  }
+  .gd-frame,
+  .gd-panel {
+    height: auto;
+  }
 }
 
 
