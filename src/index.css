@@ -768,7 +768,7 @@ h2 {
   background: transparent;
   border: none;
   padding: 0;
-  margin: 40px auto;
+  margin: 100px auto; /* Increased spacing */
   max-width: none;
   width: 98%;
   isolation: isolate;
@@ -778,22 +778,24 @@ h2 {
   position: relative;
   --cut-size: 60px;
   --border-w: 3px;
-}
-
-.meme-panel__frame::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: var(--border-w) solid var(--meme-border, #3ef4c0);
+  
+  /* New Border Logic: Background becomes the border */
+  background: var(--meme-border, #3ef4c0);
+  padding: var(--border-w); /* This padding creates the border thickness */
+  
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
       0 100%, 0 var(--cut-size));
-  pointer-events: none;
-  z-index: 3;
+      
   box-shadow:
     0 0 10px rgba(var(--meme-border-rgb, 62 244 192), 0.9),
     0 0 26px rgba(var(--meme-border-rgb, 62 244 192), 0.55),
     0 0 60px rgba(var(--meme-border-rgb, 62 244 192), 0.22);
+}
+
+/* Remove old pseudo border logic */
+.meme-panel__frame::before {
+  display: none;
 }
 
 .meme-panel__header {
@@ -851,6 +853,7 @@ h2 {
   min-height: 150px;
   overflow: visible;
   isolation: isolate;
+  height: 100%; /* Ensure it fills the frame */
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
