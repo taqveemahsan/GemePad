@@ -723,6 +723,28 @@ h2 {
   isolation: isolate;
 }
 
+.meme-panel__frame {
+  position: relative;
+  --cut-size: 60px;
+  --border-w: 3px;
+}
+
+.meme-panel__frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--border-w) solid var(--meme-border, #3ef4c0);
+  clip-path: polygon(var(--cut-size) 0, 100% 0,
+      100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
+      0 100%, 0 var(--cut-size));
+  pointer-events: none;
+  z-index: 3;
+  box-shadow:
+    0 0 10px rgba(var(--meme-border-rgb, 62 244 192), 0.9),
+    0 0 26px rgba(var(--meme-border-rgb, 62 244 192), 0.55),
+    0 0 60px rgba(var(--meme-border-rgb, 62 244 192), 0.22);
+}
+
 .meme-panel__header {
   display: flex;
   align-items: center;
@@ -769,37 +791,18 @@ h2 {
 
 .meme-panel__body {
   position: relative;
-  --cut-size: 60px;
-  --border-w: 3px;
   background:
     linear-gradient(90deg, rgba(10, 10, 24, 0.82) 0%, rgba(10, 10, 24, 0.58) 55%, rgba(10, 10, 24, 0.82) 100%);
   border: none;
   border-radius: 0;
   padding: 32px 40px 74px;
   min-height: 450px;
-  overflow: visible;
+  overflow: hidden;
   isolation: isolate;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
       0 100%, 0 var(--cut-size));
-}
-
-/* Border effect with cut corners using pseudo-element (outline only) */
-.meme-panel__body::before {
-  content: '';
-  position: absolute;
-  inset: calc(-1 * var(--border-w));
-  border: var(--border-w) solid var(--meme-border, #3ef4c0);
-  clip-path: polygon(var(--cut-size) 0, 100% 0,
-      100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
-      0 100%, 0 var(--cut-size));
-  z-index: 2;
-  pointer-events: none;
-  box-shadow:
-    0 0 10px rgba(var(--meme-border-rgb, 62 244 192), 0.9),
-    0 0 26px rgba(var(--meme-border-rgb, 62 244 192), 0.55),
-    0 0 60px rgba(var(--meme-border-rgb, 62 244 192), 0.22);
 }
 
 .meme-panel__body::after {
@@ -818,10 +821,7 @@ h2 {
   mask-image: radial-gradient(circle at 50% 52%, rgba(0, 0, 0, 1) 0 45%, rgba(0, 0, 0, 0) 74%);
 }
 
-.meme-panel__body > * {
-  position: relative;
-  z-index: 3;
-}
+.meme-panel__body > * { position: relative; z-index: 2; }
 
 /* Dynamic border colors based on section */
 .meme-panel.pepe-section {
