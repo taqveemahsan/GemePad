@@ -774,6 +774,12 @@ h2 {
   isolation: isolate;
 }
 
+.meme-panel__wrapper {
+  filter: 
+    drop-shadow(0 0 10px rgb(var(--meme-border-rgb, 62 244 192) / 0.6))
+    drop-shadow(0 0 30px rgb(var(--meme-border-rgb, 62 244 192) / 0.4));
+}
+
 .meme-panel__frame {
   position: relative;
   --cut-size: 60px;
@@ -786,11 +792,6 @@ h2 {
   clip-path: polygon(var(--cut-size) 0, 100% 0,
       100% calc(100% - var(--cut-size)), calc(100% - var(--cut-size)) 100%,
       0 100%, 0 var(--cut-size));
-      
-  box-shadow:
-    0 0 10px rgba(var(--meme-border-rgb, 62 244 192), 0.9),
-    0 0 26px rgba(var(--meme-border-rgb, 62 244 192), 0.55),
-    0 0 60px rgba(var(--meme-border-rgb, 62 244 192), 0.22);
 }
 
 /* Remove old pseudo border logic */

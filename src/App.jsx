@@ -132,27 +132,29 @@ function GameCard({ title, img, tokenName, tokenImg }) {
 function MemeSection({ section }) {
   return (
     <section id={section.id} className={`meme-panel ${section.id}-section`}>
-      <div className="meme-panel__frame">
-        <div className="meme-panel__body">
-          <div className="meme-panel__header">
-            <div className="meme-panel__header-left">
-              <img src={section.titleImg} alt={section.label} className="meme-title" />
-              <button className="meme-panel__view-all">View all ›</button>
+      <div className="meme-panel__wrapper">
+        <div className="meme-panel__frame">
+          <div className="meme-panel__body">
+            <div className="meme-panel__header">
+              <div className="meme-panel__header-left">
+                <img src={section.titleImg} alt={section.label} className="meme-title" />
+                <button className="meme-panel__view-all">View all ›</button>
+              </div>
             </div>
-          </div>
-          <div className="meme-panel__cards">
-            {section.cards.map((card, idx) => (
-              <GameCard
-                key={card + idx}
-                title={`GAME NAME HERE`}
-                img={card}
-                tokenName="Token Name"
-              />
-            ))}
-          </div>
-          <div className="meme-panel__progress">
-            <div className="progress-bar">
-              <div className="progress-bar__fill"></div>
+            <div className="meme-panel__cards">
+              {section.cards.map((card, idx) => (
+                <GameCard
+                  key={card + idx}
+                  title={`GAME NAME HERE`}
+                  img={card}
+                  tokenName="Token Name"
+                />
+              ))}
+            </div>
+            <div className="meme-panel__progress">
+              <div className="progress-bar">
+                <div className="progress-bar__fill"></div>
+              </div>
             </div>
           </div>
         </div>
