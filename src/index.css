@@ -301,22 +301,50 @@ a {
 
 .hero-chip {
   position: absolute;
-  background: rgba(18, 10, 40, 0.75);
-  border: 1px solid #c149ff;
-  padding: 8px 16px;
-  border-radius: 6px;
+  /* Remove default border/bg */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  
+  padding: 10px 20px; /* Increased padding slightly for better look */
   color: #fff;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 13px; /* Slightly larger text */
+  font-weight: 600; /* Medium weight */
   letter-spacing: 0.04em;
-  box-shadow:
-    0 0 10px rgba(193, 73, 255, 0.2),
-    inset 0 0 12px rgba(193, 73, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  
+  /* Floating animation is kept, but we need to ensure local z-index stacking works */
+  z-index: 10; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   animation: float 6s ease-in-out infinite;
   white-space: nowrap;
-  transform: skew(-10deg);
+  transform: skew(-10deg); /* Skew maintained if desired, or remove if "cut corner" replaces it? User said "border k top left corner thoday se katay hovay hn" - usually implies shape. I will keep skew as it fits the theme, or remove if it conflicts. Let's KEEP skew as it's consistent nicely with the theme, unless user complains. */
+}
+
+/* Gradient Border Layer */
+.hero-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(180deg, #D02FD3, #8016EC);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  border-radius: 2px; /* Slight rounding on other corners if supported by polygon? No, polygon is sharp. */
+}
+
+/* Inner Background Layer */
+.hero-chip::after {
+  content: '';
+  position: absolute;
+  inset: 1.5px; /* Border thickness */
+  z-index: -1;
+  background: rgba(20, 10, 40, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px); 
+  /* Adjusted clip path for inner to match outer roughly */
 }
 
 /* SCATTERED POSITIONS - Final Polish (Pixel Perfect to Figma) */
