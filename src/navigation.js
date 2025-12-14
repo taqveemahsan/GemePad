@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 const NAVIGATE_EVENT = 'app:navigate'
 
 let navigationState = null
+const isDev = import.meta?.env?.DEV
 
 export function navigate(to, state) {
   if (typeof window === 'undefined') return
@@ -13,7 +14,7 @@ export function navigate(to, state) {
   const currentUrl = window.location.pathname + window.location.search
   if (currentUrl === to) return
 
-  console.log('🧭 Navigating to:', to)
+  if (isDev) console.log('🧭 Navigating to:', to)
   window.history.pushState({}, '', to)
   window.dispatchEvent(new Event(NAVIGATE_EVENT))
 }
@@ -39,4 +40,3 @@ export function usePathname() {
 
   return pathname
 }
-

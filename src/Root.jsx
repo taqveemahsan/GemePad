@@ -1,23 +1,41 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import App from './App'
 import { usePathname } from './navigation'
-import GamePage from './pages/GamePage.jsx'
-import ExploreWorlds from './pages/ExploreWorlds.jsx'
+
+const GamePage = lazy(() => import('./pages/GamePage.jsx'))
+const ExploreWorlds = lazy(() => import('./pages/ExploreWorlds.jsx'))
+const WorldPage = lazy(() => import('./pages/WorldPage.jsx'))
+
+function RouteFallback() {
+  return <div style={{ padding: '2rem', color: '#fff' }}>Loading…</div>
+}
 
 export default function Root() {
   const pathname = usePathname()
 
-  console.log('🔀 Current pathname:', pathname)
-
   if (pathname === '/game' || pathname.startsWith('/game?')) {
-    console.log('✅ Rendering GamePage')
-    return <GamePage />
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <GamePage />
+      </Suspense>
+    )
   }
 
   if (pathname === '/explore') {
-    return <ExploreWorlds />
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <ExploreWorlds />
+      </Suspense>
+    )
   }
 
-  console.log('✅ Rendering App (Homepage)')
+  if (pathname.startsWith('/world/')) {
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <WorldPage />
+      </Suspense>
+    )
+  }
+
   return <App />
 }

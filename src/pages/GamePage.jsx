@@ -11,6 +11,8 @@ import top4 from '../assets/toplaunches/Frame 53.png'
 import top5 from '../assets/toplaunches/Frame 54.png'
 import top6 from '../assets/toplaunches/Frame 55.png'
 
+const isDev = import.meta?.env?.DEV
+
 const topLaunches = [
   { title: 'Uncharted 4', img: top1 },
   { title: 'Elden Ring', img: top2 },
@@ -76,7 +78,7 @@ export default function GamePage() {
     const navState = getNavigationState()
     if (navState && navState.game) {
       setGameFromNav(navState.game)
-      console.log('✅ GamePage - Using navigation state as fallback')
+      if (isDev) console.log('✅ GamePage - Using navigation state as fallback')
     }
   }, [])
 

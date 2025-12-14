@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { getPublishedGames } from '../api/games'
 
+const isDev = import.meta?.env?.DEV
+
 export function useGames({ category = 'play-to-earn', sortBy = 'desc', page = 1, limit = 12 } = {}) {
   const [games, setGames] = useState([])
   const [loading, setLoading] = useState(true)
@@ -11,7 +13,7 @@ export function useGames({ category = 'play-to-earn', sortBy = 'desc', page = 1,
       try {
         setLoading(true)
         setError(null)
-        console.log('🎮 useGames: Fetching games from API...')
+        if (isDev) console.log('🎮 useGames: Fetching games from API...')
 
         const response = await getPublishedGames({
           category,
@@ -20,10 +22,10 @@ export function useGames({ category = 'play-to-earn', sortBy = 'desc', page = 1,
           limit,
         })
 
-        console.log('📦 useGames: API Response:', response)
+        if (isDev) console.log('📦 useGames: API Response:', response)
 
         if (response && response.games) {
-          console.log('✅ useGames: Games loaded:', response.games.length)
+          if (isDev) console.log('✅ useGames: Games loaded:', response.games.length)
           setGames(response.games)
         } else {
           console.warn('⚠️ useGames: No games in response')
@@ -59,7 +61,7 @@ export function useGameById(gameId) {
       try {
         setLoading(true)
         setError(null)
-        console.log('🎮 useGameById: Fetching game:', gameId)
+        if (isDev) console.log('🎮 useGameById: Fetching game:', gameId)
 
         // Fetch all games and find the specific one
         const response = await getPublishedGames({
@@ -75,7 +77,7 @@ export function useGameById(gameId) {
           )
 
           if (foundGame) {
-            console.log('✅ useGameById: Game found:', foundGame.GameName)
+            if (isDev) console.log('✅ useGameById: Game found:', foundGame.GameName)
             setGame(foundGame)
           } else {
             console.warn('⚠️ useGameById: Game not found')

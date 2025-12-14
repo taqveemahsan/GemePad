@@ -7,9 +7,7 @@ import './index.css'
 const manifestUrl = 'https://app.sonicengine.net/ton-manifest.json'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <TonConnectUIProvider manifestUrl={manifestUrl}>
-      <Root />
-    </TonConnectUIProvider>
-  </React.StrictMode>
+  <TonConnectUIProvider manifestUrl={manifestUrl}>
+    <Root />
+  </TonConnectUIProvider>
 )
