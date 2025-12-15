@@ -435,7 +435,7 @@ export default function GamePage() {
                     {game.GameDescription}
                   </div>
                 )}
-
+{/* 
                 <div className="gd-progress">
                   <div className="gd-progress__top">
                     <span>Bonding curve progress: 75.1%</span>
@@ -458,7 +458,7 @@ export default function GamePage() {
                       <div className="gd-pill__v">$60,815.66</div>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="gd-stats">
                   <StatRow label="Token Symbol:" value={tokenSymbol} />
