@@ -14,29 +14,31 @@ import top5 from './assets/toplaunches/Frame 54.png'
 import top6 from './assets/toplaunches/Frame 55.png'
 import pepeHero from './assets/pepegames/Gemini_Generated_Image_betzqrbetzqrbetz 1.png'
 import pepeTitle from './assets/pepegames/PEPE Games.png'
-import pepeCard1 from './assets/pepegames/Frame 62-card1.png'
-import pepeCard2 from './assets/pepegames/Frame 62-card2.png'
-import pepeCard3 from './assets/pepegames/Frame 62-card3.png'
-import pepeCard4 from './assets/pepegames/Frame 62-card4.png'
-import pepeCard5 from './assets/pepegames/Frame 62-card5.png'
-import dogeHero from './assets/dogegames/Gemini_Generated_Image_kpdih6kpdih6kpdi 1.png'
-import dogeTitle from './assets/dogegames/Doge Games.png'
-import dogeCard1 from './assets/dogegames/Frame 64-card1.png'
-import dogeCard2 from './assets/dogegames/Frame 64-card2.png'
-import dogeCard3 from './assets/dogegames/Frame 64-card3.png'
-import dogeCard4 from './assets/dogegames/Frame 64-card4.png'
+import pepeCard1 from './assets/PEPE/1.png'
+import pepeCard2 from './assets/PEPE/2.png'
+import pepeCard3 from './assets/PEPE/3.png'
+import pepeCard4 from './assets/PEPE/4.png'
+
 import uniHero from './assets/uniiswapworld/Gemini_Generated_Image_mdzxh1mdzxh1mdzx 1.png'
-import metaHero from './assets/metamask/Metamask_Hero.png'
+import metaHero from './assets/Metamask_Hero.png'
 import sushiHero from './assets/sushiswapworld/SUSHISWAP_Hero.png'
-import explore1 from './assets/explore/1.png'
-import explore2 from './assets/explore/2.png'
-import explore3 from './assets/explore/3.png'
-import explore4 from './assets/explore/4.png'
-import explore5 from './assets/explore/5.png'
-import explore6 from './assets/explore/6.png'
-import explore7 from './assets/explore/7.png'
-import explore8 from './assets/explore/8.png'
-import explore9 from './assets/explore/9.png'
+import phantomHero from './assets/phantomworld/Phantom_Hero.png'
+import phantomCard1 from './assets/Phantom/1.png'
+import phantomCard2 from './assets/Phantom/2.png'
+import phantomCard3 from './assets/Phantom/3.png'
+import phantomCard4 from './assets/Phantom/4.png'
+import sushiCard1 from './assets/Sushiswap/1.png'
+import sushiCard2 from './assets/Sushiswap/2.png'
+import sushiCard3 from './assets/Sushiswap/3.png'
+import sushiCard4 from './assets/Sushiswap/4.png'
+import uniCard1 from './assets/Uniswap/1.png'
+import uniCard2 from './assets/Uniswap/2.png'
+import uniCard3 from './assets/Uniswap/3.png'
+import uniCard4 from './assets/Uniswap/4.png'
+import metaCard1 from './assets/Metamask/1.png'
+import metaCard2 from './assets/Metamask/2.png'
+import metaCard3 from './assets/Metamask/3.png'
+import metaCard4 from './assets/Metamask/4.png'
 import { navigate } from './navigation'
 import { useGames } from './hooks/useGames'
 
@@ -61,7 +63,7 @@ const memeSections = [
     titleText: 'UNISWAP GAMES',
     titleImg: null,
     heroImg: uniHero,
-    cards: [explore1, explore2, explore3, explore4, explore5],
+    cards: [uniCard1, uniCard2, uniCard3, uniCard4, uniCard1],
     glow: 'rgba(104, 210, 255, 0.35)',
   },
   {
@@ -71,26 +73,8 @@ const memeSections = [
     titleText: 'METAMASK GAMES',
     titleImg: null,
     heroImg: metaHero,
-    cards: [explore6, explore7, explore8, explore9, explore1],
+    cards: [metaCard1, metaCard2, metaCard3, metaCard4, metaCard1],
     glow: 'rgba(255, 133, 33, 0.35)',
-  },
-  {
-    id: 'pepe',
-    theme: 'pepe',
-    label: 'Pepe Games',
-    titleImg: pepeTitle,
-    heroImg: pepeHero,
-    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
-    glow: 'rgba(62, 244, 192, 0.4)',
-  },
-  {
-    id: 'doge',
-    theme: 'doge',
-    label: 'Doge Games',
-    titleImg: dogeTitle,
-    heroImg: dogeHero,
-    cards: [dogeCard1, dogeCard2, dogeCard3, dogeCard4],
-    glow: 'rgba(255, 191, 0, 0.4)',
   },
   {
     id: 'sushiswap',
@@ -99,9 +83,29 @@ const memeSections = [
     titleText: 'SUSHISWAP GAMES',
     titleImg: null,
     heroImg: sushiHero,
-    cards: [explore2, explore4, explore6, explore8, explore9],
+    cards: [sushiCard1, sushiCard2, sushiCard3, sushiCard4, sushiCard1],
     glow: 'rgba(120, 136, 255, 0.35)',
   },
+  {
+    id: 'phantom',
+    theme: 'phantom',
+    label: 'Phantom Games',
+    titleText: 'PHANTOM GAMES',
+    titleImg: null, // Using text for now as per design text, unless image exists
+    heroImg: phantomHero,
+    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard1], // Repeating for scroll
+    glow: 'rgba(255, 58, 255, 0.35)',
+  },
+  {
+    id: 'pepe',
+    theme: 'pepe',
+    label: 'Pepe Games',
+    titleImg: pepeTitle,
+    heroImg: pepeHero,
+    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard1],
+    glow: 'rgba(62, 244, 192, 0.4)',
+  },
+
 ]
 
 const leaderboardRows = [
