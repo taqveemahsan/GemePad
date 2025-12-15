@@ -44,6 +44,12 @@ import pepeCard5 from './assets/PEPE/5.png'
 import phantomCard5 from './assets/Phantom/5.png'
 import sushiCard5 from './assets/Sushiswap/5.png'
 import uniCard5 from './assets/Uniswap/5.png'
+import threeHeros from './assets/mobileAssets/threeHeros.png'
+import threeSushiSwamp from './assets/mobileAssets/threeSushiSwamp.png'
+import threeHorses from './assets/mobileAssets/threeHorses.png'
+import threeMetamask from './assets/mobileAssets/threeMetamask.png'
+import threePhantom from './assets/mobileAssets/threePhantom.png'
+import threePepe from './assets/mobileAssets/threePepe.png'
 import { navigate } from './navigation'
 import { useGames } from './hooks/useGames'
 
@@ -68,6 +74,7 @@ const memeSections = [
     titleText: 'UNISWAP GAMES',
     titleImg: null,
     heroImg: uniHero,
+    mobileHeroImg: threeHorses,
     cards: [uniCard1, uniCard2, uniCard3, uniCard4, uniCard5],
     glow: 'rgba(104, 210, 255, 0.35)',
   },
@@ -78,6 +85,7 @@ const memeSections = [
     titleText: 'METAMASK GAMES',
     titleImg: null,
     heroImg: metaHero,
+    mobileHeroImg: threeMetamask,
     cards: [metaCard1, metaCard2, metaCard3, metaCard4, metaCard5],
     glow: 'rgba(255, 133, 33, 0.35)',
   },
@@ -88,6 +96,7 @@ const memeSections = [
     titleText: 'SUSHISWAP GAMES',
     titleImg: null,
     heroImg: sushiHero,
+    mobileHeroImg: threeSushiSwamp,
     cards: [sushiCard1, sushiCard2, sushiCard3, sushiCard4, sushiCard5],
     glow: 'rgba(120, 136, 255, 0.35)',
   },
@@ -98,6 +107,7 @@ const memeSections = [
     titleText: 'PHANTOM GAMES',
     titleImg: null, // Using text for now as per design text, unless image exists
     heroImg: phantomHero,
+    mobileHeroImg: threePhantom,
     cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard5], // Repeating for scroll
     glow: 'rgba(255, 58, 255, 0.35)',
   },
@@ -107,6 +117,7 @@ const memeSections = [
     label: 'Pepe Games',
     titleImg: pepeTitle,
     heroImg: pepeHero,
+    mobileHeroImg: threePepe,
     cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
     glow: 'rgba(62, 244, 192, 0.4)',
   },
@@ -208,6 +219,29 @@ const GameCard = React.memo(function GameCard({ title, img, tokenName, tokenImg,
   )
 })
 
+function useMediaQuery(query) {
+  const [matches, setMatches] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia(query).matches
+    }
+    return false
+  })
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia(query)
+    setMatches(mediaQuery.matches)
+
+    const handler = (event) => setMatches(event.matches)
+    mediaQuery.addEventListener('change', handler)
+
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [query])
+
+  return matches
+}
+
 function LazyRender({ children, minHeight = 600, rootMargin = '800px' }) {
   const containerRef = useRef(null)
   const [shouldRender, setShouldRender] = useState(false)
@@ -245,6 +279,7 @@ function LazyRender({ children, minHeight = 600, rootMargin = '800px' }) {
 }
 
 const MemeSection = React.memo(function MemeSection({ section }) {
+  const isMobile = useMediaQuery('(max-width: 767px)')
   const handleStaticGameClick = useCallback((cardImg, idx) => {
     // Create dummy game data for static cards
     const dummyGame = {
@@ -268,6 +303,8 @@ const MemeSection = React.memo(function MemeSection({ section }) {
     }
     navigate(`/game?id=${dummyGame.id}`, { game: dummyGame })
   }, [section.id])
+
+  const heroImage = isMobile && section.mobileHeroImg ? section.mobileHeroImg : section.heroImg
 
   return (
     <section id={section.id} className={`meme-panel ${section.theme}-section ${section.id}-section`} style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${footerBg}")`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
@@ -305,7 +342,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
             </div>
           </div>
           <div className="meme-panel__art" aria-hidden="true">
-            <img src={section.heroImg} alt="" loading="lazy" decoding="async" />
+            <img src={heroImage} alt="" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -316,7 +353,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
 export default function App() {
   const [tonConnectUI] = useTonConnectUI()
   const [heroBgEnabled, setHeroBgEnabled] = useState(false)
-  
+
   // Dynamic import for footer background removed as Footer is now a separate component
 
   const { games, loading, error } = useGames({
@@ -385,7 +422,10 @@ export default function App() {
         </div>
 
         {/* Robot moved OUTSIDE frame to be "sb sa uper" */}
-        <img src={heroBot} alt="Robot" className="hero__bot-large" decoding="async" fetchPriority="high" />
+        <div className="hero__bot-container">
+          <img src={heroBot} alt="Robot" className="hero__bot-large hero__bot-desktop" decoding="async" fetchPriority="high" />
+          <img src={threeHeros} alt="Three Heroes" className="hero__bot-mobile" decoding="async" fetchPriority="high" />
+        </div>
       </header>
 
       <main className="content">
