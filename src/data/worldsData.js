@@ -8,6 +8,14 @@ import heroSushiswap from '../assets/explore/SUSHISWAP WORLD_Ride_Side.png'
 import heroPhantom from '../assets/explore/PHANTOM WORLD_Right_Side.png'
 import heroLink from '../assets/explore/LINK WORLD_Right_Side.png'
 import heroYeti from '../assets/explore/YETI DYOR WORLD_Right_Side.png'
+import heroGeneral from '../assets/General_World_Hero.png'
+
+import top1 from '../assets/toplaunches/Frame 48.png'
+import top2 from '../assets/toplaunches/Frame 51.png'
+import top3 from '../assets/toplaunches/Frame 52.png'
+import top4 from '../assets/toplaunches/Frame 53.png'
+import top5 from '../assets/toplaunches/Frame 54.png'
+import top6 from '../assets/toplaunches/Frame 55.png'
 
 // Import game card images
 import g1 from '../assets/explore/1.png'
@@ -34,6 +42,24 @@ import y4 from '../assets/yetidyorgames/Frame 65-card4.png'
 
 // World configurations
 export const worldsData = {
+  general: {
+    id: 'general',
+    title: 'GENERAL WORLD',
+    description:
+      'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.',
+    ctaText: 'CREATE YOU OWN GENERAL GAME',
+    heroImage: heroGeneral,
+    theme: 'general',
+    accentColor: '#FFFFFF',
+    games: [
+      { id: 'general-1', title: 'Uncharted 4', img: top1 },
+      { id: 'general-2', title: 'Elden Ring', img: top2 },
+      { id: 'general-3', title: 'Spider-Man 2', img: top3 },
+      { id: 'general-4', title: 'Horizon', img: top4 },
+      { id: 'general-5', title: 'Ghosts', img: top5 },
+      { id: 'general-6', title: 'Final Fantasy', img: top6 },
+    ],
+  },
   rocky: {
     id: 'rocky',
     title: 'ROCKY RABBIT WORLD',

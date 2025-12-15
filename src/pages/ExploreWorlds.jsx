@@ -14,8 +14,16 @@ import card6 from '../assets/explore/6.png'
 import card7 from '../assets/explore/7.png'
 import card8 from '../assets/explore/8.png'
 import card9 from '../assets/explore/9.png'
+import generalWorld from '../assets/General_World.png'
 
 const worldsData = [
+    {
+        id: 'general',
+        title: 'GENERAL WORLD',
+        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        color: '#FFFFFF',
+        image: generalWorld
+    },
     {
         id: 'rocky',
         title: 'ROCKY RABBIT GAMES',
