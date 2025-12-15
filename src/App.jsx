@@ -372,7 +372,7 @@ export default function App() {
             <h2 className="section-title-pixel">
               TOP <span className="text-purple">LAUNCHES</span>
             </h2>
-            <button className="pill pill-dark">View all ➜</button>
+            <button className="pill pill-dark" onClick={() => navigate('/world/general')}>View all ➜</button>
           </div>
           <div className="card-row">
             {loading ? (

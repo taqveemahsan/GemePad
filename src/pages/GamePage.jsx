@@ -444,7 +444,7 @@ export default function GamePage() {
                 Fresh drops
               </h2>
             </div>
-            <button className="pill pill-dark">View all ➜</button>
+            <button className="pill pill-dark" onClick={() => navigate('/world/general')}>View all ➜</button>
           </div>
           <div className="card-row">
             {relatedLoading ? (
