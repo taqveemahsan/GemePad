@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import { navigate } from '../navigation'
 import Header from './Header'
 import WorldGameCard from './WorldGameCard'
+import WorldLoadingCard from './WorldLoadingCard'
 import Bg01 from '../assets/herosection/Bg01.png'
 import heroBg from '../assets/hero.png'
 
@@ -12,6 +13,7 @@ export default function WorldLayout({
   worldCtaText,
   heroImage,
   games = [],
+  loading = false,
   theme = 'default',
   accentColor = '#c61ae7',
 }) {
@@ -68,14 +70,20 @@ export default function WorldLayout({
             TOP <span className="world-section__accent">{worldTitle}</span>
           </div>
           <div className="world-grid">
-            {games.map((game) => (
-              <WorldGameCard
-                key={game.id}
-                game={game}
-                onClick={() => onGameClick(game)}
-                theme={theme}
-              />
-            ))}
+            {loading ? (
+              Array.from({ length: 12 }).map((_, idx) => (
+                <WorldLoadingCard key={idx} theme={theme} />
+              ))
+            ) : (
+              games.map((game) => (
+                <WorldGameCard
+                  key={game.id}
+                  game={game}
+                  onClick={() => onGameClick(game)}
+                  theme={theme}
+                />
+              ))
+            )}
           </div>
         </div>
       </main>
