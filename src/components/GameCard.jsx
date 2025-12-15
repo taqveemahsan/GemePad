@@ -11,7 +11,7 @@ export default React.memo(function GameCard({
   imgFetchPriority
 }) {
   return (
-    <div className="game-card">
+    <div className="game-card" onClick={onClick}>
       <div className="game-card__media">
         <img
           src={img}
@@ -44,7 +44,7 @@ export default React.memo(function GameCard({
           </div>
         </div>
 
-        <button className="btn-play" type="button" onClick={onClick}>
+        <button className="btn-play" type="button">
           ▶ PLAY
         </button>
       </div>
@@ -53,6 +53,7 @@ export default React.memo(function GameCard({
         .game-card {
           /* Inherit styling from global css or define here if not present global */
           /* Assuming existing global styles for .game-card handling basic layout/bg */
+          cursor: pointer;
         }
         
         .game-card__row {

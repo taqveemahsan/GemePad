@@ -40,6 +40,42 @@ import y2 from '../assets/yetidyorgames/Frame 65-card2.png'
 import y3 from '../assets/yetidyorgames/Frame 65-card3.png'
 import y4 from '../assets/yetidyorgames/Frame 65-card4.png'
 
+// Pepe Cards
+import pepe1 from '../assets/PEPE/1.png'
+import pepe2 from '../assets/PEPE/2.png'
+import pepe3 from '../assets/PEPE/3.png'
+import pepe4 from '../assets/PEPE/4.png'
+import pepe5 from '../assets/PEPE/5.png'
+
+// Uniswap Cards
+import uni1 from '../assets/Uniswap/1.png'
+import uni2 from '../assets/Uniswap/2.png'
+import uni3 from '../assets/Uniswap/3.png'
+import uni4 from '../assets/Uniswap/4.png'
+import uni5 from '../assets/Uniswap/5.png'
+
+// Metamask Cards
+import meta1 from '../assets/Metamask/1.png'
+import meta2 from '../assets/Metamask/2.png'
+import meta3 from '../assets/Metamask/3.png'
+import meta4 from '../assets/Metamask/4.png'
+import meta5 from '../assets/Metamask/5.png'
+
+// Sushiswap Cards
+import sushi1 from '../assets/Sushiswap/1.png'
+import sushi2 from '../assets/Sushiswap/2.png'
+import sushi3 from '../assets/Sushiswap/3.png'
+import sushi4 from '../assets/Sushiswap/4.png'
+import sushi5 from '../assets/Sushiswap/5.png'
+
+// Phantom Cards
+import phantom1 from '../assets/Phantom/1.png'
+import phantom2 from '../assets/Phantom/2.png'
+import phantom3 from '../assets/Phantom/3.png'
+import phantom4 from '../assets/Phantom/4.png'
+import phantom5 from '../assets/Phantom/5.png'
+
+
 // World configurations
 export const worldsData = {
   general: {
@@ -95,15 +131,11 @@ export const worldsData = {
     theme: 'pepe',
     accentColor: '#3EF4C0',
     games: [
-      { id: 'pepe-1', title: 'GAME NAME HERE', img: g1 },
-      { id: 'pepe-2', title: 'GAME NAME HERE', img: g2 },
-      { id: 'pepe-3', title: 'GAME NAME HERE', img: g3 },
-      { id: 'pepe-4', title: 'GAME NAME HERE', img: g4 },
-      { id: 'pepe-5', title: 'GAME NAME HERE', img: g5 },
-      { id: 'pepe-6', title: 'GAME NAME HERE', img: g6 },
-      { id: 'pepe-7', title: 'GAME NAME HERE', img: g7 },
-      { id: 'pepe-8', title: 'GAME NAME HERE', img: g8 },
-      { id: 'pepe-9', title: 'GAME NAME HERE', img: g9 },
+      { id: 'pepe-1', title: 'GAME NAME HERE', img: pepe1 },
+      { id: 'pepe-2', title: 'GAME NAME HERE', img: pepe2 },
+      { id: 'pepe-3', title: 'GAME NAME HERE', img: pepe3 },
+      { id: 'pepe-4', title: 'GAME NAME HERE', img: pepe4 },
+      { id: 'pepe-5', title: 'GAME NAME HERE', img: pepe5 },
     ],
   },
 
@@ -142,15 +174,11 @@ export const worldsData = {
     theme: 'uniswap',
     accentColor: '#68D2FF',
     games: [
-      { id: 'uniswap-1', title: 'GAME NAME HERE', img: g1 },
-      { id: 'uniswap-2', title: 'GAME NAME HERE', img: g2 },
-      { id: 'uniswap-3', title: 'GAME NAME HERE', img: g3 },
-      { id: 'uniswap-4', title: 'GAME NAME HERE', img: g4 },
-      { id: 'uniswap-5', title: 'GAME NAME HERE', img: g5 },
-      { id: 'uniswap-6', title: 'GAME NAME HERE', img: g6 },
-      { id: 'uniswap-7', title: 'GAME NAME HERE', img: g7 },
-      { id: 'uniswap-8', title: 'GAME NAME HERE', img: g8 },
-      { id: 'uniswap-9', title: 'GAME NAME HERE', img: g9 },
+      { id: 'uniswap-1', title: 'GAME NAME HERE', img: uni1 },
+      { id: 'uniswap-2', title: 'GAME NAME HERE', img: uni2 },
+      { id: 'uniswap-3', title: 'GAME NAME HERE', img: uni3 },
+      { id: 'uniswap-4', title: 'GAME NAME HERE', img: uni4 },
+      { id: 'uniswap-5', title: 'GAME NAME HERE', img: uni5 },
     ],
   },
 
@@ -164,15 +192,11 @@ export const worldsData = {
     theme: 'metamask',
     accentColor: '#FF8521',
     games: [
-      { id: 'metamask-1', title: 'GAME NAME HERE', img: g1 },
-      { id: 'metamask-2', title: 'GAME NAME HERE', img: g2 },
-      { id: 'metamask-3', title: 'GAME NAME HERE', img: g3 },
-      { id: 'metamask-4', title: 'GAME NAME HERE', img: g4 },
-      { id: 'metamask-5', title: 'GAME NAME HERE', img: g5 },
-      { id: 'metamask-6', title: 'GAME NAME HERE', img: g6 },
-      { id: 'metamask-7', title: 'GAME NAME HERE', img: g7 },
-      { id: 'metamask-8', title: 'GAME NAME HERE', img: g8 },
-      { id: 'metamask-9', title: 'GAME NAME HERE', img: g9 },
+      { id: 'metamask-1', title: 'GAME NAME HERE', img: meta1 },
+      { id: 'metamask-2', title: 'GAME NAME HERE', img: meta2 },
+      { id: 'metamask-3', title: 'GAME NAME HERE', img: meta3 },
+      { id: 'metamask-4', title: 'GAME NAME HERE', img: meta4 },
+      { id: 'metamask-5', title: 'GAME NAME HERE', img: meta5 },
     ],
   },
 
@@ -186,15 +210,11 @@ export const worldsData = {
     theme: 'sushiswap',
     accentColor: '#7888FF',
     games: [
-      { id: 'sushiswap-1', title: 'GAME NAME HERE', img: g1 },
-      { id: 'sushiswap-2', title: 'GAME NAME HERE', img: g2 },
-      { id: 'sushiswap-3', title: 'GAME NAME HERE', img: g3 },
-      { id: 'sushiswap-4', title: 'GAME NAME HERE', img: g4 },
-      { id: 'sushiswap-5', title: 'GAME NAME HERE', img: g5 },
-      { id: 'sushiswap-6', title: 'GAME NAME HERE', img: g6 },
-      { id: 'sushiswap-7', title: 'GAME NAME HERE', img: g7 },
-      { id: 'sushiswap-8', title: 'GAME NAME HERE', img: g8 },
-      { id: 'sushiswap-9', title: 'GAME NAME HERE', img: g9 },
+      { id: 'sushiswap-1', title: 'GAME NAME HERE', img: sushi1 },
+      { id: 'sushiswap-2', title: 'GAME NAME HERE', img: sushi2 },
+      { id: 'sushiswap-3', title: 'GAME NAME HERE', img: sushi3 },
+      { id: 'sushiswap-4', title: 'GAME NAME HERE', img: sushi4 },
+      { id: 'sushiswap-5', title: 'GAME NAME HERE', img: sushi5 },
     ],
   },
 
@@ -208,15 +228,11 @@ export const worldsData = {
     theme: 'phantom',
     accentColor: '#FF69B4',
     games: [
-      { id: 'phantom-1', title: 'GAME NAME HERE', img: g1 },
-      { id: 'phantom-2', title: 'GAME NAME HERE', img: g2 },
-      { id: 'phantom-3', title: 'GAME NAME HERE', img: g3 },
-      { id: 'phantom-4', title: 'GAME NAME HERE', img: g4 },
-      { id: 'phantom-5', title: 'GAME NAME HERE', img: g5 },
-      { id: 'phantom-6', title: 'GAME NAME HERE', img: g6 },
-      { id: 'phantom-7', title: 'GAME NAME HERE', img: g7 },
-      { id: 'phantom-8', title: 'GAME NAME HERE', img: g8 },
-      { id: 'phantom-9', title: 'GAME NAME HERE', img: g9 },
+      { id: 'phantom-1', title: 'GAME NAME HERE', img: phantom1 },
+      { id: 'phantom-2', title: 'GAME NAME HERE', img: phantom2 },
+      { id: 'phantom-3', title: 'GAME NAME HERE', img: phantom3 },
+      { id: 'phantom-4', title: 'GAME NAME HERE', img: phantom4 },
+      { id: 'phantom-5', title: 'GAME NAME HERE', img: phantom5 },
     ],
   },
 
