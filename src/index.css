@@ -1283,21 +1283,25 @@ h2 {
   background: transparent;
   border: none;
   padding: 0;
-  margin: 100px auto; /* Increased spacing */
+  margin: 100px 0; /* Full width spacing */
   max-width: none;
-  width: 98%;
+  width: 100%;
   isolation: isolate;
 }
 
 /* Keep a little breathing room on the right so the character doesn't get cut */
+/* Removed padding-right constraint */
 @media (min-width: 961px) {
   .meme-panel {
-    padding-right: 16px;
+    padding-right: 0;
   }
 }
 
 .meme-panel__wrapper {
   filter: none;
+  width: 96%;
+  /* max-width: 1400px; */
+  margin: 0 auto;
 }
 
 .meme-panel__frame {
