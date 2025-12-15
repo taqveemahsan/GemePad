@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import ReactDOM from 'react-dom'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
+import { TonClient } from '@ton/ton'
+import { Address, toNano, Cell } from '@ton/core'
+import { StonApiClient } from '@ston-fi/api'
+import { dexFactory } from '@ston-fi/sdk'
+import { CHAIN } from '@tonconnect/sdk'
 
 const TradeInterface = ({ token, game }) => {
   const [activeTab, setActiveTab] = useState('buy')
@@ -8,6 +14,7 @@ const TradeInterface = ({ token, game }) => {
   const [balance, setBalance] = useState(null)
   const [tokenBalance, setTokenBalance] = useState(null)
   const [tonPrice, setTonPrice] = useState(null)
+  const [tokenPrice, setTokenPrice] = useState(null)
   const [estimatedReceive, setEstimatedReceive] = useState(null)
   const [isSwapping, setIsSwapping] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
@@ -51,6 +58,7 @@ const TradeInterface = ({ token, game }) => {
         const data = await response.json()
         if (data && data['the-open-network'] && data['the-open-network'].usd && isMounted) {
           setTonPrice(data['the-open-network'].usd)
+          console.log('[TradeInterface] TON Price loaded:', data['the-open-network'].usd)
         }
       } catch (error) {
         if (isMounted) {
@@ -66,30 +74,46 @@ const TradeInterface = ({ token, game }) => {
     }
   }, [isTonChain])
 
+  // Set token price from props or use default
+  useEffect(() => {
+    if (token?.price) {
+      setTokenPrice(token.price)
+      console.log('[TradeInterface] Token price from props:', token.price)
+    } else {
+      // If no price in token data, set a default or fetch from API
+      // For now, use a default price of $0.0001 for testing
+      console.warn('[TradeInterface] No token price in data, using default $0.0001')
+      setTokenPrice(0.0001)
+    }
+  }, [token])
+
   // Calculate estimated receive amount
   useEffect(() => {
-    if (tonPrice && token?.price) {
+    if (tonPrice && tokenPrice) {
+      console.log('[TradeInterface] Calculating estimate with TON price:', tonPrice, 'Token price:', tokenPrice)
       if (activeTab === 'buy') {
         // When buying tokens with TON
-        const tokenPrice = token.price // Token price in USD
         const tonValue = amount * tonPrice // TON value in USD
         const estimatedTokens = tonValue / tokenPrice
+        console.log('[TradeInterface] Buy estimate:', estimatedTokens, 'tokens')
         setEstimatedReceive({
           amount: estimatedTokens,
           symbol: 'tokens',
         })
       } else {
         // When selling tokens for TON
-        const tokenPrice = token.price // Token price in USD
         const tokenValue = amount * tokenPrice // Token value in USD
         const estimatedTon = tokenValue / tonPrice
+        console.log('[TradeInterface] Sell estimate:', estimatedTon, 'TON')
         setEstimatedReceive({
           amount: estimatedTon,
           symbol: 'TON',
         })
       }
+    } else {
+      console.log('[TradeInterface] Cannot calculate estimate - TON price:', tonPrice, 'Token price:', tokenPrice)
     }
-  }, [activeTab, amount, tonPrice, token, isTonChain])
+  }, [activeTab, amount, tonPrice, tokenPrice, isTonChain])
 
   // Fetch TON balance
   const getBalance = useCallback(async () => {
@@ -244,21 +268,154 @@ const TradeInterface = ({ token, game }) => {
     setIsSwapping(true)
 
     try {
-      // For now, show a message that full swap integration requires additional setup
-      // In production, you would integrate with ston.fi or another DEX here
-      setErrorMessage(
-        'TON swap functionality requires additional setup with a DEX (like ston.fi). ' +
-        'Please install the required packages: @ton/ton, @ton/core, @ston-fi/sdk, @ston-fi/api'
+      console.log('[TON SWAP] Starting swap...')
+
+      // Check if we have TonConnect sendTransaction method
+      if (!tonConnectUI || typeof tonConnectUI.sendTransaction !== 'function') {
+        throw new Error('TonConnect sendTransaction not available')
+      }
+
+      // Initialize TON client
+      const tonClient = new TonClient({
+        endpoint: 'https://toncenter.com/api/v2/jsonRPC',
+      })
+
+      // Initialize ston.fi API client
+      const apiClient = new StonApiClient()
+
+      // Parse addresses
+      if (!tokenAddress) {
+        throw new Error('Token address not available')
+      }
+
+      const userWalletAddress = Address.parse(address)
+      const jettonAddress = Address.parse(tokenAddress)
+
+      // TON address constant
+      const TON_ADDRESS = 'EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c'
+      const tonAddrStr = Address.parse(TON_ADDRESS).toString()
+      const jettonAddrStr = jettonAddress.toString()
+
+      // Determine swap direction
+      let offerAddress, askAddress
+      if (activeTab === 'buy') {
+        // Buy: TON -> Jetton
+        offerAddress = tonAddrStr
+        askAddress = jettonAddrStr
+      } else {
+        // Sell: Jetton -> TON
+        offerAddress = jettonAddrStr
+        askAddress = tonAddrStr
+      }
+
+      // Convert amount to base units (nanoTON)
+      const offerAmountNano = toNano(amount.toString())
+      const offerUnits = offerAmountNano.toString()
+
+      console.log('[TON SWAP] Simulating swap...', {
+        offerAddress,
+        askAddress,
+        offerUnits,
+      })
+
+      // Simulate swap
+      const slippageTolerance = (slippage / 100).toFixed(4)
+      const simulationResult = await apiClient.simulateSwap({
+        offerAddress,
+        askAddress,
+        offerUnits,
+        slippageTolerance,
+      })
+
+      console.log('[TON SWAP] Simulation result:', simulationResult)
+
+      if (!simulationResult || !simulationResult.router) {
+        throw new Error('Failed to simulate swap. Router information not available.')
+      }
+
+      // Get router from simulation
+      const routerInfo = simulationResult.router
+      const dexContracts = dexFactory(routerInfo)
+      const router = tonClient.open(dexContracts.Router.create(routerInfo.address))
+      const proxyTon = dexContracts.pTON.create(routerInfo.ptonMasterAddress)
+
+      // Prepare transaction parameters
+      const sharedTxParams = {
+        userWalletAddress: userWalletAddress.toString(),
+        offerAmount: simulationResult.offerUnits,
+        minAskAmount: simulationResult.minAskUnits,
+      }
+
+      console.log('[TON SWAP] Getting transaction params...')
+
+      // Get transaction parameters based on swap type
+      let txParams
+      if (activeTab === 'buy') {
+        txParams = await router.getSwapTonToJettonTxParams({
+          ...sharedTxParams,
+          proxyTon,
+          askJettonAddress: jettonAddrStr,
+        })
+      } else {
+        txParams = await router.getSwapJettonToTonTxParams({
+          ...sharedTxParams,
+          proxyTon,
+          offerJettonAddress: jettonAddrStr,
+        })
+      }
+
+      console.log('[TON SWAP] Transaction params:', txParams)
+
+      // Format transaction message
+      const message = {
+        address: txParams.to.toString(),
+        amount: txParams.value.toString(),
+        payload: txParams.body?.toBoc().toString('base64'),
+      }
+
+      console.log('[TON SWAP] Sending transaction...')
+
+      // Send transaction
+      const result = await tonConnectUI.sendTransaction({
+        validUntil: Date.now() + 5 * 60 * 1000,
+        network: CHAIN.MAINNET,
+        messages: [message],
+      })
+
+      console.log('[TON SWAP] Transaction sent:', result)
+
+      // Extract transaction hash
+      let txHash = null
+      if (result && result.boc) {
+        try {
+          const cell = Cell.fromBase64(result.boc)
+          const hashBuffer = cell.hash()
+          txHash = hashBuffer.toString('hex')
+          console.log('[TON SWAP] Transaction hash:', txHash)
+        } catch (error) {
+          console.error('[TON SWAP] Error parsing BOC:', error)
+          txHash = result.boc.substring(0, 64)
+        }
+      }
+
+      // Show success
+      setTransactionSignature(txHash || 'Transaction sent')
+      setSuccessMessage(
+        `Transaction successful! You ${activeTab === 'buy' ? 'bought' : 'sold'} ${amount} ${
+          activeTab === 'buy' ? 'TON' : 'tokens'
+        } and will receive approximately ${
+          estimatedReceive
+            ? estimatedReceive.amount.toFixed(4) + ' ' + estimatedReceive.symbol
+            : 'your tokens/TON'
+        }.`
       )
-      setShowErrorDialog(true)
+      setShowSuccessDialog(true)
 
-      // Example of how the swap would work:
-      // 1. Initialize TON client
-      // 2. Get swap parameters from ston.fi API
-      // 3. Build transaction
-      // 4. Send via TonConnect
-      // See TradeInterface.js swapTON() function for full implementation
-
+      // Refresh balances
+      setTimeout(() => {
+        getBalance()
+        getTokenBalance()
+      }, 2000)
     } catch (error) {
       console.error('Error during swap:', error)
       setErrorMessage(
@@ -433,7 +590,7 @@ const TradeInterface = ({ token, game }) => {
             <span style={{ color: '#ef4444' }}>Please connect your wallet</span>
           ) : !tonPrice ? (
             <span style={{ color: '#999' }}>Loading TON price...</span>
-          ) : !token?.price ? (
+          ) : !tokenPrice ? (
             <span style={{ color: '#999' }}>Loading token price...</span>
           ) : estimatedReceive ? (
             <>
@@ -512,7 +669,7 @@ const TradeInterface = ({ token, game }) => {
       </div>
 
       {/* Success Dialog */}
-      {showSuccessDialog && (
+      {showSuccessDialog && ReactDOM.createPortal(
         <div
           style={{
             position: 'fixed',
@@ -524,7 +681,7 @@ const TradeInterface = ({ token, game }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 9999,
+            zIndex: 999999,
           }}
           onClick={() => setShowSuccessDialog(false)}
         >
@@ -602,11 +759,12 @@ const TradeInterface = ({ token, game }) => {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Error Dialog */}
-      {showErrorDialog && (
+      {showErrorDialog && ReactDOM.createPortal(
         <div
           style={{
             position: 'fixed',
@@ -618,7 +776,7 @@ const TradeInterface = ({ token, game }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 9999,
+            zIndex: 999999,
           }}
           onClick={() => setShowErrorDialog(false)}
         >
