@@ -53,6 +53,7 @@ import threePepe from './assets/mobileAssets/threePepe.png'
 import { navigate } from './navigation'
 import { useGames } from './hooks/useGames'
 import LeaderboardSection from './components/LeaderboardSection'
+import { isTelegramMiniApp, openTelegramLink } from './utils/telegram'
 
 const isDev = import.meta?.env?.DEV
 
@@ -318,6 +319,14 @@ export default function App() {
     navigate(`/game?id=${game.id || game.gameId}`, { game })
   }, [])
 
+  const handleMakeGameClick = useCallback(() => {
+    if (isTelegramMiniApp()) {
+      openTelegramLink('https://t.me/gemepad_bot/gemepadeditor')
+      return
+    }
+    window.open('https://editor.gemepad.fun/', '_blank', 'noopener,noreferrer')
+  }, [])
+
   return (
     <div className="page">
       <div className="page__bg-container">
@@ -341,7 +350,7 @@ export default function App() {
               <div className="hero__cta-container">
                 <button
                   className="btn-cta-main"
-                  onClick={() => window.open('https://editor.gemepad.fun/', '_blank', 'noopener,noreferrer')}
+                  onClick={handleMakeGameClick}
                   type="button"
                 >
                   MAKE A GAME IN 5 MIN

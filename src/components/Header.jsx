@@ -1,37 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { navigate } from '../navigation'
 import WalletConnectButton from './WalletConnectButton'
+import { isTelegramMiniApp } from '../utils/telegram'
 
 export default function Header() {
-  const detectTelegram = () => {
-    try {
-      const w = window
-      const tg = w?.Telegram?.WebApp
-      const qs = new URLSearchParams(w.location.search)
-      const hasTgParams = Array.from(qs.keys()).some((key) => key.toLowerCase().startsWith('tgwebapp'))
-      const hasTgHash = /tgwebapp/i.test(w.location.hash)
-      const hasInitData = typeof tg?.initData === 'string' && tg.initData.length > 0
-      const hasUnsafeData =
-        tg?.initDataUnsafe && typeof tg.initDataUnsafe === 'object' && Object.keys(tg.initDataUnsafe).length > 0
-      return Boolean(hasTgParams || hasTgHash || hasInitData || hasUnsafeData)
-    } catch {
-      return false
-    }
-  }
-
   const [isInsideTelegram, setIsInsideTelegram] = useState(false)
   const [isOpenMenuOpen, setIsOpenMenuOpen] = useState(false)
   const openMenuRef = useRef(null)
 
   useEffect(() => {
-    const initial = detectTelegram()
+    const initial = isTelegramMiniApp()
     setIsInsideTelegram(initial)
     if (initial) return
 
     let tries = 0
     const id = window.setInterval(() => {
       tries += 1
-      const next = detectTelegram()
+      const next = isTelegramMiniApp()
       if (next || tries >= 10) {
         setIsInsideTelegram(next)
         window.clearInterval(id)
