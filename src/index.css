@@ -810,8 +810,10 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
     font-size: 16px;
   }
 }
+
 .btn-telegram {
-  background: linear-gradient(90deg, #24A1DE, #66b5e6); /* Telegram Blue gradient */
+  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  /* Telegram Blue gradient */
   color: white;
   border: none;
   border-radius: 999px;
@@ -1230,6 +1232,42 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   width: 98%;
 }
 
+/* Horizontal scroll for GamePage card-row on all screen sizes */
+.panel .card-row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 16px;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(190, 34, 255, 0.5) transparent;
+}
+
+.panel .card-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.panel .card-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel .card-row::-webkit-scrollbar-thumb {
+  background: rgba(190, 34, 255, 0.5);
+  border-radius: 3px;
+}
+
+.panel .card-row::-webkit-scrollbar-thumb:hover {
+  background: rgba(190, 34, 255, 0.7);
+}
+
+.panel .game-card {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+}
+
+
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -1403,6 +1441,32 @@ h2 {
   font-size: 12px;
   cursor: pointer;
 }
+
+/* Responsive game card adjustments for small screens */
+@media (max-width: 768px) {
+  .panel .game-card {
+    min-width: 160px;
+  }
+
+  .game-card__body h4 {
+    font-size: 10px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+}
+
+/* Extra small cards (when width is very constrained) */
+.panel .game-card {
+  container-type: inline-size;
+}
+
+@container (max-width: 180px) {
+  .game-card__body h4 {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+}
+
 
 .section-title {
   text-align: center;
@@ -2279,9 +2343,7 @@ h2 {
 
 .footer-inner {
   /* The dark card look */
-  background: linear-gradient(180deg,
-      rgba(11, 11, 27, 0.98),
-      rgba(5, 5, 15, 0.99));
+  background: #121532;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 40px;
   /* Medium rounded */
@@ -2292,18 +2354,16 @@ h2 {
 }
 
 .footer__container {
-  /* max-width handled by footer-inner now, but keeping grid layout */
   display: grid;
   grid-template-columns: 1.5fr 2fr;
-  gap: 80px;
+  grid-template-rows: auto auto auto;
+  gap: 0 80px;
   margin-bottom: 40px;
 }
 
-.footer__left {
-  max-width: 400px;
-}
-
 .footer__logo {
+  grid-column: 1;
+  grid-row: 1;
   font-family: "Press Start 2P", cursive;
   font-size: 24px;
   color: #fff;
@@ -2312,13 +2372,18 @@ h2 {
 }
 
 .footer__description {
+  grid-column: 1;
+  grid-row: 2;
   color: rgba(255, 255, 255, 0.6);
   font-size: 14px;
   line-height: 1.6;
   margin: 0 0 24px;
+  max-width: 400px;
 }
 
 .footer__social {
+  grid-column: 1;
+  grid-row: 3;
   display: flex;
   gap: 12px;
   align-items: center;
@@ -2345,6 +2410,8 @@ h2 {
 }
 
 .footer__columns {
+  grid-column: 2;
+  grid-row: 1 / span 4;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 60px;
@@ -2438,6 +2505,8 @@ h2 {
   /* Adjust outer section padding */
   .footer-section {
     padding: 24px 16px;
+    background-image: none !important;
+    background-color: #121532 !important;
   }
 
   /* Adjust inner container padding and radius */
@@ -2447,26 +2516,79 @@ h2 {
   }
 
   .footer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 30px;
   }
 
+  .footer__logo {
+    order: 1;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .footer__description {
+    order: 2;
+    margin: 0;
+    max-width: 100%;
+    font-size: 13px;
+    /* Reduced from default */
+    line-height: 1.5;
+  }
+
   .footer__columns {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    order: 3;
+    width: 100%;
+    /* Keep 3 columns but ensure they fit */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    /* Reduced gap */
+    text-align: left;
+  }
+
+  .footer__column-title {
+    font-size: 13px;
+    /* Reduced */
+    margin-bottom: 12px;
+  }
+
+  .footer__links a {
+    font-size: 12px;
+    /* Reduced for mobile */
+    word-break: break-word;
+    /* Prevent overflow */
+  }
+
+  .footer__social {
+    order: 4;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .footer__bottom {
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
+    flex-direction: column-reverse;
+    /* Copyright at bottom */
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    border-top: none;
+    /* Remove border in mobile view if desired, or keep it */
+    padding-top: 20px;
+  }
+
+  .footer__copyright {
+    font-size: 11px;
   }
 
   .footer__legal {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   /* Glass/Transparent Style for Floating Components */
+
   .hero__frame::before {
     background: transparent;
     box-shadow: inset 0 0 0 2px rgba(211, 58, 255, 0.5);
@@ -2553,7 +2675,19 @@ h2 {
   }
 }
 
+/* Very small screens adjustment for footer */
+@media (max-width: 380px) {
+  .footer__columns {
+    gap: 4px;
+  }
+
+  .footer__links a {
+    font-size: 11px;
+  }
+}
+
 @media (max-width: 1200px) {
+
   .hero__frame {
     min-height: 460px;
   }
@@ -2707,9 +2841,45 @@ h2 {
   .card-row {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
+
+  /* Horizontal scroll for GamePage card-row on mobile */
+  .panel .card-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(190, 34, 255, 0.5) transparent;
+  }
+
+  .panel .card-row::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .panel .card-row::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .panel .card-row::-webkit-scrollbar-thumb {
+    background: rgba(190, 34, 255, 0.5);
+    border-radius: 3px;
+  }
+
+  .panel .card-row::-webkit-scrollbar-thumb:hover {
+    background: rgba(190, 34, 255, 0.7);
+  }
+
+  .panel .game-card {
+    flex: 0 0 160px;
+    scroll-snap-align: start;
+  }
 }
 
 /* Button Pills Top Launches */
+
 .pill {
   border-radius: 999px;
   padding: 8px 24px;

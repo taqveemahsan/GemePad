@@ -1,24 +1,24 @@
 import React from 'react'
 
-export default React.memo(function GameCard({ 
-  title, 
-  img, 
-  tokenName, 
-  tokenImg, 
-  onClick, 
-  playCount, 
-  imgLoading = 'lazy', 
-  imgFetchPriority 
+export default React.memo(function GameCard({
+  title,
+  img,
+  tokenName,
+  tokenImg,
+  onClick,
+  playCount,
+  imgLoading = 'lazy',
+  imgFetchPriority
 }) {
   return (
     <div className="game-card">
       <div className="game-card__media">
-        <img 
-          src={img} 
-          alt={title} 
-          loading={imgLoading} 
-          decoding="async" 
-          fetchPriority={imgFetchPriority} 
+        <img
+          src={img}
+          alt={title}
+          loading={imgLoading}
+          decoding="async"
+          fetchPriority={imgFetchPriority}
         />
         <div className="badge">{playCount ? `${playCount} Played` : '12k Played'}</div>
       </div>
@@ -30,14 +30,14 @@ export default React.memo(function GameCard({
             {tokenImg ? (
               <img src={tokenImg} alt={tokenName} className="token-icon" />
             ) : (
-               <div className="token-icon-placeholder" />
+              <div className="token-icon-placeholder" />
             )}
             <div className="token-details">
               <span className="token-name">{tokenName || 'Token Name'}</span>
               <span className="token-price">$0.058</span>
             </div>
           </div>
-          
+
           <div className="game-card__trade-actions">
             <button className="btn-trade btn-buy" type="button">Buy</button>
             <button className="btn-trade btn-sell" type="button">Sell</button>
@@ -61,6 +61,7 @@ export default React.memo(function GameCard({
           justify-content: space-between;
           margin-bottom: 12px;
           gap: 4px; /* Reduced gap */
+          flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .game-card__token-info {
@@ -68,6 +69,7 @@ export default React.memo(function GameCard({
           align-items: center;
           gap: 6px; /* Reduced gap */
           min-width: 0; /* Allow flex shrinking */
+          flex: 1 1 auto;
         }
 
         .token-icon {
@@ -143,6 +145,37 @@ export default React.memo(function GameCard({
         }
         .btn-sell:hover {
           background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Responsive adjustments for narrow cards */
+        @media (max-width: 768px) {
+          .game-card__row {
+            gap: 8px;
+          }
+          
+          .game-card__token-info {
+            flex: 0 1 100%;
+            max-width: 100%;
+          }
+          
+          .game-card__trade-actions {
+            flex: 0 1 100%;
+            justify-content: center;
+            margin-top: 4px;
+          }
+          
+          .token-name {
+            font-size: 10px;
+          }
+          
+          .token-price {
+            font-size: 9px;
+          }
+          
+          .btn-trade {
+            padding: 5px 12px;
+            font-size: 10px;
+          }
         }
       `}</style>
     </div>
