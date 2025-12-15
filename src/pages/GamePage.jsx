@@ -746,15 +746,6 @@ export default function GamePage() {
               >
                 TOP LAUNCHES
               </p>
-              <h2
-                style={{
-                  fontFamily: "'Press Start 2P', cursive",
-                  fontSize: "24px",
-                  margin: 0,
-                }}
-              >
-                Fresh drops
-              </h2>
             </div>
             <button className="pill pill-dark" onClick={() => navigate('/world/general')}>View all ➜</button>
           </div>
