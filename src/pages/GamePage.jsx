@@ -1,26 +1,53 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
-import { navigate, getNavigationState } from '../navigation'
-import { useGameById, useGames } from '../hooks/useGames'
-import TradeInterface from '../components/TradeInterface'
-import heroBg from '../assets/herosection/Mask group (3).png'
-import Bg01 from '../assets/herosection/Bg01.png'
-import top1 from '../assets/toplaunches/Frame 48.png'
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { navigate, getNavigationState } from "../navigation";
+import { useGameById, useGames } from "../hooks/useGames";
+import TradeInterface from "../components/TradeInterface";
+import heroBg from "../assets/herosection/Mask group (3).png";
+import Bg01 from "../assets/herosection/Bg01.png";
+import top1 from "../assets/toplaunches/Frame 48.png";
 
-const isDev = import.meta?.env?.DEV
+const isDev = import.meta?.env?.DEV;
 
 function LoadingCard() {
   return (
     <div className="game-card" style={{ opacity: 0.6 }}>
-      <div className="game-card__media" style={{ background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite' }}>
-        <div style={{ paddingTop: '100%' }} />
+      <div
+        className="game-card__media"
+        style={{
+          background:
+            "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+          backgroundSize: "200% 100%",
+          animation: "loading 1.5s ease-in-out infinite",
+        }}
+      >
+        <div style={{ paddingTop: "100%" }} />
       </div>
       <div className="game-card__body">
-        <div style={{ height: '20px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px', marginBottom: '10px' }} />
-        <div style={{ height: '36px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px' }} />
+        <div
+          style={{
+            height: "20px",
+            background:
+              "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+            backgroundSize: "200% 100%",
+            animation: "loading 1.5s ease-in-out infinite",
+            borderRadius: "4px",
+            marginBottom: "10px",
+          }}
+        />
+        <div
+          style={{
+            height: "36px",
+            background:
+              "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+            backgroundSize: "200% 100%",
+            animation: "loading 1.5s ease-in-out infinite",
+            borderRadius: "4px",
+          }}
+        />
       </div>
     </div>
-  )
+  );
 }
 
 function GameCard({ title, img, tokenName, playCount, onClick }) {
@@ -28,20 +55,22 @@ function GameCard({ title, img, tokenName, playCount, onClick }) {
     <div className="game-card">
       <div className="game-card__media">
         <img src={img} alt={title} loading="lazy" decoding="async" />
-        <div className="badge">{playCount ? `${playCount} Players` : '12k Players'}</div>
+        <div className="badge">
+          {playCount ? `${playCount} Players` : "12k Players"}
+        </div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
         <div className="game-card__info">
-           {tokenName ? <span>{tokenName}</span> : <span>Token Name</span>}
-           <span>$0.058</span>
+          {tokenName ? <span>{tokenName}</span> : <span>Token Name</span>}
+          <span>$0.058</span>
         </div>
         <button className="btn-play" type="button" onClick={onClick}>
           ▶ PLAY
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 function StatRow({ label, value, link }) {
@@ -49,104 +78,110 @@ function StatRow({ label, value, link }) {
     <div className="gd-stat">
       <span className="gd-stat__label">{label}</span>
       {link ? (
-        <a className="gd-stat__value gd-link" href="#" onClick={(e) => e.preventDefault()}>
+        <a
+          className="gd-stat__value gd-link"
+          href="#"
+          onClick={(e) => e.preventDefault()}
+        >
           {value}
         </a>
       ) : (
         <span className="gd-stat__value">{value}</span>
       )}
     </div>
-  )
+  );
 }
 
 export default function GamePage() {
-  const [tonConnectUI] = useTonConnectUI()
-  const address = useTonAddress()
-  const [gameFromNav, setGameFromNav] = useState(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const mediaRef = useRef(null)
+  const [tonConnectUI] = useTonConnectUI();
+  const address = useTonAddress();
+  const [gameFromNav, setGameFromNav] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const mediaRef = useRef(null);
 
   // Get game ID from URL query params
-  const urlParams = new URLSearchParams(window.location.search)
-  const gameIdFromUrl = urlParams.get('id')
+  const urlParams = new URLSearchParams(window.location.search);
+  const gameIdFromUrl = urlParams.get("id");
 
   // Fetch specific game details
-  const { game: gameFromApi, loading: apiLoading } = useGameById(gameIdFromUrl)
+  const { game: gameFromApi, loading: apiLoading } = useGameById(gameIdFromUrl);
 
   // Fetch top launches (dynamic)
   const { games: relatedGames, loading: relatedLoading } = useGames({
-    category: 'play-to-earn',
-    sortBy: 'desc',
+    category: "play-to-earn",
+    sortBy: "desc",
     page: 1,
     limit: 6,
-  })
+  });
 
   // Use navigation state as fallback
   useEffect(() => {
-    const navState = getNavigationState()
+    const navState = getNavigationState();
     if (navState && navState.game) {
-      setGameFromNav(navState.game)
+      setGameFromNav(navState.game);
     }
-  }, [])
+  }, []);
 
-  const game = gameFromApi || gameFromNav
-  const loading = apiLoading && !gameFromNav
+  const game = gameFromApi || gameFromNav;
+  const loading = apiLoading && !gameFromNav;
 
-  const connectLabel = address ? `${address.slice(0, 4)}…${address.slice(-4)}` : 'CONNECT WALLET'
+  const connectLabel = address
+    ? `${address.slice(0, 4)}…${address.slice(-4)}`
+    : "CONNECT WALLET";
 
-  const token = game?.tokens?.[0] || {}
-  const gameName = game?.GameName || 'Night Hunter'
-  const gameImage = game?.GameThumbnail || top1
-  const gameURL = game?.GameURL || '#'
-  const playCount = game?.playCount || 0
-  const tokenSymbol = token.symbol || 'N/A'
-  const tokenName = token.name || 'N/A'
-  const tokenImage = token.imageUrl || token.image || null
+  const token = game?.tokens?.[0] || {};
+  const gameName = game?.GameName || "Night Hunter";
+  const gameImage = game?.GameThumbnail || top1;
+  const gameURL = game?.GameURL || "#";
+  const playCount = game?.playCount || 0;
+  const tokenSymbol = token.symbol || "N/A";
+  const tokenName = token.name || "N/A";
+  const tokenImage = token.imageUrl || token.image || null;
 
   const embeddedUrl = useMemo(() => {
-    if (!gameURL || gameURL === '#') return null
+    if (!gameURL || gameURL === "#") return null;
     try {
-      const u = new URL(gameURL, window.location.origin)
-      if (u.protocol !== 'http:' && u.protocol !== 'https:') return null
-      return u.toString()
+      const u = new URL(gameURL, window.location.origin);
+      if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+      return u.toString();
     } catch {
-      return null
+      return null;
     }
-  }, [gameURL])
+  }, [gameURL]);
 
   useEffect(() => {
-    const sync = () => setIsFullscreen(Boolean(document.fullscreenElement))
-    document.addEventListener('fullscreenchange', sync)
-    sync()
-    return () => document.removeEventListener('fullscreenchange', sync)
-  }, [])
+    const sync = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", sync);
+    sync();
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
 
   const toggleFullscreen = async () => {
     try {
       if (document.fullscreenElement) {
-        await document.exitFullscreen()
-        return
+        await document.exitFullscreen();
+        return;
       }
       if (mediaRef.current?.requestFullscreen) {
-        await mediaRef.current.requestFullscreen()
+        await mediaRef.current.requestFullscreen();
       }
     } catch {
       // ignore
     }
-  }
+  };
 
   const handleGameClick = (g) => {
-    navigate(`/game?id=${g.id || g.gameId}`, { game: g })
-    window.scrollTo(0, 0)
+    navigate(`/game?id=${g.id || g.gameId}`, { game: g });
+    window.scrollTo(0, 0);
     // Force reload/re-render logic if needed, but navigate should handle URL change
-    // Using simple navigate might not trigger component remount if handled by router in a specific way, 
-    // but here we are using a custom router. 
+    // Using simple navigate might not trigger component remount if handled by router in a specific way,
+    // but here we are using a custom router.
     // We might need to manually reset state if the route doesn't unmount this component.
     // However, since we read ID from URL in render, it should update on re-render.
     // To ensure full cycle:
-    window.location.href = `/game?id=${g.id || g.gameId}`
-  }
+    window.location.href = `/game?id=${g.id || g.gameId}`;
+  };
 
   return (
     <div className="page gd">
@@ -157,7 +192,11 @@ export default function GamePage() {
       <header className="hero gd-hero">
         <div className="hero__topbar">
           <div className="nav-left">
-            <button className="logo gd-logo-btn" type="button" onClick={() => navigate('/')}>
+            <button
+              className="logo gd-logo-btn"
+              type="button"
+              onClick={() => navigate("/")}
+            >
               GEMEPAD.FUN
             </button>
             <button className="btn-create" type="button">
@@ -186,7 +225,11 @@ export default function GamePage() {
             <button className="btn-p2e" type="button">
               PLAY TO EARN
             </button>
-            <button className="btn-connect" type="button" onClick={() => tonConnectUI.openModal()}>
+            <button
+              className="btn-connect"
+              type="button"
+              onClick={() => tonConnectUI.openModal()}
+            >
               {connectLabel}
             </button>
           </div>
@@ -195,17 +238,23 @@ export default function GamePage() {
 
       <main className="gd-main">
         <div className="gd-grid">
-          <section className="gd-left" style={{ '--gd-hero-bg': `url("${heroBg}")` }}>
+          <section
+            className="gd-left"
+            style={{ "--gd-hero-bg": `url("${heroBg}")` }}
+          >
             <div className="gd-frame">
               <div className="gd-media" ref={mediaRef}>
                 {loading ? (
-                  <div style={{
-                    width: '100%',
-                    paddingTop: '100%',
-                    background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)',
-                    backgroundSize: '200% 100%',
-                    animation: 'loading 1.5s ease-in-out infinite'
-                  }} />
+                  <div
+                    style={{
+                      width: "100%",
+                      paddingTop: "100%",
+                      background:
+                        "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+                      backgroundSize: "200% 100%",
+                      animation: "loading 1.5s ease-in-out infinite",
+                    }}
+                  />
                 ) : isPlaying && embeddedUrl ? (
                   <iframe
                     className="gd-iframe"
@@ -217,13 +266,21 @@ export default function GamePage() {
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <img src={gameImage} alt="Game cover" className="gd-media__img" />
+                  <img
+                    src={gameImage}
+                    alt="Game cover"
+                    className="gd-media__img"
+                  />
                 )}
               </div>
               {isPlaying && (
                 <div className="gd-top-controls">
-                  <button className="gd-control-btn" type="button" onClick={toggleFullscreen}>
-                    {isFullscreen ? 'EXIT FULL' : 'FULL SCREEN'}
+                  <button
+                    className="gd-control-btn"
+                    type="button"
+                    onClick={toggleFullscreen}
+                  >
+                    {isFullscreen ? "EXIT FULL" : "FULL SCREEN"}
                   </button>
                   <button
                     className="gd-control-btn"
@@ -231,12 +288,12 @@ export default function GamePage() {
                     onClick={async () => {
                       if (document.fullscreenElement) {
                         try {
-                          await document.exitFullscreen()
+                          await document.exitFullscreen();
                         } catch {
                           // ignore
                         }
                       }
-                      setIsPlaying(false)
+                      setIsPlaying(false);
                     }}
                   >
                     EXIT
@@ -248,14 +305,14 @@ export default function GamePage() {
                   className="gd-play"
                   type="button"
                   onClick={() => {
-                    if (loading) return
-                    if (!embeddedUrl) return
-                    setIsPlaying(true)
+                    if (loading) return;
+                    if (!embeddedUrl) return;
+                    setIsPlaying(true);
                   }}
                   disabled={loading || !embeddedUrl}
                   style={{ opacity: loading || !embeddedUrl ? 0.5 : 1 }}
                 >
-                  {loading ? 'LOADING...' : 'PLAY GAME'}
+                  {loading ? "LOADING..." : "PLAY GAME"}
                 </button>
               )}
             </div>
@@ -265,44 +322,59 @@ export default function GamePage() {
             <div className="gd-panel">
               <div className="gd-panel__header">
                 {loading ? (
-                  <div style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)',
-                    backgroundSize: '200% 100%',
-                    animation: 'loading 1.5s ease-in-out infinite'
-                  }} />
+                  <div
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      borderRadius: "50%",
+                      background:
+                        "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+                      backgroundSize: "200% 100%",
+                      animation: "loading 1.5s ease-in-out infinite",
+                    }}
+                  />
                 ) : tokenImage ? (
-                  <img src={tokenImage} alt={tokenSymbol} className="gd-avatar" />
+                  <img
+                    src={tokenImage}
+                    alt={tokenSymbol}
+                    className="gd-avatar"
+                  />
                 ) : (
                   <div className="gd-avatar" aria-hidden="true" />
                 )}
                 <div className="gd-title">
                   {loading ? (
                     <>
-                      <div style={{
-                        height: '24px',
-                        width: '200px',
-                        background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)',
-                        backgroundSize: '200% 100%',
-                        animation: 'loading 1.5s ease-in-out infinite',
-                        borderRadius: '4px',
-                        marginBottom: '8px'
-                      }} />
-                      <div style={{
-                        height: '16px',
-                        width: '150px',
-                        background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)',
-                        backgroundSize: '200% 100%',
-                        animation: 'loading 1.5s ease-in-out infinite',
-                        borderRadius: '4px'
-                      }} />
+                      <div
+                        style={{
+                          height: "24px",
+                          width: "200px",
+                          background:
+                            "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+                          backgroundSize: "200% 100%",
+                          animation: "loading 1.5s ease-in-out infinite",
+                          borderRadius: "4px",
+                          marginBottom: "8px",
+                        }}
+                      />
+                      <div
+                        style={{
+                          height: "16px",
+                          width: "150px",
+                          background:
+                            "linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)",
+                          backgroundSize: "200% 100%",
+                          animation: "loading 1.5s ease-in-out infinite",
+                          borderRadius: "4px",
+                        }}
+                      />
                     </>
                   ) : (
                     <>
                       <div className="gd-title__name">{gameName}</div>
-                      <div className="gd-title__sub">Token: {tokenSymbol} | {playCount} Players</div>
+                      <div className="gd-title__sub">
+                        Token: {tokenSymbol} | {playCount} Played
+                      </div>
                     </>
                   )}
                 </div>
@@ -310,9 +382,7 @@ export default function GamePage() {
 
               <div className="gd-panel__scroll">
                 {game?.GameDescription && (
-                  <div className="gd-description">
-                    {game.GameDescription}
-                  </div>
+                  <div className="gd-description">{game.GameDescription}</div>
                 )}
 
                 <div className="gd-progress">
@@ -320,7 +390,7 @@ export default function GamePage() {
                     <span>Bonding curve progress: 75.1%</span>
                   </div>
                   <div className="gd-bar">
-                    <div className="gd-bar__fill" style={{ width: '75%' }} />
+                    <div className="gd-bar__fill" style={{ width: "75%" }} />
                   </div>
 
                   <div className="gd-pillgrid">
@@ -345,13 +415,23 @@ export default function GamePage() {
                   {token.mintPublicKey && (
                     <StatRow
                       label="Contract address:"
-                      value={`${token.mintPublicKey.slice(0, 6)}...${token.mintPublicKey.slice(-6)}`}
+                      value={`${token.mintPublicKey.slice(
+                        0,
+                        6
+                      )}...${token.mintPublicKey.slice(-6)}`}
                       link
                     />
                   )}
-                  {token.chain && <StatRow label="Chain:" value={token.chain.toUpperCase()} />}
-                  <StatRow label="Play Count:" value={playCount.toLocaleString()} />
-                  {game?.p2eEligibility?.eligible && <StatRow label="P2E Eligible:" value="Yes" />}
+                  {token.chain && (
+                    <StatRow label="Chain:" value={token.chain.toUpperCase()} />
+                  )}
+                  <StatRow
+                    label="Play Count:"
+                    value={playCount.toLocaleString()}
+                  />
+                  {game?.p2eEligibility?.eligible && (
+                    <StatRow label="P2E Eligible:" value="Yes" />
+                  )}
                 </div>
 
                 <TradeInterface token={token} game={game} />
@@ -363,14 +443,34 @@ export default function GamePage() {
         <section className="panel">
           <div className="section-header">
             <div>
-              <p className="eyebrow" style={{ color: '#c61ae7', fontFamily: "'Press Start 2P', cursive", fontSize: '12px', marginBottom: '8px' }}>TOP LAUNCHES</p>
-              <h2 style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '24px', margin: 0 }}>Fresh drops</h2>
+              <p
+                className="eyebrow"
+                style={{
+                  color: "#c61ae7",
+                  fontFamily: "'Press Start 2P', cursive",
+                  fontSize: "12px",
+                  marginBottom: "8px",
+                }}
+              >
+                TOP LAUNCHES
+              </p>
+              <h2
+                style={{
+                  fontFamily: "'Press Start 2P', cursive",
+                  fontSize: "24px",
+                  margin: 0,
+                }}
+              >
+                Fresh drops
+              </h2>
             </div>
             <button className="pill pill-dark">View all ➜</button>
           </div>
           <div className="card-row">
             {relatedLoading ? (
-               Array.from({ length: 6 }).map((_, idx) => <LoadingCard key={idx} />)
+              Array.from({ length: 6 }).map((_, idx) => (
+                <LoadingCard key={idx} />
+              ))
             ) : relatedGames.length > 0 ? (
               relatedGames.map((g) => (
                 <GameCard
@@ -383,11 +483,15 @@ export default function GamePage() {
                 />
               ))
             ) : (
-              <div style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>No related games found</div>
+              <div
+                style={{ padding: "2rem", textAlign: "center", color: "#888" }}
+              >
+                No related games found
+              </div>
             )}
           </div>
         </section>
       </main>
     </div>
-  )
+  );
 }

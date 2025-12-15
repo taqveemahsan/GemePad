@@ -189,7 +189,7 @@ const GameCard = React.memo(function GameCard({ title, img, tokenName, tokenImg,
     <div className="game-card">
       <div className="game-card__media">
         <img src={img} alt={title} loading={imgLoading} decoding="async" fetchPriority={imgFetchPriority} />
-        <div className="badge">{playCount ? `${playCount} Players` : '12k Players'}</div>
+        <div className="badge">{playCount ? `${playCount} Played` : '12k Played'}</div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
