@@ -7,6 +7,9 @@ import heroBg from "../assets/herosection/Mask group (3).png";
 import Bg01 from "../assets/herosection/Bg01.png";
 import top1 from "../assets/toplaunches/Frame 48.png";
 
+import top6 from '../assets/toplaunches/Frame 55.png'
+import GameCard from '../components/GameCard'
+
 const isDev = import.meta?.env?.DEV;
 
 function LoadingCard() {
@@ -45,29 +48,6 @@ function LoadingCard() {
             borderRadius: "4px",
           }}
         />
-      </div>
-    </div>
-  );
-}
-
-function GameCard({ title, img, tokenName, playCount, onClick }) {
-  return (
-    <div className="game-card">
-      <div className="game-card__media">
-        <img src={img} alt={title} loading="lazy" decoding="async" />
-        <div className="badge">
-          {playCount ? `${playCount} Players` : "12k Players"}
-        </div>
-      </div>
-      <div className="game-card__body">
-        <h4>{title}</h4>
-        <div className="game-card__info">
-          {tokenName ? <span>{tokenName}</span> : <span>Token Name</span>}
-          <span>$0.058</span>
-        </div>
-        <button className="btn-play" type="button" onClick={onClick}>
-          ▶ PLAY
-        </button>
       </div>
     </div>
   );
