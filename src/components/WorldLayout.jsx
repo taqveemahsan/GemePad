@@ -81,6 +81,8 @@ export default function WorldLayout({
                   game={game}
                   onClick={() => onGameClick(game)}
                   theme={theme}
+                  actionLabel={worldId === 'general' ? '▶ PLAY' : 'COMING SOON'}
+                  disabled={worldId !== 'general'}
                 />
               ))
             )}
