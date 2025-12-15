@@ -466,7 +466,7 @@ export default function App() {
               </p>
             </div>
 
-            <div className="leaderboard-container">
+            <div className="leaderboard-container" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${footerBg}")` }}>
               <div className="leaderboard-table-wrapper">
                 <table className="leaderboard-table">
                   <thead>
