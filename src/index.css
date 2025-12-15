@@ -9,6 +9,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -23,6 +24,7 @@
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -31,7 +33,8 @@
 :root {
   color: #fff;
   background: #0b0b1b;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
 * {
@@ -49,7 +52,12 @@ a {
 }
 
 /* Apply Pixel Font Globally to Headings and Buttons */
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .btn-create,
 .btn-p2e,
 .btn-connect,
@@ -61,10 +69,9 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 .section-title,
 .eyebrow,
 .badge {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   letter-spacing: 1px;
 }
-
 
 .page {
   min-height: 100vh;
@@ -85,7 +92,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   pointer-events: none;
 }
 
-.page > :not(.page__bg-container) {
+.page> :not(.page__bg-container) {
   position: relative;
   z-index: 1;
 }
@@ -128,26 +135,22 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   padding: 15px;
   background: transparent;
   border: none;
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.55),
-    0 0 70px rgba(255, 77, 238, 0.22);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55), 0 0 70px rgba(255, 77, 238, 0.22);
   overflow: hidden;
   height: 100%;
   isolation: isolate;
   --cut: 35px;
-  clip-path: polygon(
-    var(--cut) 0%,
-    100% 0%,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0% 100%,
-    0% var(--cut)
-  );
+  clip-path: polygon(var(--cut) 0%,
+      100% 0%,
+      100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%,
+      0% 100%,
+      0% var(--cut));
 }
 
 .gd-frame::before,
 .gd-frame::after {
-  content: '';
+  content: "";
   position: absolute;
   pointer-events: none;
   clip-path: inherit;
@@ -155,16 +158,22 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 
 .gd-frame::before {
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 58, 255, 1), rgba(169, 75, 255, 1), rgba(255, 58, 255, 1));
+  background: linear-gradient(135deg,
+      rgba(255, 58, 255, 1),
+      rgba(169, 75, 255, 1),
+      rgba(255, 58, 255, 1));
   filter: drop-shadow(0 0 18px rgba(255, 77, 238, 0.55));
   z-index: 0;
 }
 
 .gd-frame::after {
   inset: 2px;
-  background:
-    radial-gradient(1200px 600px at 20% 10%, rgba(255, 76, 226, 0.08), transparent 55%),
-    radial-gradient(900px 500px at 85% 20%, rgba(120, 58, 255, 0.10), transparent 55%),
+  background: radial-gradient(1200px 600px at 20% 10%,
+      rgba(255, 76, 226, 0.08),
+      transparent 55%),
+    radial-gradient(900px 500px at 85% 20%,
+      rgba(120, 58, 255, 0.1),
+      transparent 55%),
     linear-gradient(180deg, rgba(20, 20, 55, 0.94), rgba(20, 20, 55, 0.84));
   opacity: 1;
   z-index: 1;
@@ -250,28 +259,24 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   padding: 18px;
   background: transparent;
   border: none;
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.55),
-    0 0 70px rgba(255, 77, 238, 0.16);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55), 0 0 70px rgba(255, 77, 238, 0.16);
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   isolation: isolate;
   --cut: 35px;
-  clip-path: polygon(
-    var(--cut) 0%,
-    100% 0%,
-    100% calc(100% - var(--cut)),
-    calc(100% - var(--cut)) 100%,
-    0% 100%,
-    0% var(--cut)
-  );
+  clip-path: polygon(var(--cut) 0%,
+      100% 0%,
+      100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%,
+      0% 100%,
+      0% var(--cut));
 }
 
 .gd-panel::before,
 .gd-panel::after {
-  content: '';
+  content: "";
   position: absolute;
   pointer-events: none;
   clip-path: inherit;
@@ -279,16 +284,22 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 
 .gd-panel::before {
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 58, 255, 1), rgba(169, 75, 255, 1), rgba(255, 58, 255, 1));
+  background: linear-gradient(135deg,
+      rgba(255, 58, 255, 1),
+      rgba(169, 75, 255, 1),
+      rgba(255, 58, 255, 1));
   filter: drop-shadow(0 0 16px rgba(255, 77, 238, 0.45));
   z-index: 0;
 }
 
 .gd-panel::after {
   inset: 2px;
-  background:
-    radial-gradient(800px 500px at 30% 10%, rgba(255, 76, 226, 0.08), transparent 55%),
-    radial-gradient(700px 450px at 85% 25%, rgba(120, 58, 255, 0.10), transparent 55%),
+  background: radial-gradient(800px 500px at 30% 10%,
+      rgba(255, 76, 226, 0.08),
+      transparent 55%),
+    radial-gradient(700px 450px at 85% 25%,
+      rgba(120, 58, 255, 0.1),
+      transparent 55%),
     linear-gradient(180deg, rgba(20, 20, 55, 0.95), rgba(20, 20, 55, 0.86));
   opacity: 1;
   z-index: 1;
@@ -326,7 +337,9 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 58, 255, 0.85), rgba(120, 58, 255, 0.85));
+  background: linear-gradient(135deg,
+      rgba(255, 58, 255, 0.85),
+      rgba(120, 58, 255, 0.85));
   box-shadow: 0 0 18px rgba(211, 58, 255, 0.35);
 }
 
@@ -513,20 +526,20 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
     grid-template-columns: 1fr;
     height: auto;
   }
+
   .gd-pillgrid {
     grid-template-columns: 1fr;
   }
+
   .gd-media {
     min-height: 340px;
   }
+
   .gd-frame,
   .gd-panel {
     height: auto;
   }
 }
-
-
-
 
 .hero {
   position: relative;
@@ -542,7 +555,6 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   /* padding: 0 24px; */
   margin: 0 auto;
 }
-
 
 /* .hero__topbar removed backdrop/borders/shadows effectively */
 /* Ensure no bg color */
@@ -567,7 +579,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .logo {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 20px;
   color: #fff;
   white-space: nowrap;
@@ -640,6 +652,164 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   box-shadow: 0 0 18px rgba(211, 58, 255, 0.4);
 }
 
+/* Hamburger Menu Button */
+.hamburger-btn {
+  display: none;
+  background: rgba(9, 9, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  color: #fff;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 130;
+  margin-left: auto;
+}
+
+.hamburger-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 125;
+  backdrop-filter: blur(4px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 85vw;
+  height: 100vh;
+  background: rgba(9, 9, 20, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 130;
+  overflow-y: auto;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu-close {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.mobile-menu-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Search */
+.mobile-search {
+  background: rgba(9, 9, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  color: #b6b6d2;
+  gap: 10px;
+}
+
+.mobile-search svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.mobile-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  flex: 1;
+  font-size: 13px;
+}
+
+.mobile-search input::placeholder {
+  color: #b6b6d2;
+}
+
+/* Mobile Buttons */
+.mobile-btn-p2e {
+  background: linear-gradient(90deg, #ffffff, #e5e2ff);
+  color: #0b0b1b;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.mobile-btn-connect {
+  background: linear-gradient(90deg, #6c63ff, #ff3aff);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(211, 58, 255, 0.4);
+  width: 100%;
+  text-align: center;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 980px) {
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .nav-left .btn-create,
+  .search,
+  .nav-right {
+    display: none;
+  }
+
+  .hero__topbar {
+    padding: 16px 20px;
+    justify-content: space-between;
+  }
+
+  .nav-left {
+    gap: 16px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+}
 
 /* Hero Frame / Bordered Box with Cut Corner */
 .hero__frame {
@@ -654,33 +824,30 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 
 /* The Border Shape */
 .hero__frame::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #ff42ff, #7a3bff);
-  clip-path: polygon(34px 0, 100% 0,
-      100% 100%, 0 100%,
-      0 34px);
+  clip-path: polygon(34px 0, 100% 0, 100% 100%, 0 100%, 0 34px);
   z-index: 1;
 }
 
 /* The Inner Content Shape (Background) */
 .hero__frame::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 2px;
-  background-image:
-    linear-gradient(90deg, rgba(8, 6, 26, 0.98) 0%, rgba(121, 58, 255, 0.25) 50%, rgba(8, 6, 26, 0.98) 100%),
+  background-image: linear-gradient(90deg,
+      rgba(8, 6, 26, 0.98) 0%,
+      rgba(121, 58, 255, 0.25) 50%,
+      rgba(8, 6, 26, 0.98) 100%),
     var(--hero-bg);
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  clip-path: polygon(33px 0, 100% 0,
-      100% 100%, 0 100%,
-      0 33px);
+  clip-path: polygon(33px 0, 100% 0, 100% 100%, 0 100%, 0 33px);
   z-index: 1;
 }
-
 
 /* .hero__bg deleted */
 
@@ -694,9 +861,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   align-items: center;
   padding: 34px 110px 40px;
   overflow: visible;
-  clip-path: polygon(33px 0, 100% 0,
-      100% 100%, 0 100%,
-      0 33px);
+  clip-path: polygon(33px 0, 100% 0, 100% 100%, 0 100%, 0 33px);
 }
 
 .hero__center {
@@ -728,7 +893,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .pixel-font {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 64px;
   color: #fff;
   letter-spacing: 4px;
@@ -736,7 +901,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .accent-font {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 64px;
   background: linear-gradient(90deg, #ff42ff, #8d3cff);
   -webkit-background-clip: text;
@@ -785,10 +950,13 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   border: none;
   border-radius: 0;
 
-  padding: 14px 28px; /* Larger padding for bigger chips */
+  padding: 14px 28px;
+  /* Larger padding for bigger chips */
   color: #fff;
-  font-size: 16px; /* Bigger text */
-  font-weight: 700; /* Bolder weight */
+  font-size: 16px;
+  /* Bigger text */
+  font-weight: 700;
+  /* Bolder weight */
   letter-spacing: 0.04em;
 
   /* Floating animation is kept, but we need to ensure local z-index stacking works */
@@ -797,39 +965,55 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   align-items: center;
   justify-content: center;
 
-  animation: float 8s ease-in-out infinite; /* Slower, smoother animation */
+  animation: float 8s ease-in-out infinite;
+  /* Slower, smoother animation */
   white-space: nowrap;
   transform: skew(-10deg);
 }
 
 /* Gradient Border Layer */
 .hero-chip::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(180deg, #D02FD3, #8016EC);
-  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-  border-radius: 2px; /* Slight rounding on other corners if supported by polygon? No, polygon is sharp. */
+  background: linear-gradient(180deg, #d02fd3, #8016ec);
+  clip-path: polygon(12px 0,
+      100% 0,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      0 100%,
+      0 12px);
+  border-radius: 2px;
+  /* Slight rounding on other corners if supported by polygon? No, polygon is sharp. */
 }
 
 /* Inner Background Layer */
 .hero-chip::after {
-  content: '';
+  content: "";
   position: absolute;
-  inset: 1.5px; /* Border thickness */
+  inset: 1.5px;
+  /* Border thickness */
   z-index: -1;
   /* Glass Effect Upgrade: Gradient opacity + Stronger Blur + Inner Glow */
-  background: linear-gradient(135deg, rgba(60, 30, 90, 0.78), rgba(20, 10, 40, 0.62));
+  background: linear-gradient(135deg,
+      rgba(60, 30, 90, 0.78),
+      rgba(20, 10, 40, 0.62));
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.04);
-  clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px); 
+  clip-path: polygon(11px 0,
+      100% 0,
+      100% calc(100% - 11px),
+      calc(100% - 11px) 100%,
+      0 100%,
+      0 11px);
   /* Adjusted clip path for inner to match outer roughly */
 }
 
 /* SCATTERED POSITIONS - Final Polish (Pixel Perfect to Figma) */
 
 /* TOP ARC */
-.chip-0 { /* Token */
+.chip-0 {
+  /* Token */
   top: 22%;
   left: 16%;
   --rot: -15deg;
@@ -842,7 +1026,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 0s;
 }
 
-.chip-1 { /* P2E */
+.chip-1 {
+  /* P2E */
   top: 8%;
   left: 33%;
   --rot: -8deg;
@@ -855,7 +1040,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 1.5s;
 }
 
-.chip-2 { /* Mini-app */
+.chip-2 {
+  /* Mini-app */
   top: 14%;
   left: 46%;
   --rot: 8deg;
@@ -868,7 +1054,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 0.5s;
 }
 
-.chip-3 { /* Pair-Launch */
+.chip-3 {
+  /* Pair-Launch */
   top: 40%;
   left: 50%;
   right: auto;
@@ -883,7 +1070,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 /* BOTTOM SIDES */
-.chip-6 { /* No Time (Left of Button) */
+.chip-6 {
+  /* No Time (Left of Button) */
   top: 52%;
   left: 12%;
   bottom: auto;
@@ -897,7 +1085,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 0.7s;
 }
 
-.chip-5 { /* No Tools (Bottom Left of Button) */
+.chip-5 {
+  /* No Tools (Bottom Left of Button) */
   top: 75%;
   left: 18%;
   bottom: auto;
@@ -911,7 +1100,8 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 2.5s;
 }
 
-.chip-4 { /* No Code (Right of Button) */
+.chip-4 {
+  /* No Code (Right of Button) */
   top: 68%;
   left: 48%;
   right: auto;
@@ -926,7 +1116,6 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   animation-delay: 1.8s;
 }
 
-
 .hero__cta-container {
   z-index: 20;
   margin-top: 10px;
@@ -936,53 +1125,43 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .btn-cta-main {
-  background: linear-gradient(90deg, #d33aff, #a94bf7);
-  border: 3px solid #fff;
-  /* Thick white border as in design */
-  border-radius: 12px;
-  padding: 14px 32px;
+  background: linear-gradient(90deg, #d03aff, #a94bf7);
+  border: 4px solid #fff;
+  border-radius: 20px;
+  /* Pill shape */
+  padding: 18px 48px;
   color: #fff;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 8px 0 #a600e0, 0 14px 30px rgba(0, 0, 0, 0.5);
-  /* 3D effect + shadow */
+  /* subtle shadow + glow */
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2), 0 0 20px rgba(211, 58, 255, 0.6);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
-  /* Fix overlap if needed, but flex layout in center should handle it */
-  font-family: 'Press Start 2P', cursive;
-  font-size: 16px;
-  /* Larger text */
+  font-family: "Press Start 2P", cursive;
+  font-size: 20px;
   line-height: 1.5;
   margin-bottom: 8px;
   text-transform: uppercase;
 }
 
 .btn-cta-main:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 70px rgba(211, 58, 255, 0.9);
-}
-
-.btn-cta-main {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 4px;
+  transform: scale(1.02);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2), 0 0 40px rgba(211, 58, 255, 0.8);
 }
 
 .sub-text {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  opacity: 1;
-  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0.95;
+  margin-top: 6px;
   text-transform: uppercase;
-  color: #e8e5ff;
+  color: #fff;
 }
-
 
 /* Update: Applied directly to hero__content as requested */
 .hero__content {
@@ -998,9 +1177,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   /* Reset horizontal padding */
   padding-right: 35%;
   /* Reserve space for robot on the right */
-  clip-path: polygon(33px 0, 100% 0,
-      100% 100%, 0 100%,
-      0 33px);
+  clip-path: polygon(33px 0, 100% 0, 100% 100%, 0 100%, 0 33px);
   overflow: visible;
 }
 
@@ -1019,7 +1196,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   position: absolute;
   right: 5%;
   bottom: 2%;
-  height: 480px;
+  height: 420px;
   width: auto;
   -o-object-fit: contain;
   object-fit: contain;
@@ -1042,13 +1219,15 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 .section-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; /* Align bottom like standard headers */
+  align-items: flex-end;
+  /* Align bottom like standard headers */
   gap: 10px;
-  padding: 0 0 32px; /* Space below header */
+  padding: 0 0 32px;
+  /* Space below header */
 }
 
 .section-title-pixel {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 20px;
   color: #fff;
   margin: 0;
@@ -1137,7 +1316,7 @@ h2 {
 .game-card__body h4 {
   margin: 0;
   color: #c61ae7;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 12px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -1236,14 +1415,14 @@ h2 {
 }
 
 .geme-world-header__title .text-white {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 48px;
   color: #fff;
   text-transform: uppercase;
 }
 
 .geme-world-header__title .text-purple {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 48px;
   color: #c61ae7;
   text-transform: uppercase;
@@ -1283,7 +1462,8 @@ h2 {
   background: transparent;
   border: none;
   padding: 0;
-  margin: 100px 0; /* Full width spacing */
+  margin: 100px 0;
+  /* Full width spacing */
   max-width: none;
   width: 100%;
   isolation: isolate;
@@ -1317,37 +1497,37 @@ h2 {
 }
 
 .meme-panel__frame::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(var(--meme-border-rgb, 62, 244, 192), 0.95), rgba(var(--meme-border-rgb, 62, 244, 192), 0.85));
+  background: linear-gradient(180deg,
+      rgba(var(--meme-border-rgb, 62, 244, 192), 0.95),
+      rgba(var(--meme-border-rgb, 62, 244, 192), 0.85));
   z-index: 0;
   pointer-events: none;
-  filter:
-    drop-shadow(0 0 18px rgba(var(--meme-border-rgb, 62, 244, 192), 0.35))
-    drop-shadow(0 0 46px rgba(var(--meme-border-rgb, 62, 244, 192), 0.22));
+  filter: drop-shadow(0 0 18px rgba(var(--meme-border-rgb, 62, 244, 192), 0.35)) drop-shadow(0 0 46px rgba(var(--meme-border-rgb, 62, 244, 192), 0.22));
 
   /* Fix: Use hollow polygon instead of mask to ensure corners are visible */
   clip-path: polygon(
-    /* Outer Shape (Clockwise) */
-    var(--cut-size) 0,
-    100% 0,
-    100% calc(100% - var(--cut-size)),
-    calc(100% - var(--cut-size)) 100%,
-    0 100%,
-    0 var(--cut-size),
-    var(--cut-size) 0,
+      /* Outer Shape (Clockwise) */
+      var(--cut-size) 0,
+      100% 0,
+      100% calc(100% - var(--cut-size)),
+      calc(100% - var(--cut-size)) 100%,
+      0 100%,
+      0 var(--cut-size),
+      var(--cut-size) 0,
 
-    /* Inner Hole (Counter-Clockwise) */
-    var(--cut-size) var(--border-w),
-    var(--border-w) var(--cut-size),
-    var(--border-w) calc(100% - var(--border-w)),
-    calc(100% - var(--cut-size)) calc(100% - var(--border-w)),
-    calc(100% - var(--border-w)) calc(100% - var(--cut-size)),
-    calc(100% - var(--border-w)) var(--border-w),
-    var(--cut-size) var(--border-w)
-  );
+      /* Inner Hole (Counter-Clockwise) */
+      var(--cut-size) var(--border-w),
+      var(--border-w) var(--cut-size),
+      var(--border-w) calc(100% - var(--border-w)),
+      calc(100% - var(--cut-size)) calc(100% - var(--border-w)),
+      calc(100% - var(--border-w)) calc(100% - var(--cut-size)),
+      calc(100% - var(--border-w)) var(--border-w),
+      var(--cut-size) var(--border-w));
 }
+
 /* Removed ::after logic */
 
 .meme-panel__header {
@@ -1409,34 +1589,35 @@ h2 {
   height: 100%;
   z-index: 1;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
-  clip-path: polygon(
-    var(--cut-inner) 0,
-    100% 0,
-    100% calc(100% - var(--cut-inner)),
-    calc(100% - var(--cut-inner)) 100%,
-    0 100%,
-    0 var(--cut-inner)
-  );
+  clip-path: polygon(var(--cut-inner) 0,
+      100% 0,
+      100% calc(100% - var(--cut-inner)),
+      calc(100% - var(--cut-inner)) 100%,
+      0 100%,
+      0 var(--cut-inner));
 }
 
 .meme-panel__body::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  clip-path: polygon(
-    var(--cut-inner) 0,
-    100% 0,
-    100% calc(100% - var(--cut-inner)),
-    calc(100% - var(--cut-inner)) 100%,
-    0 100%,
-    0 var(--cut-inner)
-  );
+  clip-path: polygon(var(--cut-inner) 0,
+      100% 0,
+      100% calc(100% - var(--cut-inner)),
+      calc(100% - var(--cut-inner)) 100%,
+      0 100%,
+      0 var(--cut-inner));
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.06) 0 45%, rgba(255, 255, 255, 0) 75%);
+  background: radial-gradient(circle at 50% 52%,
+      rgba(255, 255, 255, 0.06) 0 45%,
+      rgba(255, 255, 255, 0) 75%);
 }
 
-.meme-panel__body > * { position: relative; z-index: 2; }
+.meme-panel__body>* {
+  position: relative;
+  z-index: 2;
+}
 
 /* Dynamic border colors based on section */
 .meme-panel.pepe-section {
@@ -1478,12 +1659,19 @@ h2 {
   padding-right: clamp(260px, 30vw, 460px);
 }
 
+@media (min-width: 769px) {
+  .meme-panel__body {
+    padding-right: 0;
+  }
+}
+
 .meme-panel .game-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(19, 19, 42, 0.84) 70%);
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(19, 19, 42, 0.84) 70%);
   border-color: rgba(var(--meme-border-rgb, 198, 26, 231), 0.26);
   backdrop-filter: blur(14px);
-  box-shadow:
-    0 10px 26px rgba(0, 0, 0, 0.35),
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   border-radius: 22px;
   flex: 0 0 210px;
@@ -1499,8 +1687,7 @@ h2 {
 }
 
 .meme-panel .game-card:hover {
-  box-shadow:
-    0 8px 30px rgba(var(--meme-border-rgb, 198, 26, 231), 0.28),
+  box-shadow: 0 8px 30px rgba(var(--meme-border-rgb, 198, 26, 231), 0.28),
     0 0 40px rgba(var(--meme-border-rgb, 198, 26, 231), 0.22);
 }
 
@@ -1524,50 +1711,43 @@ h2 {
 }
 
 .meme-panel.pepe-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(62, 244, 192, 0.25),
+  box-shadow: 0 0 28px rgba(62, 244, 192, 0.25),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.doge-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(255, 191, 0, 0.22),
+  box-shadow: 0 0 28px rgba(255, 191, 0, 0.22),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.yeti-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(198, 26, 231, 0.22),
+  box-shadow: 0 0 28px rgba(198, 26, 231, 0.22),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.uniswap-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(104, 210, 255, 0.22),
+  box-shadow: 0 0 28px rgba(104, 210, 255, 0.22),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.metamask-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(255, 133, 33, 0.20),
+  box-shadow: 0 0 28px rgba(255, 133, 33, 0.2),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.sushiswap-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(120, 136, 255, 0.22),
+  box-shadow: 0 0 28px rgba(120, 136, 255, 0.22),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-panel.phantom-section .meme-panel__body {
-  box-shadow:
-    0 0 28px rgba(255, 58, 255, 0.22),
+  box-shadow: 0 0 28px rgba(255, 58, 255, 0.22),
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
 .meme-title-text {
   margin: 0;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: clamp(30px, 3.2vw, 46px);
   line-height: 1;
   letter-spacing: 2px;
@@ -1610,7 +1790,7 @@ h2 {
 
 .meme-panel__art img {
   width: auto;
-  height: 620px;
+  height: 520px;
   max-width: 40vw;
   object-fit: contain;
   filter: none;
@@ -1628,7 +1808,7 @@ h2 {
   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
-.meme-panel__cards > .game-card {
+.meme-panel__cards>.game-card {
   scroll-snap-align: start;
 }
 
@@ -1662,7 +1842,6 @@ h2 {
   background: linear-gradient(90deg, #ffbf00, #ff9500);
 }
 
-
 /* Cards reverse flow for left-aligned sections */
 .meme-panel.doge-section .meme-panel__cards,
 .meme-panel.metamask-section .meme-panel__cards,
@@ -1685,7 +1864,8 @@ h2 {
 }
 
 .meme-panel.doge-section .meme-panel__body {
-  padding-left: 350px; /* Space for character on left */
+  padding-left: 350px;
+  /* Space for character on left */
   padding-right: 4rem;
 }
 
@@ -1704,7 +1884,8 @@ h2 {
 }
 
 .meme-panel.metamask-section .meme-panel__body {
-  padding-left: 350px; /* Space for character on left */
+  padding-left: 350px;
+  /* Space for character on left */
   padding-right: 4rem;
 }
 
@@ -1723,7 +1904,8 @@ h2 {
 }
 
 .meme-panel.phantom-section .meme-panel__body {
-  padding-left: 350px; /* Space for character on left */
+  padding-left: 350px;
+  /* Space for character on left */
   padding-right: 4rem;
 }
 
@@ -1732,9 +1914,11 @@ h2 {
   .meme-panel.doge-section .meme-panel__body {
     padding-left: 200px;
   }
+
   .meme-panel.metamask-section .meme-panel__body {
     padding-left: 200px;
   }
+
   .meme-panel.phantom-section .meme-panel__body {
     padding-left: 200px;
   }
@@ -1742,20 +1926,28 @@ h2 {
 
 @media (max-width: 960px) {
   .meme-panel.doge-section .meme-panel__body {
-     padding-left: 30px; /* Reset on mobile */
+    padding-left: 30px;
+    /* Reset on mobile */
   }
+
   .meme-panel.doge-section .meme-panel__art {
     display: none;
   }
+
   .meme-panel.metamask-section .meme-panel__body {
-     padding-left: 30px; /* Reset on mobile */
+    padding-left: 30px;
+    /* Reset on mobile */
   }
+
   .meme-panel.metamask-section .meme-panel__art {
     display: none;
   }
+
   .meme-panel.phantom-section .meme-panel__body {
-     padding-left: 30px; /* Reset on mobile */
+    padding-left: 30px;
+    /* Reset on mobile */
   }
+
   .meme-panel.phantom-section .meme-panel__art {
     display: none;
   }
@@ -1785,9 +1977,11 @@ h2 {
 /* New Leaderboard Design */
 .leaderboard-section {
   position: relative;
-  width: 100%; /* Full width */
-  margin: 80px 0; /* Remove horizontal margin */
-  padding: 0; 
+  width: 100%;
+  /* Full width */
+  margin: 80px 0;
+  /* Remove horizontal margin */
+  padding: 0;
   background: transparent;
   overflow: visible;
 }
@@ -1796,7 +1990,7 @@ h2 {
   content: none;
 }
 
-.leaderboard-section > * {
+.leaderboard-section>* {
   position: relative;
   z-index: 1;
 }
@@ -1808,7 +2002,7 @@ h2 {
 }
 
 .leaderboard-title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 48px;
   margin: 0 0 16px;
   letter-spacing: 2px;
@@ -1827,20 +2021,25 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 30px;
-  align-items: stretch; /* Ensure cards are equal height */
-  
+  align-items: stretch;
+  /* Ensure cards are equal height */
+
   /* Background applied via inline style, adding sizing/position here */
   background-size: cover;
   background-position: center;
-  border-radius: 0; /* Remove border radius */
-  padding: 60px 40px; 
-  border: none; /* Remove border */
-  max-width: none; /* Ensure it stretches */
+  border-radius: 0;
+  /* Remove border radius */
+  padding: 60px 40px;
+  border: none;
+  /* Remove border */
+  max-width: none;
+  /* Ensure it stretches */
   width: 100%;
 }
 
 .leaderboard-table-wrapper {
-  background: rgba(20, 20, 40, 0.2); /* More transparent */
+  background: rgba(20, 20, 40, 0.2);
+  /* More transparent */
   border-radius: 20px;
   padding: 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1872,7 +2071,8 @@ h2 {
 }
 
 .leaderboard-table tbody tr:hover {
-  background: rgba(198, 26, 231, 0.08); /* Keep hover effect */
+  background: rgba(198, 26, 231, 0.08);
+  /* Keep hover effect */
 }
 
 .leaderboard-table td {
@@ -1986,7 +2186,8 @@ h2 {
 }
 
 .top-player-panel {
-  background: rgba(20, 20, 40, 0.2); /* More transparent */
+  background: rgba(20, 20, 40, 0.2);
+  /* More transparent */
   border-radius: 20px;
   padding: 28px 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1996,7 +2197,7 @@ h2 {
 }
 
 .top-player-title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 20px;
   line-height: 1.5;
   margin: 0 0 24px;
@@ -2046,7 +2247,7 @@ h2 {
 .player-wallet {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.8);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 /* New Footer Design */
@@ -2056,7 +2257,7 @@ h2 {
   background-position: center;
   /* Removed the dark gradient/background here as it's now on the inner container */
   /* background: linear-gradient(180deg, rgba(11, 11, 27, 0.95), rgba(5, 5, 15, 0.98)); */
-  
+
   /* Space outside for the floating effect */
   padding: 1rem 2rem 2rem;
   margin-top: 80px;
@@ -2064,11 +2265,15 @@ h2 {
 
 .footer-inner {
   /* The dark card look */
-  background: linear-gradient(180deg, rgba(11, 11, 27, 0.98), rgba(5, 5, 15, 0.99));
+  background: linear-gradient(180deg,
+      rgba(11, 11, 27, 0.98),
+      rgba(5, 5, 15, 0.99));
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 40px; /* Medium rounded */
+  border-radius: 40px;
+  /* Medium rounded */
   padding: 60px 40px 24px;
-  width: 98%; /* Match other sections like .meme-panel */
+  width: 98%;
+  /* Match other sections like .meme-panel */
   margin: 0 auto;
 }
 
@@ -2085,7 +2290,7 @@ h2 {
 }
 
 .footer__logo {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 24px;
   color: #fff;
   margin: 0 0 20px;
@@ -2215,6 +2420,7 @@ h2 {
 }
 
 @media (max-width: 768px) {
+
   /* Adjust outer section padding */
   .footer-section {
     padding: 24px 16px;
@@ -2245,12 +2451,109 @@ h2 {
     flex-direction: column;
     gap: 12px;
   }
-}
 
+  /* Glass/Transparent Style for Floating Components */
+  .hero__frame::before {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px rgba(211, 58, 255, 0.5);
+    /* Border only simulation */
+  }
+
+  .hero__frame::after {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .meme-panel__body {
+    background: rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: inset 0 0 0 2px var(--meme-border) !important;
+    /* Border only */
+  }
+
+  /* Remove internal shadows/gradients if they conflict */
+  .meme-panel__body::after {
+    display: none;
+  }
+
+  .leaderboard-table-wrapper,
+  .top-player-panel {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Ensure visible border */
+  }
+
+  .footer-inner {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Top Launches Section - Smaller text and horizontal scroll */
+  .top-launches-section .section-title-pixel {
+    font-size: 14px;
+  }
+
+  .top-launches-section .section-header {
+    padding: 0 0 20px;
+  }
+
+  .top-launches-section .card-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(190, 34, 255, 0.5) transparent;
+  }
+
+  .top-launches-section .card-row::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .top-launches-section .card-row::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .top-launches-section .card-row::-webkit-scrollbar-thumb {
+    background: rgba(190, 34, 255, 0.5);
+    border-radius: 3px;
+  }
+
+  .top-launches-section .card-row::-webkit-scrollbar-thumb:hover {
+    background: rgba(190, 34, 255, 0.7);
+  }
+
+  .top-launches-section .game-card {
+    flex: 0 0 180px;
+    min-width: 180px;
+    scroll-snap-align: start;
+  }
+}
 
 @media (max-width: 1200px) {
   .hero__frame {
     min-height: 460px;
+  }
+
+  /* Glass style for tablet */
+  .hero__frame::before {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px rgba(211, 58, 255, 0.5);
+  }
+
+  .hero__frame::after {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .hero__content {
@@ -2259,7 +2562,7 @@ h2 {
   }
 
   .hero__bot-large {
-    height: 620px;
+    height: 500px;
     right: 2%;
     bottom: -70px;
   }
@@ -2268,7 +2571,9 @@ h2 {
     gap: 14px;
   }
 
-  .meme-panel__art img { height: 560px; }
+  .meme-panel__art img {
+    height: 440px;
+  }
 }
 
 @media (max-width: 960px) {
@@ -2284,7 +2589,7 @@ h2 {
   }
 
   .hero__bot-large {
-    height: 480px;
+    height: 380px;
     right: 5%;
     bottom: -50px;
   }
@@ -2296,6 +2601,10 @@ h2 {
 
   .meme-panel__cards {
     gap: 12px;
+  }
+
+  .meme-panel__art img {
+    height: 250px;
   }
 
   /* Keep character visible till small screens */
@@ -2321,15 +2630,10 @@ h2 {
 
 @media (max-width: 720px) {
 
-  .hero__topbar,
   .nav,
   .hero__actions {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .hero__topbar {
-    align-items: flex-start;
   }
 
   .hero__frame {
@@ -2360,7 +2664,7 @@ h2 {
 
   .hero__bot-large {
     position: static;
-    height: 360px;
+    height: 200px;
     margin: -30px auto 10px;
     display: block;
   }
@@ -2390,6 +2694,7 @@ h2 {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 }
+
 /* Button Pills Top Launches */
 .pill {
   border-radius: 999px;
@@ -2405,7 +2710,8 @@ h2 {
 
 .pill-dark {
   background: transparent;
-  border: 1px solid #fff; /* White border as requested */
+  border: 1px solid #fff;
+  /* White border as requested */
   color: #fff;
 }
 
@@ -2433,6 +2739,10 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
+    padding-right: 0;
+  }
+
   .leaderboard-title {
     font-size: 28px;
   }
@@ -2471,4 +2781,266 @@ h2 {
     height: 32px;
     font-size: 12px;
   }
+
+  /* Meme panel responsive styles */
+  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
+    padding-right: 0;
+  }
+
+  .meme-panel__body {
+    height: auto;
+  }
+
+  .meme-panel__header {
+    justify-content: center;
+  }
+
+  .meme-panel__header-left {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .meme-panel__view-all {
+    display: none;
+  }
+
+  .meme-title-text {
+    font-size: clamp(18px, 4vw, 24px);
+    text-align: center;
+  }
+
+  .meme-title {
+    margin: 0 auto;
+  }
+
+  .meme-panel__cards {
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 0 8px;
+    scroll-snap-type: x mandatory;
+    margin-top: 24px;
+  }
+
+  .meme-panel .game-card {
+    flex: 0 0 210px;
+    overflow: visible;
+    background: #ffffff0d;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .meme-panel .game-card__media {
+    order: 1;
+    padding: 10px;
+    padding-bottom: 0;
+  }
+
+  .meme-panel .game-card__body {
+    order: 2;
+  }
+
+  .meme-panel__frame {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Move meme-panel__art below cards on mobile */
+  .meme-panel__art {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    transform: none;
+    z-index: 1;
+  }
+
+  /* Override display: none for MetaMask and Phantom sections on mobile */
+  .meme-panel.metamask-section .meme-panel__art,
+  .meme-panel.phantom-section .meme-panel__art {
+    display: flex;
+    position: relative;
+    right: auto;
+    left: auto;
+    top: auto;
+    bottom: auto;
+  }
+
+  .meme-panel__art img {
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+  }
+}
+
+/* Responsive Styles for Hero Section < 1220px */
+@media (max-width: 1220px) {
+
+  /* Scale down the robot image */
+  /* Scale down the robot image */
+  .hero__bot-large {
+    height: 320px;
+    right: 4%;
+    bottom: 3%;
+  }
+
+  /* Scale down the main title image (GEMEPAD) */
+  .hero-title-img {
+    height: 48px;
+  }
+
+  /* Adjust the frame container */
+  .hero__frame {
+    min-height: 340px;
+    margin-top: 20px;
+  }
+
+  .hero__content {
+    min-height: 320px;
+    padding-right: 30%;
+    /* Reduce reserved space slightly */
+  }
+
+  /* Scale down the CTA button */
+  /* Scale down the CTA button */
+  .btn-cta-main {
+    padding: 16px 36px;
+    font-size: 16px;
+    border-width: 3px;
+  }
+
+  .sub-text {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
+  /* Scale down the floating chips */
+  .hero-chip {
+    padding: 10px 20px;
+    font-size: 13px;
+    /* Adjust clip-path if necessary, but scaling padding/font usually works */
+  }
+
+  /* Adjust specific chip positions if they collide */
+  .chip-0 {
+    left: 12%;
+    top: 18%;
+  }
+
+  .chip-1 {
+    left: 30%;
+    top: 6%;
+  }
+
+  .chip-2 {
+    left: 50%;
+    top: 12%;
+  }
+
+  .chip-6 {
+    left: 8%;
+    top: 55%;
+  }
+
+  .chip-5 {
+    left: 15%;
+    top: 78%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Remove visual frame from the first section (Hero Section) */
+  .hero {
+    padding: 0 !important;
+  }
+
+  .hero__frame {
+    box-shadow: none !important;
+    background: transparent !important;
+    min-height: auto !important;
+  }
+
+  /* Hide the pseudo-elements that create the border and background frame */
+  .hero__frame::before,
+  .hero__frame::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Remove clipping from content so it appears naturally without the frame shape */
+  /* Remove clipping from content so it appears naturally without the frame shape */
+  .hero__content {
+    clip-path: none !important;
+    padding: 0;
+  }
+
+  /* Make CTA smaller on mobile */
+  /* Make CTA smaller on mobile */
+  .btn-cta-main {
+    padding: 10px 20px;
+    font-size: 11px;
+    width: auto;
+    max-width: 280px;
+    border-width: 2px;
+  }
+
+  .sub-text {
+    font-size: 9px;
+  }
+
+  /* Center hero bot on small screens */
+  .hero__bot-large {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin: 20px auto;
+    display: block;
+    height: 380px;
+    /* Adjust height for mobile */
+    max-width: 90%;
+    object-fit: contain;
+  }
+
+  /* Make View All pill responsive */
+  .pill {
+    padding: 6px 16px;
+    font-size: 11px;
+  }
+
+  /* Toggle Hero Images */
+  .hero__bot-desktop {
+    display: none !important;
+  }
+
+  .hero__bot-mobile {
+    display: block !important;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    object-fit: contain;
+  }
+
+  /* Simplify leaderboard columns on small screens */
+  .leaderboard-table th:nth-child(2),
+  .leaderboard-table th:nth-child(3),
+  .leaderboard-table td:nth-child(2),
+  .leaderboard-table td:nth-child(3) {
+    display: none;
+  }
+}
+
+/* Default state for mobile hero image */
+.hero__bot-mobile {
+  display: none;
 }
