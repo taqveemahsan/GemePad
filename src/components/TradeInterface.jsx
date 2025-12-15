@@ -24,8 +24,18 @@ const TradeInterface = ({ token, game }) => {
   const connected = Boolean(address)
 
   // Check if token is on TON chain
-  const isTonChain = token?.chain === 'ton'
-  const tokenAddress = token?.mintPublicKey || token?.tokenId || token?.id
+  // If chain is not specified, default to TON for this component
+  const isTonChain = !token?.chain || token?.chain === 'ton'
+  const tokenAddress = token?.mintPublicKey || token?.tokenId || token?.id || token?.contractAddress
+
+  // Debug logging
+  useEffect(() => {
+    console.log('[TradeInterface] Wallet connected:', connected)
+    console.log('[TradeInterface] Address:', address)
+    console.log('[TradeInterface] Token:', token)
+    console.log('[TradeInterface] Is TON chain:', isTonChain)
+    console.log('[TradeInterface] Token address:', tokenAddress)
+  }, [connected, address, token, isTonChain, tokenAddress])
 
   // Fetch TON price
   useEffect(() => {
@@ -84,40 +94,70 @@ const TradeInterface = ({ token, game }) => {
   // Fetch TON balance
   const getBalance = useCallback(async () => {
     if (!connected || !address) {
+      console.log('[TradeInterface] Cannot fetch balance - not connected or no address')
       setBalance(null)
       return
     }
+
+    console.log('[TradeInterface] Fetching balance for address:', address)
 
     try {
       // Use TON API to get balance
       const response = await fetch(
         `https://tonapi.io/v2/accounts/${address}`
       )
+
+      if (!response.ok) {
+        throw new Error(`TON API returned ${response.status}`)
+      }
+
       const data = await response.json()
-      if (data && data.balance) {
+      console.log('[TradeInterface] Balance data:', data)
+
+      if (data && data.balance !== undefined) {
         // Balance is in nanoTON, convert to TON
         const tonBalance = Number(data.balance) / 1e9
+        console.log('[TradeInterface] TON Balance:', tonBalance)
         setBalance(tonBalance)
+      } else {
+        console.warn('[TradeInterface] No balance field in response')
+        setBalance(0)
       }
     } catch (error) {
-      console.error('Error fetching TON balance:', error)
-      setBalance(null)
+      console.error('[TradeInterface] Error fetching TON balance:', error)
+      // Set to 0 instead of null so UI shows something
+      setBalance(0)
     }
   }, [address, connected])
 
   // Fetch token balance
   const getTokenBalance = useCallback(async () => {
-    if (!connected || !address || !tokenAddress) {
+    if (!connected || !address) {
+      console.log('[TradeInterface] Cannot fetch token balance - not connected or no address')
       setTokenBalance(null)
       return
     }
+
+    if (!tokenAddress) {
+      console.log('[TradeInterface] No token address provided, skipping token balance fetch')
+      setTokenBalance(0)
+      return
+    }
+
+    console.log('[TradeInterface] Fetching token balance for:', tokenAddress)
 
     try {
       // Use TON API to get jetton balance
       const response = await fetch(
         `https://tonapi.io/v2/accounts/${address}/jettons`
       )
+
+      if (!response.ok) {
+        throw new Error(`TON API returned ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('[TradeInterface] Jettons data:', data)
 
       if (data && data.balances) {
         // Find the specific jetton by address
@@ -125,26 +165,39 @@ const TradeInterface = ({ token, game }) => {
           b => b.jetton.address === tokenAddress
         )
 
+        console.log('[TradeInterface] Found jetton:', jetton)
+
         if (jetton && jetton.balance) {
           // Balance is in smallest units, typically 9 decimals
           const balance = Number(jetton.balance) / 1e9
+          console.log('[TradeInterface] Token balance:', balance)
           setTokenBalance(balance)
         } else {
+          console.log('[TradeInterface] Jetton not found or no balance')
           setTokenBalance(0)
         }
+      } else {
+        console.log('[TradeInterface] No balances in response')
+        setTokenBalance(0)
       }
     } catch (error) {
-      console.error('Error fetching token balance:', error)
+      console.error('[TradeInterface] Error fetching token balance:', error)
       setTokenBalance(0)
     }
   }, [address, connected, tokenAddress])
 
   // Fetch balances when connected
   useEffect(() => {
-    if (connected && isTonChain) {
+    console.log('[TradeInterface] Balance fetch effect triggered')
+    console.log('[TradeInterface] - connected:', connected)
+    console.log('[TradeInterface] - isTonChain:', isTonChain)
+
+    if (connected) {
+      console.log('[TradeInterface] Fetching balances...')
       getBalance()
       getTokenBalance()
     } else {
+      console.log('[TradeInterface] Not connected, clearing balances')
       setBalance(null)
       setTokenBalance(null)
     }
@@ -259,15 +312,18 @@ const TradeInterface = ({ token, game }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
           <span style={{ color: '#999', fontSize: '13px' }}>TON Balance:</span>
           <span style={{ color: '#fff', fontSize: '13px', fontWeight: '500' }}>
-            {balance !== null ? balance.toFixed(4) : 'Connect wallet'}
+            {!connected ? 'Connect wallet' : balance !== null ? `${balance.toFixed(4)} TON` : 'Loading...'}
           </span>
         </div>
-        {tokenAddress && (
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ color: '#999', fontSize: '13px' }}>Token Balance:</span>
-            <span style={{ color: '#fff', fontSize: '13px', fontWeight: '500' }}>
-              {tokenBalance !== null ? tokenBalance.toFixed(4) : 'Connect wallet'}
-            </span>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ color: '#999', fontSize: '13px' }}>Token Balance:</span>
+          <span style={{ color: '#fff', fontSize: '13px', fontWeight: '500' }}>
+            {!connected ? 'Connect wallet' : tokenBalance !== null ? tokenBalance.toFixed(4) : 'Loading...'}
+          </span>
+        </div>
+        {connected && address && (
+          <div style={{ marginTop: '8px', fontSize: '11px', color: '#666', textAlign: 'center' }}>
+            Connected: {address.slice(0, 6)}...{address.slice(-6)}
           </div>
         )}
       </div>
@@ -373,7 +429,13 @@ const TradeInterface = ({ token, game }) => {
 
         {/* Estimated Receive Amount */}
         <div className="gd-receive">
-          {estimatedReceive ? (
+          {!connected ? (
+            <span style={{ color: '#ef4444' }}>Please connect your wallet</span>
+          ) : !tonPrice ? (
+            <span style={{ color: '#999' }}>Loading TON price...</span>
+          ) : !token?.price ? (
+            <span style={{ color: '#999' }}>Loading token price...</span>
+          ) : estimatedReceive ? (
             <>
               You'll receive approximately{' '}
               <span style={{ color: '#4ade80', fontWeight: '600' }}>
@@ -381,7 +443,7 @@ const TradeInterface = ({ token, game }) => {
               </span>
             </>
           ) : (
-            'Calculating...'
+            <span style={{ color: '#999' }}>Calculating...</span>
           )}
         </div>
 
