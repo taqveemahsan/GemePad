@@ -41,6 +41,7 @@
 body {
   margin: 0;
   background: #0b0b1b;
+  overflow-x: hidden;
 }
 
 a {
@@ -71,7 +72,6 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   position: relative;
   background: #0b0b1b;
   color: #fff;
-  overflow-x: hidden;
   isolation: isolate;
 }
 
