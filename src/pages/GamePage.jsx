@@ -3,7 +3,7 @@ import { navigate, getNavigationState } from '../navigation'
 // import { useGameById } from '../hooks/useGames'
 import TradeInterface from '../components/TradeInterface'
 import Chart from '../components/Chart'
-import WalletConnectButton from '../components/WalletConnectButton'
+import Header from '../components/Header'
 import heroBg from '../assets/herosection/Mask group (3).png'
 import Bg01 from '../assets/herosection/Bg01.png'
 import top1 from '../assets/toplaunches/Frame 48.png'
@@ -423,46 +423,7 @@ export default function GamePage() {
         <img src={Bg01} alt="" className="page__main-bg" />
       </div>
 
-      <header className="hero gd-hero">
-        <div className="hero__topbar">
-          <div className="nav-left">
-            <button
-              className="logo gd-logo-btn"
-              type="button"
-              onClick={() => navigate("/")}
-            >
-              GEMEPAD.FUN
-            </button>
-            <button className="btn-create" type="button">
-              CREATE GAME
-            </button>
-          </div>
-
-          <div className="search">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" placeholder="Search games here..." />
-          </div>
-
-          <div className="nav-right">
-            <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>
-                      GEME WORLD
-                    </button>
-            <WalletConnectButton className="btn-connect" />
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="gd-main">
         <div className="gd-grid">

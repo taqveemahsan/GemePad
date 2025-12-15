@@ -889,6 +889,84 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   letter-spacing: 1px;
 }
 
+.open-menu {
+  position: relative;
+}
+
+.btn-open {
+  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(36, 161, 222, 0.35);
+  font-family: 'Press Start 2P', cursive;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.btn-open__chevron {
+  opacity: 0.95;
+}
+
+.open-menu__dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 200px;
+  padding: 8px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(9, 9, 20, 0.98), rgba(5, 5, 14, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  color: #fff;
+}
+
+.open-menu__title {
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 800;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 6px 6px 8px;
+}
+
+.open-menu__item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: 900;
+  font-size: 10px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.open-menu__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffb4d8;
+}
+
+.open-menu__icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
 
 /* Hero Frame / Bordered Box with Cut Corner */
 .hero__frame {
