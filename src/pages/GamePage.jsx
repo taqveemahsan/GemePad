@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import { navigate, getNavigationState } from '../navigation'
 import { useGameById } from '../hooks/useGames'
+import TradeInterface from '../components/TradeInterface'
 import heroBg from '../assets/herosection/Mask group (3).png'
 import Bg01 from '../assets/herosection/Bg01.png'
 import top1 from '../assets/toplaunches/Frame 48.png'
@@ -335,31 +336,7 @@ export default function GamePage() {
                   {game?.p2eEligibility?.eligible && <StatRow label="P2E Eligible:" value="Yes" />}
                 </div>
 
-                <div className="gd-trade">
-                  <div className="gd-tabs">
-                    <button className="gd-tab gd-tab--active" type="button">
-                      Buy
-                    </button>
-                    <button className="gd-tab" type="button">
-                      Sell
-                    </button>
-                  </div>
-
-                  <div className="gd-form">
-                    <label className="gd-field">
-                      <span>Amount</span>
-                      <input defaultValue="2.5" />
-                    </label>
-                    <label className="gd-field">
-                      <span>Slippage %</span>
-                      <input defaultValue="2" />
-                    </label>
-                    <div className="gd-receive">You’ll receive $$$</div>
-                    <button className="gd-cta" type="button">
-                      CREATE GAME
-                    </button>
-                  </div>
-                </div>
+                <TradeInterface token={token} game={game} />
               </div>
             </div>
           </aside>
