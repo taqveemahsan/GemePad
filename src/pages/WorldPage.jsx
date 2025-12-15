@@ -49,6 +49,7 @@ export default function WorldPage() {
         id: game.id || game.gameId,
         title: game.GameName,
         img: game.GameThumbnail,
+        playCount: game.playCount,
         ...game // keep other props
       }))
     : displayGames
