@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import { TonClient } from '@ton/ton'
@@ -13,8 +13,11 @@ const TradeInterface = ({ token, game }) => {
   const [slippage, setSlippage] = useState(5)
   const [balance, setBalance] = useState(null)
   const [tokenBalance, setTokenBalance] = useState(null)
+  const [tokenDecimals, setTokenDecimals] = useState(9)
   const [tonPrice, setTonPrice] = useState(null)
   const [tokenPrice, setTokenPrice] = useState(null)
+  const [tokenPriceStatus, setTokenPriceStatus] = useState('idle') // idle | loading | loaded | unavailable
+  const [needsDerivedTokenPrice, setNeedsDerivedTokenPrice] = useState(false)
   const [estimatedReceive, setEstimatedReceive] = useState(null)
   const [isSwapping, setIsSwapping] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
@@ -34,6 +37,45 @@ const TradeInterface = ({ token, game }) => {
   // If chain is not specified, default to TON for this component
   const isTonChain = !token?.chain || token?.chain === 'ton'
   const tokenAddress = token?.mintPublicKey || token?.tokenId || token?.id || token?.contractAddress
+
+  const tryParseAddress = useCallback((value) => {
+    if (!value) return null
+    try {
+      return Address.parse(value)
+    } catch {
+      return null
+    }
+  }, [])
+
+  const tokenMasterAddress = useMemo(() => tryParseAddress(tokenAddress), [tryParseAddress, tokenAddress])
+
+  const amountToJettonUnits = useCallback((value, decimals) => {
+    const normalized = String(value ?? '').trim()
+    if (!normalized || normalized === '0') return '0'
+    const [wholePart, fractionalPart = ''] = normalized.split('.')
+    const safeWhole = wholePart.replace(/^0+(?=\d)/, '') || '0'
+    const paddedFraction = (fractionalPart + '0'.repeat(decimals)).slice(0, decimals)
+    const combined = `${safeWhole}${paddedFraction}`
+    const withoutLeadingZeros = combined.replace(/^0+(?=\d)/, '') || '0'
+    return BigInt(withoutLeadingZeros).toString()
+  }, [])
+
+  const unitsToNumber = useCallback((unitsString, decimals) => {
+    try {
+      const units = BigInt(String(unitsString))
+      const scale = 10n ** BigInt(decimals)
+      if (scale === 0n) return null
+      const whole = units / scale
+      const frac = units % scale
+      if (decimals === 0) return Number(whole.toString())
+      const fracStr = frac.toString().padStart(decimals, '0').replace(/0+$/, '')
+      const valueString = fracStr ? `${whole.toString()}.${fracStr}` : whole.toString()
+      const value = Number(valueString)
+      return Number.isFinite(value) ? value : null
+    } catch {
+      return null
+    }
+  }, [])
 
   // Debug logging
   useEffect(() => {
@@ -74,18 +116,150 @@ const TradeInterface = ({ token, game }) => {
     }
   }, [isTonChain])
 
-  // Set token price from props or use default
+  // Set token price from props or fetch from TON API (jetton price)
   useEffect(() => {
-    if (token?.price) {
-      setTokenPrice(token.price)
-      console.log('[TradeInterface] Token price from props:', token.price)
-    } else {
-      // If no price in token data, set a default or fetch from API
-      // For now, use a default price of $0.0001 for testing
-      console.warn('[TradeInterface] No token price in data, using default $0.0001')
-      setTokenPrice(0.0001)
+    let isMounted = true
+
+    const fetchTokenPrice = async () => {
+      if (!isTonChain) return
+
+      if (typeof token?.price === 'number' && Number.isFinite(token.price) && token.price > 0) {
+        setTokenPrice(token.price)
+        setTokenPriceStatus('loaded')
+        setNeedsDerivedTokenPrice(false)
+        console.log('[TradeInterface] Token price from props:', token.price)
+        return
+      }
+
+      if (!tokenMasterAddress) {
+        setTokenPrice(null)
+        setTokenPriceStatus('unavailable')
+        setNeedsDerivedTokenPrice(false)
+        return
+      }
+
+      try {
+        setTokenPriceStatus('loading')
+        setNeedsDerivedTokenPrice(false)
+        setTokenPrice(null)
+        const master = tokenMasterAddress.toString()
+        const response = await fetch(`https://tonapi.io/v2/jettons/${master}`)
+        if (!response.ok) throw new Error(`TON API returned ${response.status}`)
+        const data = await response.json()
+        console.log('[TradeInterface] Jetton info:', data)
+
+        const priceUsd =
+          data?.prices?.USD ??
+          data?.prices?.usd ??
+          data?.price?.USD ??
+          data?.price?.usd ??
+          data?.market_data?.price_usd
+
+        if (isMounted && typeof priceUsd === 'number' && Number.isFinite(priceUsd) && priceUsd > 0) {
+          setTokenPrice(priceUsd)
+          setTokenPriceStatus('loaded')
+          setNeedsDerivedTokenPrice(false)
+          return
+        }
+
+        const decimals =
+          data?.metadata?.decimals ??
+          data?.jetton?.decimals ??
+          data?.decimals
+
+        const parsedDecimals = Number.parseInt(String(decimals ?? ''), 10)
+        if (isMounted && Number.isFinite(parsedDecimals) && parsedDecimals >= 0 && parsedDecimals <= 18) {
+          setTokenDecimals(parsedDecimals)
+        }
+
+        if (isMounted) {
+          setNeedsDerivedTokenPrice(true)
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('[TradeInterface] Error fetching token price:', error)
+          setTokenPrice(null)
+          setNeedsDerivedTokenPrice(true)
+        }
+      }
     }
-  }, [token])
+
+    fetchTokenPrice()
+
+    return () => {
+      isMounted = false
+    }
+  }, [isTonChain, token?.price, tokenMasterAddress])
+
+  // Derive token USD price from DEX swap simulation if TON API doesn't provide a price.
+  useEffect(() => {
+    let isMounted = true
+
+    const derivePriceFromSimulation = async () => {
+      if (!isTonChain) return
+      if (!needsDerivedTokenPrice) return
+      if (!tokenMasterAddress) {
+        setTokenPriceStatus('unavailable')
+        setNeedsDerivedTokenPrice(false)
+        return
+      }
+      if (!tonPrice || !Number.isFinite(tonPrice) || tonPrice <= 0) return
+
+      try {
+        setTokenPriceStatus('loading')
+        const apiClient = new StonApiClient()
+
+        const TON_ADDRESS = 'EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c'
+        const tonAddrStr = Address.parse(TON_ADDRESS).toString()
+        const jettonAddrStr = tokenMasterAddress.toString()
+
+        const offerTon = 0.1
+        const simulationResult = await apiClient.simulateSwap({
+          offerAddress: tonAddrStr,
+          askAddress: jettonAddrStr,
+          offerUnits: toNano(offerTon.toString()).toString(),
+          slippageTolerance: '0.01',
+        })
+
+        const askUnits = simulationResult?.askUnits
+        const decimals = tokenDecimals ?? 9
+        const tokensReceived = unitsToNumber(askUnits, decimals)
+
+        if (!isMounted) return
+
+        if (!tokensReceived || tokensReceived <= 0) {
+          setTokenPrice(null)
+          setTokenPriceStatus('unavailable')
+          setNeedsDerivedTokenPrice(false)
+          return
+        }
+
+        const derivedUsd = (offerTon * tonPrice) / tokensReceived
+        if (!Number.isFinite(derivedUsd) || derivedUsd <= 0) {
+          setTokenPrice(null)
+          setTokenPriceStatus('unavailable')
+          setNeedsDerivedTokenPrice(false)
+          return
+        }
+
+        setTokenPrice(derivedUsd)
+        setTokenPriceStatus('loaded')
+        setNeedsDerivedTokenPrice(false)
+      } catch (error) {
+        if (!isMounted) return
+        console.error('[TradeInterface] Error deriving token price:', error)
+        setTokenPrice(null)
+        setTokenPriceStatus('unavailable')
+        setNeedsDerivedTokenPrice(false)
+      }
+    }
+
+    derivePriceFromSimulation()
+
+    return () => {
+      isMounted = false
+    }
+  }, [isTonChain, needsDerivedTokenPrice, tokenMasterAddress, tokenDecimals, tonPrice, unitsToNumber])
 
   // Calculate estimated receive amount
   useEffect(() => {
@@ -162,13 +336,13 @@ const TradeInterface = ({ token, game }) => {
       return
     }
 
-    if (!tokenAddress) {
+    if (!tokenAddress || !tokenMasterAddress) {
       console.log('[TradeInterface] No token address provided, skipping token balance fetch')
       setTokenBalance(0)
       return
     }
 
-    console.log('[TradeInterface] Fetching token balance for:', tokenAddress)
+    console.log('[TradeInterface] Fetching token balance for:', tokenMasterAddress.toString())
 
     try {
       // Use TON API to get jetton balance
@@ -185,17 +359,28 @@ const TradeInterface = ({ token, game }) => {
 
       if (data && data.balances) {
         // Find the specific jetton by address
-        const jetton = data.balances.find(
-          b => b.jetton.address === tokenAddress
-        )
+        const jetton = data.balances.find((b) => {
+          const candidate = tryParseAddress(b?.jetton?.address)
+          return candidate && tokenMasterAddress && candidate.equals(tokenMasterAddress)
+        })
 
         console.log('[TradeInterface] Found jetton:', jetton)
 
         if (jetton && jetton.balance) {
-          // Balance is in smallest units, typically 9 decimals
-          const balance = Number(jetton.balance) / 1e9
-          console.log('[TradeInterface] Token balance:', balance)
-          setTokenBalance(balance)
+          const decimals =
+            jetton?.jetton?.decimals ??
+            jetton?.jetton?.metadata?.decimals ??
+            tokenDecimals ??
+            9
+          const parsedDecimals = Number.parseInt(String(decimals), 10)
+          if (Number.isFinite(parsedDecimals) && parsedDecimals >= 0 && parsedDecimals <= 18) {
+            setTokenDecimals(parsedDecimals)
+          }
+
+          const divisor = 10 ** (Number.isFinite(parsedDecimals) ? parsedDecimals : 9)
+          const humanBalance = Number(jetton.balance) / divisor
+          console.log('[TradeInterface] Token balance:', humanBalance, 'decimals:', parsedDecimals)
+          setTokenBalance(humanBalance)
         } else {
           console.log('[TradeInterface] Jetton not found or no balance')
           setTokenBalance(0)
@@ -208,7 +393,7 @@ const TradeInterface = ({ token, game }) => {
       console.error('[TradeInterface] Error fetching token balance:', error)
       setTokenBalance(0)
     }
-  }, [address, connected, tokenAddress])
+  }, [address, connected, tokenAddress, tokenMasterAddress, tokenDecimals, tryParseAddress])
 
   // Fetch balances when connected
   useEffect(() => {
@@ -308,9 +493,11 @@ const TradeInterface = ({ token, game }) => {
         askAddress = tonAddrStr
       }
 
-      // Convert amount to base units (nanoTON)
-      const offerAmountNano = toNano(amount.toString())
-      const offerUnits = offerAmountNano.toString()
+      // Convert offer amount to base units
+      const offerUnits =
+        activeTab === 'buy'
+          ? toNano(amount.toString()).toString()
+          : amountToJettonUnits(amount, tokenDecimals ?? 9)
 
       console.log('[TON SWAP] Simulating swap...', {
         offerAddress,
@@ -495,6 +682,25 @@ const TradeInterface = ({ token, game }) => {
         </div>
       )}
 
+      {/* Token Price Display */}
+      {typeof tokenPrice === 'number' && Number.isFinite(tokenPrice) && tokenPrice > 0 && (
+        <div style={{ padding: '0 0 8px', textAlign: 'center' }}>
+          <span style={{ color: '#999', fontSize: '12px' }}>
+            {token?.symbol || 'Token'} Price:{' '}
+          </span>
+          <span style={{ color: '#4ade80', fontSize: '12px', fontWeight: '600' }}>
+            ${tokenPrice < 0.01 ? tokenPrice.toFixed(6) : tokenPrice.toFixed(4)}
+          </span>
+        </div>
+      )}
+      {tokenPriceStatus === 'unavailable' && (
+        <div style={{ padding: '0 0 8px', textAlign: 'center' }}>
+          <span style={{ color: '#777', fontSize: '12px' }}>
+            {token?.symbol || 'Token'} price unavailable
+          </span>
+        </div>
+      )}
+
       <div className="gd-form">
         {/* Amount Selection */}
         <label className="gd-field">
@@ -590,8 +796,12 @@ const TradeInterface = ({ token, game }) => {
             <span style={{ color: '#ef4444' }}>Please connect your wallet</span>
           ) : !tonPrice ? (
             <span style={{ color: '#999' }}>Loading TON price...</span>
-          ) : !tokenPrice ? (
+          ) : tokenPriceStatus === 'loading' ? (
             <span style={{ color: '#999' }}>Loading token price...</span>
+          ) : tokenPriceStatus === 'unavailable' ? (
+            <span style={{ color: '#999' }}>Token price unavailable</span>
+          ) : !tokenPrice ? (
+            <span style={{ color: '#999' }}>Token price unavailable</span>
           ) : estimatedReceive ? (
             <>
               You'll receive approximately{' '}

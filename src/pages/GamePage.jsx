@@ -28,7 +28,7 @@ function GameCard({ title, img }) {
     <div className="game-card">
       <div className="game-card__media">
         <img src={img} alt={title} />
-        <div className="badge">12k Players</div>
+        <div className="badge">12k Played</div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
@@ -284,7 +284,7 @@ export default function GamePage() {
                   ) : (
                     <>
                       <div className="gd-title__name">{gameName}</div>
-                      <div className="gd-title__sub">Token: {tokenSymbol} | {playCount} Players</div>
+                      <div className="gd-title__sub">Token: {tokenSymbol} | {playCount} Played</div>
                     </>
                   )}
                 </div>

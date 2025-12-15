@@ -5,7 +5,7 @@ export default function WorldGameCard({ game, onClick, theme = 'default' }) {
     <button type="button" className={`world-card ${theme}-card`} onClick={onClick}>
       <div className="world-card__media">
         <img src={game.img} alt={game.title} loading="lazy" decoding="async" />
-        <div className="world-card__badge">12k Players</div>
+        <div className="world-card__badge">12k Played</div>
       </div>
       <div className="world-card__body">
         <div className="world-card__title">{game.title}</div>
