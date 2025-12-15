@@ -1,42 +1,42 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import { navigate, getNavigationState } from '../navigation'
-import { useGameById } from '../hooks/useGames'
+import { useGameById, useGames } from '../hooks/useGames'
 import TradeInterface from '../components/TradeInterface'
 import heroBg from '../assets/herosection/Mask group (3).png'
 import Bg01 from '../assets/herosection/Bg01.png'
 import top1 from '../assets/toplaunches/Frame 48.png'
-import top2 from '../assets/toplaunches/Frame 51.png'
-import top3 from '../assets/toplaunches/Frame 52.png'
-import top4 from '../assets/toplaunches/Frame 53.png'
-import top5 from '../assets/toplaunches/Frame 54.png'
-import top6 from '../assets/toplaunches/Frame 55.png'
 
 const isDev = import.meta?.env?.DEV
 
-const topLaunches = [
-  { title: 'Uncharted 4', img: top1 },
-  { title: 'Elden Ring', img: top2 },
-  { title: 'Spider-Man 2', img: top3 },
-  { title: 'Horizon', img: top4 },
-  { title: 'Ghosts', img: top5 },
-  { title: 'Final Fantasy', img: top6 },
-]
+function LoadingCard() {
+  return (
+    <div className="game-card" style={{ opacity: 0.6 }}>
+      <div className="game-card__media" style={{ background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite' }}>
+        <div style={{ paddingTop: '100%' }} />
+      </div>
+      <div className="game-card__body">
+        <div style={{ height: '20px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px', marginBottom: '10px' }} />
+        <div style={{ height: '36px', background: 'linear-gradient(90deg, #1a1a2e 25%, #2a2a3e 50%, #1a1a2e 75%)', backgroundSize: '200% 100%', animation: 'loading 1.5s ease-in-out infinite', borderRadius: '4px' }} />
+      </div>
+    </div>
+  )
+}
 
-function GameCard({ title, img }) {
+function GameCard({ title, img, tokenName, playCount, onClick }) {
   return (
     <div className="game-card">
       <div className="game-card__media">
-        <img src={img} alt={title} />
-        <div className="badge">12k Players</div>
+        <img src={img} alt={title} loading="lazy" decoding="async" />
+        <div className="badge">{playCount ? `${playCount} Players` : '12k Players'}</div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
         <div className="game-card__info">
-          <span>Token Name</span>
-          <span>$0.058</span>
+           {tokenName ? <span>{tokenName}</span> : <span>Token Name</span>}
+           <span>$0.058</span>
         </div>
-        <button className="btn-play" type="button" onClick={() => navigate('/game')}>
+        <button className="btn-play" type="button" onClick={onClick}>
           ▶ PLAY
         </button>
       </div>
@@ -71,19 +71,25 @@ export default function GamePage() {
   const urlParams = new URLSearchParams(window.location.search)
   const gameIdFromUrl = urlParams.get('id')
 
-  // Fetch game from API using the ID
-  const { game: gameFromApi, loading: apiLoading, error } = useGameById(gameIdFromUrl)
+  // Fetch specific game details
+  const { game: gameFromApi, loading: apiLoading } = useGameById(gameIdFromUrl)
 
-  // Use navigation state as fallback (for instant display while API loads)
+  // Fetch top launches (dynamic)
+  const { games: relatedGames, loading: relatedLoading } = useGames({
+    category: 'play-to-earn',
+    sortBy: 'desc',
+    page: 1,
+    limit: 6,
+  })
+
+  // Use navigation state as fallback
   useEffect(() => {
     const navState = getNavigationState()
     if (navState && navState.game) {
       setGameFromNav(navState.game)
-      if (isDev) console.log('✅ GamePage - Using navigation state as fallback')
     }
   }, [])
 
-  // Prefer API data over navigation state
   const game = gameFromApi || gameFromNav
   const loading = apiLoading && !gameFromNav
 
@@ -128,6 +134,18 @@ export default function GamePage() {
     } catch {
       // ignore
     }
+  }
+
+  const handleGameClick = (g) => {
+    navigate(`/game?id=${g.id || g.gameId}`, { game: g })
+    window.scrollTo(0, 0)
+    // Force reload/re-render logic if needed, but navigate should handle URL change
+    // Using simple navigate might not trigger component remount if handled by router in a specific way, 
+    // but here we are using a custom router. 
+    // We might need to manually reset state if the route doesn't unmount this component.
+    // However, since we read ID from URL in render, it should update on re-render.
+    // To ensure full cycle:
+    window.location.href = `/game?id=${g.id || g.gameId}`
   }
 
   return (
@@ -345,20 +363,31 @@ export default function GamePage() {
         <section className="panel">
           <div className="section-header">
             <div>
-              <p className="eyebrow">Top Launches</p>
-              <h2>Fresh drops</h2>
+              <p className="eyebrow" style={{ color: '#c61ae7', fontFamily: "'Press Start 2P', cursive", fontSize: '12px', marginBottom: '8px' }}>TOP LAUNCHES</p>
+              <h2 style={{ fontFamily: "'Press Start 2P', cursive", fontSize: '24px', margin: 0 }}>Fresh drops</h2>
             </div>
             <button className="pill pill-dark">View all ➜</button>
           </div>
           <div className="card-row">
-            {topLaunches.map((game) => (
-              <GameCard key={game.title} title={game.title} img={game.img} />
-            ))}
+            {relatedLoading ? (
+               Array.from({ length: 6 }).map((_, idx) => <LoadingCard key={idx} />)
+            ) : relatedGames.length > 0 ? (
+              relatedGames.map((g) => (
+                <GameCard
+                  key={g.id || g.gameId}
+                  title={g.GameName}
+                  img={g.GameThumbnail}
+                  playCount={g.playCount}
+                  tokenName={g.tokens && g.tokens[0] ? g.tokens[0].name : null}
+                  onClick={() => handleGameClick(g)}
+                />
+              ))
+            ) : (
+              <div style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>No related games found</div>
+            )}
           </div>
         </section>
       </main>
-
-
     </div>
   )
 }
