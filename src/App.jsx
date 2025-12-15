@@ -52,6 +52,7 @@ import threePhantom from './assets/mobileAssets/threePhantom.png'
 import threePepe from './assets/mobileAssets/threePepe.png'
 import { navigate } from './navigation'
 import { useGames } from './hooks/useGames'
+import LeaderboardSection from './components/LeaderboardSection'
 
 const isDev = import.meta?.env?.DEV
 
@@ -122,58 +123,6 @@ const memeSections = [
     glow: 'rgba(62, 244, 192, 0.4)',
   },
 
-]
-
-const leaderboardRows = [
-  {
-    game: 'Game Name Here',
-    gameIcon: top1,
-    dateTime: '11/28/2025 - 07:23:31 AM',
-    wallet: 'GD673R46R....GF6F',
-    score: '8964',
-    rewards: '10.00',
-  },
-  {
-    game: 'Game Name Here',
-    gameIcon: top2,
-    dateTime: '11/28/2025 - 07:23:31 AM',
-    wallet: 'GD673R46R....GF6F',
-    score: '8964',
-    rewards: '10.00',
-  },
-  {
-    game: 'Game Name Here',
-    gameIcon: top3,
-    dateTime: '11/28/2025 - 07:23:31 AM',
-    wallet: 'GD673R46R....GF6F',
-    score: '8964',
-    rewards: '10.00',
-  },
-  {
-    game: 'Game Name Here',
-    gameIcon: top4,
-    dateTime: '11/28/2025 - 07:23:31 AM',
-    wallet: 'GD673R46R....GF6F',
-    score: '8964',
-    rewards: '10.00',
-  },
-  {
-    game: 'Game Name Here',
-    gameIcon: top5,
-    dateTime: '11/28/2025 - 07:23:31 AM',
-    wallet: 'GD673R46R....GF6F',
-    score: '8964',
-    rewards: '10.00',
-  },
-]
-
-const topPlayers = [
-  { id: 'Gb', wallet: 'GD673R46R....GF6F', color: '#a855f7' },
-  { id: 'Zx', wallet: 'GD673R46R....GF6F', color: '#8b5cf6' },
-  { id: 'Bg', wallet: 'GD673R46R....GF6F', color: '#7c3aed' },
-  { id: 'Tr', wallet: 'GD673R46R....GF6F', color: '#6366f1' },
-  { id: 'Rd', wallet: 'GD673R46R....GF6F', color: '#ec4899' },
-  { id: 'Se', wallet: 'GD673R46R....GF6F', color: '#d946ef' },
 ]
 
 function TagChip({ label }) {
@@ -454,90 +403,7 @@ export default function App() {
         ))}
 
         <LazyRender minHeight={900}>
-          <section className="leaderboard-section">
-            <div className="leaderboard-header">
-              <h2 className="leaderboard-title">
-                LEADER<span className="text-purple">BOARD</span>
-              </h2>
-              <p className="leaderboard-description">
-                Lorem ipsum dolor sit amet consectetur. Tellus magna habitant eleifend velit odio sem. Arcu neque nibh vitae eu et feugiat vel a nullam.
-              </p>
-            </div>
-
-            <div className="leaderboard-container" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${footerBg}")` }}>
-              <div className="leaderboard-table-wrapper">
-                <table className="leaderboard-table">
-                  <thead>
-                    <tr>
-                      <th>Game</th>
-                      <th>Date & Time</th>
-                      <th>Wallet Address</th>
-                      <th>Score</th>
-                      <th>Rewards</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {leaderboardRows.map((row, idx) => (
-                      <tr key={idx}>
-                        <td>
-                          <div className="game-cell">
-                            <img src={row.gameIcon} alt={row.game} className="game-icon" />
-                            <span>{row.game}</span>
-                          </div>
-                        </td>
-                        <td>{row.dateTime}</td>
-                        <td>{row.wallet}</td>
-                        <td>
-                          <span className="score-badge">{row.score}</span>
-                        </td>
-                        <td>
-                          <div className="rewards-cell">
-                            <span className="reward-icon">$</span>
-                            <span>{row.rewards}</span>
-                          </div>
-                        </td>
-                        <td>
-                          <button className="action-btn">⋯</button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-
-                <div className="pagination">
-                  <button className="pagination-btn">‹</button>
-                  <button className="pagination-btn active">1</button>
-                  <button className="pagination-btn">2</button>
-                  <button className="pagination-btn">3</button>
-                  <button className="pagination-btn">4</button>
-                  <button className="pagination-btn">5</button>
-                  <span className="pagination-dots">...</span>
-                  <button className="pagination-btn">22</button>
-                  <button className="pagination-btn">›</button>
-                  <span className="pagination-info">20 / 432</span>
-                </div>
-              </div>
-
-              <div className="top-player-panel">
-                <h3 className="top-player-title">
-                  TOP <span className="text-purple">PLAYER</span>
-                  <br />
-                  <span className="top-player-subtitle">OF ALL TIME</span>
-                </h3>
-                <div className="top-players-list">
-                  {topPlayers.map((player) => (
-                    <div key={player.id} className="top-player-item">
-                      <div className="player-avatar" style={{ background: player.color }}>
-                        {player.id}
-                      </div>
-                      <span className="player-wallet">{player.wallet}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
+          <LeaderboardSection footerBg={footerBg} gameIcons={[top1, top2, top3, top4, top5]} />
         </LazyRender>
       </main>
 

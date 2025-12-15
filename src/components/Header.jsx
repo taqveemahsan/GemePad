@@ -54,6 +54,13 @@ export default function Header() {
         <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>
           GEME WORLD
         </button>
+        <button
+          className="btn-telegram"
+          type="button"
+          onClick={() => window.open('https://t.me/geme_pad_bot/app', '_blank')}
+        >
+          OPEN IN TELEGRAM
+        </button>
         <button className="btn-connect" type="button" onClick={() => tonConnectUI.openModal()}>
           {connectLabel}
         </button>

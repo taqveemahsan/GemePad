@@ -689,7 +689,13 @@ const TradeInterface = ({ token, game }) => {
             {token?.symbol || 'Token'} Price:{' '}
           </span>
           <span style={{ color: '#4ade80', fontSize: '12px', fontWeight: '600' }}>
-            ${tokenPrice < 0.01 ? tokenPrice.toFixed(6) : tokenPrice.toFixed(4)}
+            ${(() => {
+              const abs = Math.abs(tokenPrice)
+              if (abs > 0 && abs < 1e-6) return tokenPrice.toFixed(12)
+              if (abs > 0 && abs < 1e-4) return tokenPrice.toFixed(8)
+              if (abs < 0.01) return tokenPrice.toFixed(6)
+              return tokenPrice.toFixed(4)
+            })()}
           </span>
         </div>
       )}
