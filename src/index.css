@@ -1308,6 +1308,8 @@ h2 {
   z-index: 1;
   height: 500px;
   padding: var(--border-w);
+  isolation: isolate;
+  --cut-inner: calc(var(--cut-size) - var(--border-w));
 }
 
 .meme-panel__frame::before {
@@ -1323,12 +1325,20 @@ h2 {
     0 100%,
     0 var(--cut-size)
   );
+  padding: var(--border-w);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  
   filter:
     drop-shadow(0 0 18px rgba(var(--meme-border-rgb, 62, 244, 192), 0.35))
     drop-shadow(0 0 46px rgba(var(--meme-border-rgb, 62, 244, 192), 0.22));
   z-index: 0;
   pointer-events: none;
 }
+/* Removed ::after logic */
 
 .meme-panel__header {
   display: flex;
@@ -1378,8 +1388,9 @@ h2 {
 .meme-panel__body {
   position: relative;
   --cut-inner: calc(var(--cut-size) - var(--border-w));
-  background:
-    linear-gradient(90deg, rgba(10, 10, 24, 0.82) 0%, rgba(10, 10, 24, 0.58) 55%, rgba(10, 10, 24, 0.82) 100%);
+  background: rgba(10, 10, 24, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: none;
   border-radius: 0;
   padding: 2.5rem 3rem 2.75rem;
