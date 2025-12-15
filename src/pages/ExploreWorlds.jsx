@@ -317,6 +317,47 @@ export default function ExploreWorlds() {
         @media (max-width: 1100px) {
            .worlds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
+
+        @media (max-width: 768px) {
+           .explore-title {
+             font-size: 2.2rem;
+             margin-bottom: 0.5rem;
+           }
+           .explore-hero {
+             padding-top: 2rem;
+             margin-bottom: 2rem;
+           }
+           .explore-hero__image-wrapper {
+             max-width: 100%;
+             margin-top: -1rem;
+           }
+           .explore-hero-img {
+             padding: 0 1rem;
+           }
+           .explore-controls {
+             flex-direction: row;
+             gap: 0.75rem;
+             margin-bottom: 2rem;
+           }
+           .worlds-grid {
+             grid-template-columns: 1fr;
+             gap: 1rem;
+             padding: 0 1.5rem;
+           }
+           .search-bar {
+             width: auto;
+             flex: 1;
+             height: 48px;
+             font-size: 0.9rem;
+           }
+           .filter-dropdown {
+             width: auto;
+             height: 48px;
+             font-size: 0.9rem;
+             padding: 0 1rem;
+             flex-shrink: 0;
+           }
+        }
       `}</style>
         </div>
     )
