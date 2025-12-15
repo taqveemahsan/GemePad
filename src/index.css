@@ -640,6 +640,20 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   box-shadow: 0 0 18px rgba(211, 58, 255, 0.4);
 }
 
+.btn-telegram {
+  background: linear-gradient(90deg, #24A1DE, #66b5e6); /* Telegram Blue gradient */
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(36, 161, 222, 0.4);
+  font-family: 'Press Start 2P', cursive;
+  letter-spacing: 1px;
+}
+
 
 /* Hero Frame / Bordered Box with Cut Corner */
 .hero__frame {

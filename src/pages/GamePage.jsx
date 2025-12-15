@@ -10,6 +10,7 @@ import top1 from '../assets/toplaunches/Frame 48.png'
 
 // const WEBSOCKET_URL = 'ws://localhost:8081'; // Local WebSocket server
 const WEBSOCKET_URL = 'wss://wssignals.sonicengine.net'; // Production WebSocket server
+const TOKEN_DATA_WS_URL = 'wss://wsdata.sonicengine.net/';
 import { useGameById, useGames } from "../hooks/useGames";
 
 import top6 from '../assets/toplaunches/Frame 55.png'
@@ -93,6 +94,16 @@ export default function GamePage() {
   const wsRef = useRef(null);
   const GraphData = useRef([]);
 
+  const [liveTokenData, setLiveTokenData] = useState({
+    price: null,
+    change: null,
+    marketCap: null,
+    liquidity: null,
+    fdv: null,
+    totalSupply: null,
+  });
+  const tokenWsRef = useRef(null);
+
 
   // Get game ID from URL query params
   const urlParams = new URLSearchParams(window.location.search);
@@ -132,10 +143,54 @@ export default function GamePage() {
   const tokenSymbol = token.symbol || "N/A";
   const tokenName = token.name || "N/A";
   const tokenImage = token.imageUrl || token.image || null;
+  const tokenAddress = token?.mintPublicKey;
+
+  const tokenWithLiveData = useMemo(() => {
+    const hasAnyLive =
+      liveTokenData &&
+      Object.values(liveTokenData).some(v => v !== null && v !== undefined);
+    if (!hasAnyLive) return token;
+    return {
+      ...token,
+      price:
+        typeof liveTokenData.price === 'number' && Number.isFinite(liveTokenData.price)
+          ? liveTokenData.price
+          : token?.price,
+      change: liveTokenData.change ?? token?.change,
+      marketCap: liveTokenData.marketCap ?? token?.marketCap,
+      liquidity: liveTokenData.liquidity ?? token?.liquidity,
+      fdv: liveTokenData.fdv ?? token?.fdv,
+      totalSupply: liveTokenData.totalSupply ?? token?.totalSupply,
+    };
+  }, [token, liveTokenData]);
+
+  const formatCurrency = useCallback((value) => {
+    if (value === null || value === undefined) return '—';
+    const numberValue = typeof value === 'string' ? Number(value) : value;
+    if (!Number.isFinite(numberValue)) return '—';
+    const abs = Math.abs(numberValue);
+    const maximumFractionDigits =
+      abs > 0 && abs < 1e-6 ? 12 : abs > 0 && abs < 1e-4 ? 8 : abs < 0.01 ? 6 : 2;
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits,
+    }).format(numberValue);
+  }, []);
+
+  const formatNumber = useCallback((value) => {
+    if (value === null || value === undefined) return '—';
+    const numberValue = typeof value === 'string' ? Number(value) : value;
+    if (!Number.isFinite(numberValue)) return '—';
+    return new Intl.NumberFormat('en-US', {
+      notation: numberValue >= 1_000_000 ? 'compact' : 'standard',
+      maximumFractionDigits: 2,
+    }).format(numberValue);
+  }, []);
 
   // Handle WebSocket connection for Chart
   useEffect(() => {
-    if (activeView === 'chart' && token?.mintPublicKey) {
+    if (activeView === 'chart' && tokenAddress) {
       console.log('Hero: Initializing WebSocket connection for interval:', selectedInterval);
       setChartLoading(true);
 
@@ -146,7 +201,7 @@ export default function GamePage() {
         ws.send(JSON.stringify({
           op: 'subscribe',
           args: [{
-            address: token.mintPublicKey,
+            address: tokenAddress,
             interval: selectedInterval,
           }],
         }));
@@ -191,7 +246,109 @@ export default function GamePage() {
     } else {
       setChartLoading(false);
     }
-  }, [activeView, selectedInterval, token?.mintPublicKey]);
+  }, [activeView, selectedInterval, tokenAddress]);
+
+  // Handle WebSocket connection for live token data (price/market cap/liquidity/etc.)
+  useEffect(() => {
+    if (!tokenAddress) {
+      setLiveTokenData({
+        price: null,
+        change: null,
+        marketCap: null,
+        liquidity: null,
+        fdv: null,
+        totalSupply: null,
+      });
+      return;
+    }
+
+    let isClosed = false;
+
+    const closeExisting = () => {
+      const existing = tokenWsRef.current;
+      if (!existing) return;
+      try {
+        if (existing.readyState === WebSocket.OPEN || existing.readyState === WebSocket.CONNECTING) {
+          existing.close();
+        }
+      } catch {
+        // ignore
+      } finally {
+        tokenWsRef.current = null;
+      }
+    };
+
+    closeExisting();
+
+    const ws = new WebSocket(TOKEN_DATA_WS_URL);
+    tokenWsRef.current = ws;
+
+    ws.onopen = () => {
+      const normalizedChain = String(token?.chain || '').toLowerCase();
+      const tokenChain =
+        normalizedChain === 'ton'
+          ? 'ton'
+          : normalizedChain === 'bnb' || normalizedChain === 'bsc'
+            ? 'bsc'
+            : 'solana';
+
+      ws.send(
+        JSON.stringify({
+          op: 'subscribe',
+          args: [{ address: tokenAddress, chain: tokenChain }],
+        })
+      );
+    };
+
+    ws.onmessage = (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        const normalizedAddress = String(tokenAddress);
+        const msgAddress = msg?.data?.address;
+        const isDirectMatch =
+          typeof msgAddress === 'string' &&
+          msgAddress.toLowerCase() === normalizedAddress.toLowerCase();
+
+        const tokenData = isDirectMatch
+          ? msg?.data
+          : msg?.data?.[normalizedAddress] ??
+            msg?.data?.[normalizedAddress.toLowerCase()] ??
+            msg?.data?.[normalizedAddress.toUpperCase()];
+
+        if (!msg?.success || !tokenData) {
+          if (isDev && (msg?.type === 'update' || msg?.type === 'subscribed')) {
+            console.log('[GamePage] Token WS message (ignored):', msg);
+          }
+          return;
+        }
+
+        setLiveTokenData({
+          price: tokenData.price ?? null,
+          change: tokenData.price_change_percent ?? null,
+          marketCap: tokenData.market_cap ?? null,
+          liquidity: tokenData.liquidity ?? null,
+          fdv: tokenData.fdv ?? null,
+          totalSupply: tokenData.total_supply ?? null,
+        });
+      } catch (err) {
+        if (isDev) console.error('[GamePage] Error parsing token ws message:', err);
+      }
+    };
+
+    ws.onerror = (err) => {
+      if (isDev) console.error('[GamePage] Token data WebSocket error:', err);
+    };
+
+    ws.onclose = () => {
+      if (isClosed) return;
+      tokenWsRef.current = null;
+    };
+
+    return () => {
+      isClosed = true;
+      closeExisting();
+    };
+  }, [tokenAddress, token?.chain]);
 
   const handleIntervalChange = useCallback(interval => {
     console.log('Hero: Interval changed to:', interval);
@@ -526,6 +683,27 @@ export default function GamePage() {
                 <div className="gd-stats">
                   <StatRow label="Token Symbol:" value={tokenSymbol} />
                   <StatRow label="Token Name:" value={tokenName} />
+                  {liveTokenData?.price !== null && (
+                    <StatRow label="Token Price:" value={formatCurrency(liveTokenData.price)} />
+                  )}
+                  {liveTokenData?.change !== null && (
+                    <StatRow
+                      label="Change:"
+                      value={`${Number(liveTokenData.change).toFixed(2)}%`}
+                    />
+                  )}
+                  {liveTokenData?.marketCap !== null && (
+                    <StatRow label="Market cap:" value={formatCurrency(liveTokenData.marketCap)} />
+                  )}
+                  {liveTokenData?.liquidity !== null && (
+                    <StatRow label="Liquidity:" value={formatCurrency(liveTokenData.liquidity)} />
+                  )}
+                  {liveTokenData?.totalSupply !== null && (
+                    <StatRow label="Total Supply:" value={formatNumber(liveTokenData.totalSupply)} />
+                  )}
+                  {liveTokenData?.fdv !== null && (
+                    <StatRow label="FDV:" value={formatCurrency(liveTokenData.fdv)} />
+                  )}
                   {token.mintPublicKey && (
                     <StatRow
                       label="Contract address:"
@@ -548,7 +726,7 @@ export default function GamePage() {
                   )}
                 </div>
 
-                <TradeInterface token={token} game={game} />
+                <TradeInterface token={tokenWithLiveData} game={game} />
               </div>
             </div>
           </aside>

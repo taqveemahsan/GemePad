@@ -109,7 +109,10 @@ export default class CustomDatafeed {
                 timezone: 'Etc/UTC',
                 exchange: 'SONIC', // Add required exchange field
                 minmov: 1,
-                pricescale: 100000000, // Increase for small decimal values
+                // `pricescale` controls decimal precision (tick size = minmov / pricescale).
+                // Many tokens here are extremely small (e.g. ~1e-9), so we need more precision
+                // than 1e8 (which would round everything < 1e-8 to 0.00000000).
+                pricescale: 1000000000000, // 1e12 => tick size 1e-12
                 has_intraday: true,
                 supported_resolutions: ['1', '5', '15', '30', '60', '240', 'D', 'W', 'M']
             });
