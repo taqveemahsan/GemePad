@@ -812,7 +812,8 @@ const TradeInterface = ({ token, game }) => {
               Try Again
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
