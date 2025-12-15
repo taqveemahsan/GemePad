@@ -339,7 +339,11 @@ export default function App() {
                 <img src={heroTitleImg} alt="GEMEPAD" className="hero-title-img" decoding="async" fetchPriority="high" />
               </div>
               <div className="hero__cta-container">
-                <button className="btn-cta-main">
+                <button
+                  className="btn-cta-main"
+                  onClick={() => window.open('https://editor.gemepad.fun/', '_blank', 'noopener,noreferrer')}
+                  type="button"
+                >
                   MAKE A GAME IN 5 MIN
                   <span className="sub-text">DEPLOY ON TON, PLAY ON TELEGRAM</span>
                 </button>

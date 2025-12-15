@@ -3,17 +3,10 @@ import { navigate } from '../navigation'
 import WalletConnectButton from './WalletConnectButton'
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isOpenMenuOpen, setIsOpenMenuOpen] = useState(false)
   const openMenuRef = useRef(null)
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+  const isInsideTelegram = Boolean(window?.Telegram?.WebApp) || /Telegram/i.test(navigator.userAgent)
 
   useEffect(() => {
     if (!isOpenMenuOpen) return
@@ -44,7 +37,8 @@ export default function Header() {
       {/* Left Group */}
       <div className="nav-left">
         <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-          GEMEPAD.FUN
+          <span className="logo__full">GEMEPAD.FUN</span>
+          <span className="logo__short">GEMEPAD</span>
         </div>
         <button
           className="btn-create"
@@ -132,117 +126,61 @@ export default function Header() {
                 </svg>
                 Web
               </button>
-              <button
-                className="open-menu__item"
-                type="button"
-                role="menuitem"
-                onClick={() => {
-                  setIsOpenMenuOpen(false)
-                  window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')
-                }}
-              >
-                <svg
-                  className="open-menu__icon"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
+              {!isInsideTelegram && (
+                <button
+                  className="open-menu__item"
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    setIsOpenMenuOpen(false)
+                    window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')
+                  }}
                 >
-                  <path d="M22 2 11 13" />
-                  <path d="M22 2 15 22 11 13 2 9 22 2Z" />
-                </svg>
-                Telegram Bot
-              </button>
+                  <svg
+                    className="open-menu__icon"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M22 2 11 13" />
+                    <path d="M22 2 15 22 11 13 2 9 22 2Z" />
+                  </svg>
+                  Telegram Bot
+                </button>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* Hamburger Menu Button - Mobile Only */}
-      <button className="hamburger-btn" type="button" onClick={toggleMenu} aria-label="Menu">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      {/* Mobile Quick Actions */}
+      <div className="mobile-actions" aria-label="Quick actions">
+        <WalletConnectButton className="btn-connect mobile-btn--small" disconnectedLabel="CONNECT" />
+        {!isInsideTelegram && (
+          <button
+            className="btn-telegram mobile-btn--small"
+            type="button"
+            onClick={() => window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')}
+            aria-label="Open in Telegram"
+          >
+            TELEGRAM
+          </button>
+        )}
+        <button
+          className="btn-p2e mobile-btn--small"
+          type="button"
+          onClick={() => navigate('/explore')}
+          aria-label="GEME WORLD"
         >
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
-
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <>
-          <div className="mobile-menu-overlay" onClick={closeMenu}></div>
-          <div className="mobile-menu">
-            <button className="mobile-menu-close" onClick={closeMenu} aria-label="Close menu">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-
-            {/* Search Bar in Mobile Menu */}
-            <div className="mobile-search">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input type="text" placeholder="Search games here..." />
-            </div>
-
-            {/* GEME World Button */}
-            <button
-              className="mobile-btn-p2e"
-              type="button"
-              onClick={() => {
-                navigate('/explore')
-                closeMenu()
-              }}
-            >
-              GEME WORLD
-            </button>
-
-            {/* Connect Wallet Button */}
-            <WalletConnectButton
-              className="mobile-btn-connect"
-              block
-              align="left"
-              onOpenModal={closeMenu}
-              onDisconnect={closeMenu}
-            />
-          </div>
-        </>
-      )}
+          WORLD
+        </button>
+      </div>
     </div>
   )
 }
