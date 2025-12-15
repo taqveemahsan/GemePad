@@ -265,7 +265,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
   }, [section.id])
 
   return (
-    <section id={section.id} className={`meme-panel ${section.theme}-section ${section.id}-section`}>
+    <section id={section.id} className={`meme-panel ${section.theme}-section ${section.id}-section`} style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("${footerBg}")`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="meme-panel__wrapper">
         <div className="meme-panel__frame">
           <div className="meme-panel__body">
