@@ -1,15 +1,9 @@
-import React, { useMemo, useState } from 'react'
-import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react'
+import React, { useState } from 'react'
 import { navigate } from '../navigation'
+import WalletConnectButton from './WalletConnectButton'
 
 export default function Header() {
-  const [tonConnectUI] = useTonConnectUI()
-  const address = useTonAddress()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const connectLabel = useMemo(() => {
-    return address ? `${address.slice(0, 4)}…${address.slice(-4)}` : 'CONNECT WALLET'
-  }, [address])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -61,9 +55,7 @@ export default function Header() {
         >
           OPEN IN TELEGRAM
         </button>
-        <button className="btn-connect" type="button" onClick={() => tonConnectUI.openModal()}>
-          {connectLabel}
-        </button>
+        <WalletConnectButton className="btn-connect" />
       </div>
 
       {/* Hamburger Menu Button - Mobile Only */}
@@ -136,16 +128,13 @@ export default function Header() {
             </button>
 
             {/* Connect Wallet Button */}
-            <button 
-              className="mobile-btn-connect" 
-              type="button" 
-              onClick={() => {
-                tonConnectUI.openModal()
-                closeMenu()
-              }}
-            >
-              {connectLabel}
-            </button>
+            <WalletConnectButton
+              className="mobile-btn-connect"
+              block
+              align="left"
+              onOpenModal={closeMenu}
+              onDisconnect={closeMenu}
+            />
           </div>
         </>
       )}

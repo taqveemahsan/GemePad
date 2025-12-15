@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 function tonconnectManifestHandler({ https }) {
   return function handler(req, res, next) {
-    if (req.url !== '/tonconnect-manifest.json') return next()
+    if (req.url !== '/ton-manifest.json') return next()
 
     const protocol = https ? 'https' : 'http'
     const host = req.headers.host || req.headers[':authority']

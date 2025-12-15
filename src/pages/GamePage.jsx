@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react'
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import { navigate, getNavigationState } from '../navigation'
 // import { useGameById } from '../hooks/useGames'
 import TradeInterface from '../components/TradeInterface'
 import Chart from '../components/Chart'
+import WalletConnectButton from '../components/WalletConnectButton'
 import heroBg from '../assets/herosection/Mask group (3).png'
 import Bg01 from '../assets/herosection/Bg01.png'
 import top1 from '../assets/toplaunches/Frame 48.png'
@@ -79,8 +79,6 @@ function StatRow({ label, value, link }) {
 }
 
 export default function GamePage() {
-  const [tonConnectUI] = useTonConnectUI();
-  const address = useTonAddress();
   const [gameFromNav, setGameFromNav] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -130,10 +128,6 @@ export default function GamePage() {
 
   const game = gameFromApi || gameFromNav;
   const loading = apiLoading && !gameFromNav;
-
-  const connectLabel = address
-    ? `${address.slice(0, 4)}…${address.slice(-4)}`
-    : "CONNECT WALLET";
 
   const token = game?.tokens?.[0] || {};
   const gameName = game?.GameName || "Night Hunter";
@@ -452,9 +446,7 @@ export default function GamePage() {
             <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>
                       GEME WORLD
                     </button>
-            <button className="btn-connect" type="button" onClick={() => tonConnectUI.openModal()}>
-              {connectLabel}
-            </button>
+            <WalletConnectButton className="btn-connect" />
           </div>
         </div>
       </header>
