@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
+import { useTonConnectUI } from '@tonconnect/ui-react'
+import Header from './components/Header'
 import footerBg from './assets/Component_Bg.png'
 import heroBg from './assets/herosection/Mask group (3).png'
 import Bg01 from './assets/herosection/Bg01.png'
@@ -305,7 +306,6 @@ const MemeSection = React.memo(function MemeSection({ section }) {
 
 export default function App() {
   const [tonConnectUI] = useTonConnectUI()
-  const address = useTonAddress()
   const [heroBgEnabled, setHeroBgEnabled] = useState(false)
   
   // Dynamic import for footer background removed as Footer is now a separate component
@@ -340,8 +340,6 @@ export default function App() {
     }
   }, [])
 
-  const connectLabel = address ? `${address.slice(0, 4)}…${address.slice(-4)}` : 'CONNECT WALLET'
-
   const handleGameClick = useCallback((game) => {
     if (isDev) console.log('🎮 Game Clicked:', game)
     navigate(`/game?id=${game.id || game.gameId}`, { game })
@@ -354,31 +352,7 @@ export default function App() {
       </div>
 
       <header className="hero">
-        <div className="hero__topbar">
-          {/* Left Group */}
-          <div className="nav-left">
-            <div className="logo">GEMEPAD.FUN</div>
-            <button className="btn-create">CREATE GAME</button>
-          </div>
-
-          {/* Center */}
-          <div className="search">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" placeholder="Search games here..." />
-          </div>
-
-          {/* Right Group */}
-          <div className="nav-right">
-            <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>GEME WORLD</button>
-            <button
-              className="btn-connect"
-              type="button"
-              onClick={() => tonConnectUI.openModal()}
-            >
-              {connectLabel}
-            </button>
-          </div>
-        </div>
+        <Header />
 
         <div className="hero__frame" style={{ '--hero-bg': heroBgEnabled ? `url("${heroBg}")` : 'none' }}>
           <div className="hero__chips-container">

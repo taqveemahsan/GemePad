@@ -1,34 +1,40 @@
-import React from 'react'
-import PepeWorld from './worlds/PepeWorld.jsx'
-import DogeWorld from './worlds/DogeWorld.jsx'
-import YetiWorld from './worlds/YetiWorld.jsx'
-import RockyWorld from './worlds/RockyWorld.jsx'
-import PhantomWorld from './worlds/PhantomWorld.jsx'
-import UniswapWorld from './worlds/UniswapWorld.jsx'
-import MetamaskWorld from './worlds/MetamaskWorld.jsx'
-import LinkWorld from './worlds/LinkWorld.jsx'
-import SushiswapWorld from './worlds/SushiswapWorld.jsx'
+import { getWorldById } from '../data/worldsData'
+import WorldLayout from '../components/WorldLayout'
 
 export default function WorldPage() {
+  // Get world slug from URL
   const slug =
     typeof window === 'undefined'
       ? ''
       : window.location.pathname.replace(/^\/world\/+/, '').split('/')[0]
 
-  if (slug === 'pepe') return <PepeWorld />
-  if (slug === 'doge') return <DogeWorld />
-  if (slug === 'yeti') return <YetiWorld />
-  if (slug === 'rocky') return <RockyWorld />
-  if (slug === 'phantom') return <PhantomWorld />
-  if (slug === 'uniswap') return <UniswapWorld />
-  if (slug === 'metamask') return <MetamaskWorld />
-  if (slug === 'link') return <LinkWorld />
-  if (slug === 'sushiswap') return <SushiswapWorld />
+  // Get world data
+  const worldData = getWorldById(slug)
 
+  // If world not found, show error
+  if (!worldData) {
+    return (
+      <div className="page" style={{ padding: '2rem', color: 'white', textAlign: 'center' }}>
+        <h2 style={{ margin: 0, fontFamily: "'Press Start 2P', cursive" }}>World not found</h2>
+        <p style={{ opacity: 0.8, marginTop: '1.5rem' }}>Unknown world: {slug}</p>
+        <a href="/explore" style={{ color: '#c61ae7', marginTop: '1rem', display: 'inline-block' }}>
+          ← Back to Explore
+        </a>
+      </div>
+    )
+  }
+
+  // Render world using shared layout
   return (
-    <div className="page" style={{ padding: '2rem' }}>
-      <h2 style={{ margin: 0 }}>World not found</h2>
-      <p style={{ opacity: 0.8, marginTop: '0.75rem' }}>Unknown world: {slug}</p>
-    </div>
+    <WorldLayout
+      worldId={worldData.id}
+      worldTitle={worldData.title}
+      worldDescription={worldData.description}
+      worldCtaText={worldData.ctaText}
+      heroImage={worldData.heroImage}
+      games={worldData.games}
+      theme={worldData.theme}
+      accentColor={worldData.accentColor}
+    />
   )
 }

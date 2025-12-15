@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { navigate } from '../navigation'
+import Header from '../components/Header'
 import bg01 from '../assets/herosection/Bg01.png'
 
 // Explore assets
@@ -113,10 +114,7 @@ export default function ExploreWorlds() {
             </div>
 
             <header className="explore-hero">
-                <div className="nav-top">
-                    <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>GEMEPAD.FUN</div>
-                    <button className="btn-connect">CONNECT WALLET</button>
-                </div>
+                <Header />
 
                 <div className="explore-hero__content">
                     <div className="explore-hero__title-group">
@@ -160,25 +158,6 @@ export default function ExploreWorlds() {
           color: white;
           padding-bottom: 2rem;
         }
-        .nav-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1.5rem 1.5rem;
-          max-width: 1600px;
-          margin: 0 auto;
-        }
-        .btn-connect {
-           background: linear-gradient(90deg, #A855F7 0%, #D946EF 100%);
-           border: none;
-           padding: 0.6rem 1.4rem;
-           border-radius: 8px;
-           color: white;
-           font-weight: 700;
-           cursor: pointer;
-           font-family: inherit;
-        }
-
         .explore-hero {
           position: relative;
           text-align: center;
@@ -331,23 +310,6 @@ export default function ExploreWorlds() {
            .worlds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
       `}</style>
-
-            {/* Brand description injection for footer left side */}
-            <style jsx>{`
-        .footer__brand::after {
-            content: 'Lorem ipsum dolor sit amet consectetur. Neque dolor non amet ullamcorper nullam nunc in diam. In eu quis in ultrices ullamcorper';
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            color: #888;
-            font-weight: 400;
-            margin-top: 1rem;
-            line-height: 1.6;
-            max-width: 300px;
-            text-transform: none;
-        }
-      `}</style>
-
         </div>
     )
 }
