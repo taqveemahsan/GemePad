@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import { navigate, getNavigationState } from '../navigation'
 import { useGameById } from '../hooks/useGames'
 import heroBg from '../assets/herosection/Mask group (3).png'
@@ -60,7 +60,7 @@ function StatRow({ label, value, link }) {
 
 export default function GamePage() {
   const [tonConnectUI] = useTonConnectUI()
-  const wallet = useTonWallet()
+  const address = useTonAddress()
   const [gameFromNav, setGameFromNav] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -86,9 +86,7 @@ export default function GamePage() {
   const game = gameFromApi || gameFromNav
   const loading = apiLoading && !gameFromNav
 
-  const connectLabel = wallet?.account?.address
-    ? `${wallet.account.address.slice(0, 4)}…${wallet.account.address.slice(-4)}`
-    : 'CONNECT WALLET'
+  const connectLabel = address ? `${address.slice(0, 4)}…${address.slice(-4)}` : 'CONNECT WALLET'
 
   const token = game?.tokens?.[0] || {}
   const gameName = game?.GameName || 'Night Hunter'

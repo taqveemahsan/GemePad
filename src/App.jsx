@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 import footerBg from './assets/Component_Bg.png'
 import heroBg from './assets/herosection/Mask group (3).png'
 import Bg01 from './assets/herosection/Bg01.png'
@@ -305,7 +305,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
 
 export default function App() {
   const [tonConnectUI] = useTonConnectUI()
-  const wallet = useTonWallet()
+  const address = useTonAddress()
   const [heroBgEnabled, setHeroBgEnabled] = useState(false)
   
   // Dynamic import for footer background removed as Footer is now a separate component
@@ -340,9 +340,7 @@ export default function App() {
     }
   }, [])
 
-  const connectLabel = wallet?.account?.address
-    ? `${wallet.account.address.slice(0, 4)}…${wallet.account.address.slice(-4)}`
-    : 'CONNECT WALLET'
+  const connectLabel = address ? `${address.slice(0, 4)}…${address.slice(-4)}` : 'CONNECT WALLET'
 
   const handleGameClick = useCallback((game) => {
     if (isDev) console.log('🎮 Game Clicked:', game)
@@ -371,7 +369,7 @@ export default function App() {
 
           {/* Right Group */}
           <div className="nav-right">
-            <button className="btn-p2e">PLAY TO EARN</button>
+            <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>GEME WORLD</button>
             <button
               className="btn-connect"
               type="button"
