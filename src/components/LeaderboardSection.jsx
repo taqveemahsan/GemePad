@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-const DEFAULT_API_BASE = 'http://localhost:3015'
+const DEFAULT_API_BASE = 'https://engine-be.sonicengine.net'
 const API_BASE = (import.meta.env?.VITE_API_BASE_URL || DEFAULT_API_BASE).replace(/\/$/, '')
 
 const TOP_PLAYERS_TTL_MS = 2 * 60 * 1000

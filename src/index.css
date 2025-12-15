@@ -1122,7 +1122,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   align-items: center;
   justify-content: center;
 
-  animation: float 12s ease-in-out infinite; /* Slower, smoother animation */
+  animation: float 15s ease-in-out infinite; /* Slower, smoother animation */
   white-space: nowrap;
   transform: skew(-10deg);
 }
