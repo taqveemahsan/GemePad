@@ -383,16 +383,7 @@ export default function GamePage() {
         </section>
       </main>
 
-      <footer className="footer">
-        <div className="footer__brand">GEMEPAD.FUN</div>
-        <div className="footer__links">
-          <a href="#">About</a>
-          <a href="#">Docs</a>
-          <a href="#">Help</a>
-          <a href="#">Careers</a>
-        </div>
-        <div className="footer__copy">© 2024 Gemepad. All rights reserved.</div>
-      </footer>
+
     </div>
   )
 }

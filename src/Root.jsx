@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import App from './App'
 import { usePathname } from './navigation'
+import Footer from './components/Footer'
 
 const GamePage = lazy(() => import('./pages/GamePage.jsx'))
 const ExploreWorlds = lazy(() => import('./pages/ExploreWorlds.jsx'))
@@ -13,29 +14,34 @@ function RouteFallback() {
 export default function Root() {
   const pathname = usePathname()
 
+  let content
+
   if (pathname === '/game' || pathname.startsWith('/game?')) {
-    return (
+    content = (
       <Suspense fallback={<RouteFallback />}>
         <GamePage />
       </Suspense>
     )
-  }
-
-  if (pathname === '/explore') {
-    return (
+  } else if (pathname === '/explore') {
+    content = (
       <Suspense fallback={<RouteFallback />}>
         <ExploreWorlds />
       </Suspense>
     )
-  }
-
-  if (pathname.startsWith('/world/')) {
-    return (
+  } else if (pathname.startsWith('/world/')) {
+    content = (
       <Suspense fallback={<RouteFallback />}>
         <WorldPage />
       </Suspense>
     )
+  } else {
+    content = <App />
   }
 
-  return <App />
+  return (
+    <>
+      {content}
+      <Footer />
+    </>
+  )
 }

@@ -127,44 +127,7 @@ export default function LinkWorld() {
           </div>
         </div>
 
-        <footer className="lnw-footer">
-          <div className="lnw-footer__inner">
-            <div className="lnw-footer__brand">
-              <div className="lnw-footer__logo">GEMEPAD.FUN</div>
-              <div className="lnw-footer__desc">
-                Lorem ipsum dolor sit amet consectetur. Neque dolor non amet ullamcorper nullam nunc in diam.
-              </div>
-            </div>
-            <div className="lnw-footer__cols">
-              <div className="lnw-footer__col">
-                <div className="lnw-footer__head">Sections</div>
-                <a href="#">Home</a>
-                <a href="#">How it Works</a>
-                <a href="#">Key Features</a>
-              </div>
-              <div className="lnw-footer__col">
-                <div className="lnw-footer__head">Sections</div>
-                <a href="#">Platforms</a>
-                <a href="#">Subscription</a>
-                <a href="#">Testimonials</a>
-              </div>
-              <div className="lnw-footer__col">
-                <div className="lnw-footer__head">Company</div>
-                <a href="#">About</a>
-                <a href="#">Careers</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-            <div className="lnw-footer__bottom">
-              <div>© 2010-2025 GamePadFun. All rights reserved</div>
-              <div className="lnw-footer__bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookies Settings</a>
-              </div>
-            </div>
-          </div>
-        </footer>
+
       </main>
 
       <style jsx>{`
@@ -357,99 +320,7 @@ export default function LinkWorld() {
           color: #fff;
         }
 
-        .lnw-footer {
-          margin: 48px auto 0;
-          max-width: 1600px;
-        }
-        .lnw-footer__inner {
-          background: rgba(12, 12, 26, 0.92);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 22px;
-          padding: 26px 26px 18px;
-        }
-        .lnw-footer__logo {
-          font-family: 'Press Start 2P', cursive;
-          font-size: 20px;
-          margin-bottom: 12px;
-        }
-        .lnw-footer__desc {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 12px;
-          line-height: 1.6;
-          max-width: 360px;
-        }
-        .lnw-footer__cols {
-          margin-top: 18px;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 24px;
-          justify-content: end;
-        }
-        .lnw-footer__col {
-          display: grid;
-          gap: 10px;
-          justify-items: start;
-        }
-        .lnw-footer__head {
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.92);
-        }
-        .lnw-footer__col a {
-          color: rgba(255, 255, 255, 0.55);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .lnw-footer__col a:hover {
-          color: #fff;
-        }
-        .lnw-footer__bottom {
-          margin-top: 18px;
-          padding-top: 14px;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 12px;
-          flex-wrap: wrap;
-        }
-        .lnw-footer__bottom-links {
-          display: flex;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-        .lnw-footer__bottom-links a {
-          color: rgba(255, 255, 255, 0.5);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .lnw-footer__bottom-links a:hover {
-          color: #fff;
-        }
 
-        @media (max-width: 1200px) {
-          .lnw-hero__inner {
-            grid-template-columns: 1fr;
-          }
-          .lnw-hero__right {
-            justify-content: center;
-          }
-          .lnw-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-          }
-        }
-        @media (max-width: 720px) {
-          .lnw-hero__title {
-            font-size: 30px;
-          }
-          .lnw-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-          .lnw-footer__cols {
-            grid-template-columns: 1fr;
-          }
-        }
       `}</style>
     </div>
   )

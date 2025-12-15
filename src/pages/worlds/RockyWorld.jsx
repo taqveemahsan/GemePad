@@ -116,44 +116,7 @@ export default function RockyWorld() {
           </div>
         </div>
 
-        <footer className="rw-footer">
-          <div className="rw-footer__inner">
-            <div className="rw-footer__brand">
-              <div className="rw-footer__logo">GEMEPAD.FUN</div>
-              <div className="rw-footer__desc">
-                Lorem ipsum dolor sit amet consectetur. Neque dolor non amet ullamcorper nullam nunc in diam.
-              </div>
-            </div>
-            <div className="rw-footer__cols">
-              <div className="rw-footer__col">
-                <div className="rw-footer__head">Sections</div>
-                <a href="#">Home</a>
-                <a href="#">How it Works</a>
-                <a href="#">Key Features</a>
-              </div>
-              <div className="rw-footer__col">
-                <div className="rw-footer__head">Sections</div>
-                <a href="#">Platforms</a>
-                <a href="#">Subscription</a>
-                <a href="#">Testimonials</a>
-              </div>
-              <div className="rw-footer__col">
-                <div className="rw-footer__head">Company</div>
-                <a href="#">About</a>
-                <a href="#">Careers</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-            <div className="rw-footer__bottom">
-              <div>© 2010-2025 GamePadFun. All rights reserved</div>
-              <div className="rw-footer__bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookies Settings</a>
-              </div>
-            </div>
-          </div>
-        </footer>
+
       </main>
 
       <style jsx>{`
@@ -341,99 +304,7 @@ export default function RockyWorld() {
           color: #fff;
         }
 
-        .rw-footer {
-          margin: 48px auto 0;
-          max-width: 1600px;
-        }
-        .rw-footer__inner {
-          background: rgba(12, 12, 26, 0.92);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 22px;
-          padding: 26px 26px 18px;
-        }
-        .rw-footer__logo {
-          font-family: 'Press Start 2P', cursive;
-          font-size: 20px;
-          margin-bottom: 12px;
-        }
-        .rw-footer__desc {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 12px;
-          line-height: 1.6;
-          max-width: 360px;
-        }
-        .rw-footer__cols {
-          margin-top: 18px;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 24px;
-          justify-content: end;
-        }
-        .rw-footer__col {
-          display: grid;
-          gap: 10px;
-          justify-items: start;
-        }
-        .rw-footer__head {
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.92);
-        }
-        .rw-footer__col a {
-          color: rgba(255, 255, 255, 0.55);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .rw-footer__col a:hover {
-          color: #fff;
-        }
-        .rw-footer__bottom {
-          margin-top: 18px;
-          padding-top: 14px;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 12px;
-          flex-wrap: wrap;
-        }
-        .rw-footer__bottom-links {
-          display: flex;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-        .rw-footer__bottom-links a {
-          color: rgba(255, 255, 255, 0.5);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .rw-footer__bottom-links a:hover {
-          color: #fff;
-        }
 
-        @media (max-width: 1200px) {
-          .rw-hero__inner {
-            grid-template-columns: 1fr;
-          }
-          .rw-hero__right {
-            justify-content: center;
-          }
-          .rw-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-          }
-        }
-        @media (max-width: 720px) {
-          .rw-hero__title {
-            font-size: 30px;
-          }
-          .rw-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-          .rw-footer__cols {
-            grid-template-columns: 1fr;
-          }
-        }
       `}</style>
     </div>
   )

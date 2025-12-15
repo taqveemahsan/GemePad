@@ -127,44 +127,7 @@ export default function MetamaskWorld() {
           </div>
         </div>
 
-        <footer className="mmw-footer">
-          <div className="mmw-footer__inner">
-            <div className="mmw-footer__brand">
-              <div className="mmw-footer__logo">GEMEPAD.FUN</div>
-              <div className="mmw-footer__desc">
-                Lorem ipsum dolor sit amet consectetur. Neque dolor non amet ullamcorper nullam nunc in diam.
-              </div>
-            </div>
-            <div className="mmw-footer__cols">
-              <div className="mmw-footer__col">
-                <div className="mmw-footer__head">Sections</div>
-                <a href="#">Home</a>
-                <a href="#">How it Works</a>
-                <a href="#">Key Features</a>
-              </div>
-              <div className="mmw-footer__col">
-                <div className="mmw-footer__head">Sections</div>
-                <a href="#">Platforms</a>
-                <a href="#">Subscription</a>
-                <a href="#">Testimonials</a>
-              </div>
-              <div className="mmw-footer__col">
-                <div className="mmw-footer__head">Company</div>
-                <a href="#">About</a>
-                <a href="#">Careers</a>
-                <a href="#">Contact</a>
-              </div>
-            </div>
-            <div className="mmw-footer__bottom">
-              <div>© 2010-2025 GamePadFun. All rights reserved</div>
-              <div className="mmw-footer__bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Cookies Settings</a>
-              </div>
-            </div>
-          </div>
-        </footer>
+
       </main>
 
       <style jsx>{`
@@ -354,77 +317,6 @@ export default function MetamaskWorld() {
           background: linear-gradient(90deg, #6c63ff, #ff3aff);
           font-weight: 900;
           font-size: 12px;
-          color: #fff;
-        }
-
-        .mmw-footer {
-          margin: 48px auto 0;
-          max-width: 1600px;
-        }
-        .mmw-footer__inner {
-          background: rgba(12, 12, 26, 0.92);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 22px;
-          padding: 26px 26px 18px;
-        }
-        .mmw-footer__logo {
-          font-family: 'Press Start 2P', cursive;
-          font-size: 20px;
-          margin-bottom: 12px;
-        }
-        .mmw-footer__desc {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 12px;
-          line-height: 1.6;
-          max-width: 360px;
-        }
-        .mmw-footer__cols {
-          margin-top: 18px;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 24px;
-          justify-content: end;
-        }
-        .mmw-footer__col {
-          display: grid;
-          gap: 10px;
-          justify-items: start;
-        }
-        .mmw-footer__head {
-          font-weight: 800;
-          color: rgba(255, 255, 255, 0.92);
-        }
-        .mmw-footer__col a {
-          color: rgba(255, 255, 255, 0.55);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .mmw-footer__col a:hover {
-          color: #fff;
-        }
-        .mmw-footer__bottom {
-          margin-top: 18px;
-          padding-top: 14px;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 12px;
-          flex-wrap: wrap;
-        }
-        .mmw-footer__bottom-links {
-          display: flex;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-        .mmw-footer__bottom-links a {
-          color: rgba(255, 255, 255, 0.5);
-          text-decoration: none;
-          font-size: 12px;
-        }
-        .mmw-footer__bottom-links a:hover {
           color: #fff;
         }
 
