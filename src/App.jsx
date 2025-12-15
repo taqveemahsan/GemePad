@@ -39,6 +39,11 @@ import metaCard1 from './assets/Metamask/1.png'
 import metaCard2 from './assets/Metamask/2.png'
 import metaCard3 from './assets/Metamask/3.png'
 import metaCard4 from './assets/Metamask/4.png'
+import metaCard5 from './assets/Metamask/5.png'
+import pepeCard5 from './assets/PEPE/5.png'
+import phantomCard5 from './assets/Phantom/5.png'
+import sushiCard5 from './assets/Sushiswap/5.png'
+import uniCard5 from './assets/Uniswap/5.png'
 import { navigate } from './navigation'
 import { useGames } from './hooks/useGames'
 
@@ -63,7 +68,7 @@ const memeSections = [
     titleText: 'UNISWAP GAMES',
     titleImg: null,
     heroImg: uniHero,
-    cards: [uniCard1, uniCard2, uniCard3, uniCard4, uniCard1],
+    cards: [uniCard1, uniCard2, uniCard3, uniCard4, uniCard5],
     glow: 'rgba(104, 210, 255, 0.35)',
   },
   {
@@ -73,7 +78,7 @@ const memeSections = [
     titleText: 'METAMASK GAMES',
     titleImg: null,
     heroImg: metaHero,
-    cards: [metaCard1, metaCard2, metaCard3, metaCard4, metaCard1],
+    cards: [metaCard1, metaCard2, metaCard3, metaCard4, metaCard5],
     glow: 'rgba(255, 133, 33, 0.35)',
   },
   {
@@ -83,7 +88,7 @@ const memeSections = [
     titleText: 'SUSHISWAP GAMES',
     titleImg: null,
     heroImg: sushiHero,
-    cards: [sushiCard1, sushiCard2, sushiCard3, sushiCard4, sushiCard1],
+    cards: [sushiCard1, sushiCard2, sushiCard3, sushiCard4, sushiCard5],
     glow: 'rgba(120, 136, 255, 0.35)',
   },
   {
@@ -93,7 +98,7 @@ const memeSections = [
     titleText: 'PHANTOM GAMES',
     titleImg: null, // Using text for now as per design text, unless image exists
     heroImg: phantomHero,
-    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard1], // Repeating for scroll
+    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard5], // Repeating for scroll
     glow: 'rgba(255, 58, 255, 0.35)',
   },
   {
@@ -102,7 +107,7 @@ const memeSections = [
     label: 'Pepe Games',
     titleImg: pepeTitle,
     heroImg: pepeHero,
-    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard1],
+    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
     glow: 'rgba(62, 244, 192, 0.4)',
   },
 
@@ -280,7 +285,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
               </div>
             </div>
             <div className="meme-panel__cards">
-              {section.cards.slice(0, 4).map((card, idx) => (
+              {section.cards.slice(0, 5).map((card, idx) => (
                 <GameCard
                   key={idx}
                   title="GAME NAME HERE"
