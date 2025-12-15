@@ -1642,6 +1642,13 @@ h2 {
 }
 
 
+/* Cards reverse flow for left-aligned sections */
+.meme-panel.doge-section .meme-panel__cards,
+.meme-panel.metamask-section .meme-panel__cards,
+.meme-panel.phantom-section .meme-panel__cards {
+  flex-direction: row-reverse;
+}
+
 /* Doge Section Specific Layout */
 .meme-panel.doge-section .meme-panel__art {
   right: auto;

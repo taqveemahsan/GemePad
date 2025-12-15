@@ -18,12 +18,7 @@ import pepeCard2 from './assets/pepegames/Frame 62-card2.png'
 import pepeCard3 from './assets/pepegames/Frame 62-card3.png'
 import pepeCard4 from './assets/pepegames/Frame 62-card4.png'
 import pepeCard5 from './assets/pepegames/Frame 62-card5.png'
-import dogeHero from './assets/dogegames/Gemini_Generated_Image_kpdih6kpdih6kpdi 1.png'
-import dogeTitle from './assets/dogegames/Doge Games.png'
-import dogeCard1 from './assets/dogegames/Frame 64-card1.png'
-import dogeCard2 from './assets/dogegames/Frame 64-card2.png'
-import dogeCard3 from './assets/dogegames/Frame 64-card3.png'
-import dogeCard4 from './assets/dogegames/Frame 64-card4.png'
+
 import uniHero from './assets/uniiswapworld/Gemini_Generated_Image_mdzxh1mdzxh1mdzx 1.png'
 import metaHero from './assets/metamask/Metamask_Hero.png'
 import sushiHero from './assets/sushiswapworld/SUSHISWAP_Hero.png'
@@ -59,16 +54,6 @@ const topLaunches = [
 
 const memeSections = [
   {
-    id: 'phantom',
-    theme: 'phantom',
-    label: 'Phantom Games',
-    titleText: 'PHANTOM GAMES',
-    titleImg: null, // Using text for now as per design text, unless image exists
-    heroImg: phantomHero,
-    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard1], // Repeating for scroll
-    glow: 'rgba(255, 58, 255, 0.35)',
-  },
-  {
     id: 'uniswap',
     theme: 'uniswap',
     label: 'UniSwap Games',
@@ -89,24 +74,6 @@ const memeSections = [
     glow: 'rgba(255, 133, 33, 0.35)',
   },
   {
-    id: 'pepe',
-    theme: 'pepe',
-    label: 'Pepe Games',
-    titleImg: pepeTitle,
-    heroImg: pepeHero,
-    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
-    glow: 'rgba(62, 244, 192, 0.4)',
-  },
-  {
-    id: 'doge',
-    theme: 'doge',
-    label: 'Doge Games',
-    titleImg: dogeTitle,
-    heroImg: dogeHero,
-    cards: [dogeCard1, dogeCard2, dogeCard3, dogeCard4],
-    glow: 'rgba(255, 191, 0, 0.4)',
-  },
-  {
     id: 'sushiswap',
     theme: 'sushiswap',
     label: 'SushiSwap Games',
@@ -116,6 +83,26 @@ const memeSections = [
     cards: [explore2, explore4, explore6, explore8, explore9],
     glow: 'rgba(120, 136, 255, 0.35)',
   },
+  {
+    id: 'phantom',
+    theme: 'phantom',
+    label: 'Phantom Games',
+    titleText: 'PHANTOM GAMES',
+    titleImg: null, // Using text for now as per design text, unless image exists
+    heroImg: phantomHero,
+    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard1], // Repeating for scroll
+    glow: 'rgba(255, 58, 255, 0.35)',
+  },
+  {
+    id: 'pepe',
+    theme: 'pepe',
+    label: 'Pepe Games',
+    titleImg: pepeTitle,
+    heroImg: pepeHero,
+    cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
+    glow: 'rgba(62, 244, 192, 0.4)',
+  },
+
 ]
 
 const leaderboardRows = [
