@@ -54,7 +54,10 @@ export default function WorldPage() {
       }))
     : displayGames
 
-  // Render world using shared layout
+    // Render world using shared layout
+  // Only slice to 6 if NOT general world
+  const finalGames = slug === 'general' ? normalizedGames : normalizedGames?.slice(0, 6)
+
   return (
     <WorldLayout
       worldId={worldData.id}
@@ -62,7 +65,7 @@ export default function WorldPage() {
       worldDescription={worldData.description}
       worldCtaText={worldData.ctaText}
       heroImage={worldData.heroImage}
-      games={normalizedGames}
+      games={finalGames}
       loading={slug === 'general' ? loading : false}
       theme={worldData.theme}
       accentColor={worldData.accentColor}
