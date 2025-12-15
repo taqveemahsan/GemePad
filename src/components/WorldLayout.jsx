@@ -44,7 +44,21 @@ export default function WorldLayout({
         <div className="world-hero__frame" style={{ '--world-hero-bg': `url("${heroBg}")` }}>
           <div className="world-hero__inner">
             <div className="world-hero__left">
-              <div className="world-hero__title">{worldTitle}</div>
+              <div 
+                className="world-hero__title"
+                style={{
+                  fontFamily: "'Press Start 2P', cursive",
+                  fontSize: '40px', // Adjusted slightly for pixel font
+                  fontWeight: 900,
+                  textTransform: 'uppercase',
+                  color: accentColor,
+                  lineHeight: 1.4, // Pixel font needs more breathing room
+                  textShadow: `0 0 20px ${accentColor}80`, // Subtle glow
+                  marginBottom: '12px'
+                }}
+              >
+                {worldTitle}
+              </div>
               <div className="world-hero__desc">{worldDescription}</div>
               <button className="world-hero__cta" type="button">
                 {worldCtaText}
@@ -106,61 +120,76 @@ export default function WorldLayout({
 
         .world-hero__frame {
           --world-accent: ${accentColor};
-          --world-cut: 60px;
-          --world-cut-inner: 58px;
+          --world-cut: 40px;
+          --world-cut-inner: 38px;
+          --border-w: 2px;
           width: 100%;
           margin: 14px auto 0;
           position: relative;
-          padding: 2px;
-          overflow: hidden;
+          padding: 0;
+          overflow: visible; /* changed to visible to allow potential glow/shadow spreading if needed */
+          background: transparent;
+        }
+        
+        .world-hero__frame::before {
+          content: '';
+          position: absolute;
+          inset: 0;
           background: linear-gradient(
             90deg,
             color-mix(in oklab, var(--world-accent), #ffffff 12%),
             color-mix(in oklab, var(--world-accent), #8d3cff 18%)
           );
+          pointer-events: none;
+          z-index: 0;
+          
+          /* Hollow Polygon Clip Path */
           clip-path: polygon(
+            /* Outer Shape (Clockwise) */
             var(--world-cut) 0,
             100% 0,
             100% calc(100% - var(--world-cut)),
             calc(100% - var(--world-cut)) 100%,
             0 100%,
-            0 var(--world-cut)
+            0 var(--world-cut),
+            var(--world-cut) 0,
+
+            /* Inner Hole (Counter-Clockwise) */
+            var(--world-cut) var(--border-w),
+            var(--border-w) var(--world-cut),
+            var(--border-w) calc(100% - var(--border-w)),
+            calc(100% - var(--world-cut)) calc(100% - var(--border-w)),
+            calc(100% - var(--border-w)) calc(100% - var(--world-cut)),
+            calc(100% - var(--border-w)) var(--border-w),
+            var(--world-cut) var(--border-w)
           );
         }
-        .world-hero__frame::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: var(--world-hero-bg);
-          background-size: cover;
-          background-position: center;
-          opacity: 0.5;
-          filter: saturate(1.1);
-          clip-path: inherit;
-        }
+
         .world-hero__inner {
           position: relative;
+          z-index: 1; /* Ensure content is above border logic */
           display: grid;
           grid-template-columns: 1.1fr 1fr;
           gap: 24px;
           padding: 28px 34px;
-          background: linear-gradient(90deg, rgba(10, 10, 24, 0.86), rgba(10, 10, 24, 0.56));
-          clip-path: polygon(
-            var(--world-cut-inner) 0,
-            100% 0,
-            100% calc(100% - var(--world-cut-inner)),
-            calc(100% - var(--world-cut-inner)) 100%,
-            0 100%,
-            0 var(--world-cut-inner)
-          );
+          background: transparent;
           align-items: center;
         }
+
+        .world-hero__left {
+          padding-top: 0.1rem;
+        }
+          
         .world-hero__title {
-          font-family: 'Press Start 2P', cursive;
-          font-size: 44px;
+          font-family: 'Inter', sans-serif;
+          font-size: 48px;
+          font-weight: 900;
           color: var(--world-accent);
-          letter-spacing: 0.04em;
-          text-shadow: 0 0 14px color-mix(in oklab, var(--world-accent), transparent 65%);
+          text-transform: uppercase;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          text-shadow: 0 0 30px color-mix(in oklab, var(--world-accent), transparent 60%);
+          margin-bottom: 8px;
         }
         .world-hero__desc {
           margin-top: 16px;
