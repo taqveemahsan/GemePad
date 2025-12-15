@@ -1,15 +1,35 @@
 import React from 'react'
 
-export default function WorldGameCard({ game, onClick, theme = 'default' }) {
+export default function WorldGameCard({
+  game,
+  onClick,
+  theme = 'default',
+  actionLabel = '▶ PLAY',
+  disabled = false,
+}) {
   return (
-    <button type="button" className={`world-card ${theme}-card`} onClick={onClick}>
+    <button
+      type="button"
+      className={`world-card ${theme}-card`}
+      onClick={onClick}
+      disabled={disabled}
+      style={{ cursor: disabled ? 'default' : 'pointer', opacity: disabled ? 0.8 : 1 }}
+    >
       <div className="world-card__media">
         <img src={game.img} alt={game.title} loading="lazy" decoding="async" />
-        <div className="world-card__badge">12k Played</div>
+        <div className="world-card__badge">{game.playCount ? `${game.playCount} Played` : '12k Played'}</div>
       </div>
       <div className="world-card__body">
         <div className="world-card__title">{game.title}</div>
-        <div className="world-card__pill">▶ PLAY</div>
+        <div
+          className="world-card__pill"
+          style={{
+            background: disabled ? '#444' : undefined,
+            color: disabled ? '#aaa' : undefined,
+          }}
+        >
+          {actionLabel}
+        </div>
       </div>
 
       <style jsx>{`
@@ -17,13 +37,12 @@ export default function WorldGameCard({ game, onClick, theme = 'default' }) {
           border: 0;
           padding: 0;
           text-align: left;
-          cursor: pointer;
           background: rgba(255, 255, 255, 0.03);
           border-radius: 18px;
           overflow: hidden;
           transition: transform 160ms ease, filter 160ms ease;
         }
-        .world-card:hover {
+        .world-card:not(:disabled):hover {
           transform: translateY(-4px);
           filter: brightness(1.06);
         }

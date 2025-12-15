@@ -195,29 +195,7 @@ function LoadingCard() {
   )
 }
 
-const GameCard = React.memo(function GameCard({ title, img, tokenName, tokenImg, onClick, playCount, imgLoading = 'lazy', imgFetchPriority }) {
-  return (
-    <div className="game-card">
-      <div className="game-card__media">
-        <img src={img} alt={title} loading={imgLoading} decoding="async" fetchPriority={imgFetchPriority} />
-        <div className="badge">{playCount ? `${playCount} Played` : '12k Played'}</div>
-      </div>
-      <div className="game-card__body">
-        <h4>{title}</h4>
-        {tokenName && (
-          <div className="game-card__info">
-            {tokenImg && <img src={tokenImg} alt={tokenName} />}
-            <span>{tokenName}</span>
-            <span>$0.058</span>
-          </div>
-        )}
-        <button className="btn-play" type="button" onClick={onClick}>
-          ▶ PLAY
-        </button>
-      </div>
-    </div>
-  )
-})
+import GameCard from './components/GameCard'
 
 function useMediaQuery(query) {
   const [matches, setMatches] = useState(() => {
@@ -434,7 +412,7 @@ export default function App() {
             <h2 className="section-title-pixel">
               TOP <span className="text-purple">LAUNCHES</span>
             </h2>
-            <button className="pill pill-dark">View all ➜</button>
+            <button className="pill pill-dark" onClick={() => navigate('/world/general')}>View all ➜</button>
           </div>
           <div className="card-row">
             {loading ? (
