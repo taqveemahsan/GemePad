@@ -1079,7 +1079,7 @@ h2 {
 }
 
 .card-row,
-.meme-panel__list {
+.meme-panel__cards {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
