@@ -27,6 +27,11 @@ import dogeCard4 from './assets/dogegames/Frame 64-card4.png'
 import uniHero from './assets/uniiswapworld/Gemini_Generated_Image_mdzxh1mdzxh1mdzx 1.png'
 import metaHero from './assets/metamask/Metamask_Hero.png'
 import sushiHero from './assets/sushiswapworld/SUSHISWAP_Hero.png'
+import phantomHero from './assets/phantomworld/Phantom_Hero.png'
+import phantomCard1 from './assets/Phantom/1.png'
+import phantomCard2 from './assets/Phantom/2.png'
+import phantomCard3 from './assets/Phantom/3.png'
+import phantomCard4 from './assets/Phantom/4.png'
 import explore1 from './assets/explore/1.png'
 import explore2 from './assets/explore/2.png'
 import explore3 from './assets/explore/3.png'
@@ -53,6 +58,16 @@ const topLaunches = [
 ]
 
 const memeSections = [
+  {
+    id: 'phantom',
+    theme: 'phantom',
+    label: 'Phantom Games',
+    titleText: 'PHANTOM GAMES',
+    titleImg: null, // Using text for now as per design text, unless image exists
+    heroImg: phantomHero,
+    cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard1], // Repeating for scroll
+    glow: 'rgba(255, 58, 255, 0.35)',
+  },
   {
     id: 'uniswap',
     theme: 'uniswap',

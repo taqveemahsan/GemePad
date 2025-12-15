@@ -1448,7 +1448,12 @@ h2 {
   --meme-border-rgb: 120, 136, 255;
 }
 
-.meme-panel:not(.doge-section):not(.metamask-section) .meme-panel__body {
+.meme-panel.phantom-section {
+  --meme-border: #ff3aff;
+  --meme-border-rgb: 255, 58, 255;
+}
+
+.meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
   padding-right: clamp(260px, 30vw, 460px);
 }
 
@@ -1533,6 +1538,12 @@ h2 {
     inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 
+.meme-panel.phantom-section .meme-panel__body {
+  box-shadow:
+    0 0 28px rgba(255, 58, 255, 0.22),
+    inset 0 0 60px rgba(0, 0, 0, 0.3);
+}
+
 .meme-title-text {
   margin: 0;
   font-family: 'Press Start 2P', cursive;
@@ -1556,6 +1567,11 @@ h2 {
 .meme-title-text--sushiswap {
   color: #e1e6ff;
   text-shadow: 0 0 18px rgba(120, 136, 255, 0.35);
+}
+
+.meme-title-text--phantom {
+  color: #ffb0ff;
+  text-shadow: 0 0 18px rgba(255, 58, 255, 0.35);
 }
 
 .meme-panel__art {
@@ -1664,12 +1680,34 @@ h2 {
   padding-right: 4rem;
 }
 
+/* Phantom Section Layout (Same as Doge but Phantom theme) */
+.meme-panel.phantom-section .meme-panel__art {
+  right: auto;
+  left: 20px;
+}
+
+.meme-panel.phantom-section .meme-panel__header {
+  justify-content: flex-end;
+}
+
+.meme-panel.phantom-section .meme-panel__header-left {
+  flex-direction: row-reverse;
+}
+
+.meme-panel.phantom-section .meme-panel__body {
+  padding-left: 350px; /* Space for character on left */
+  padding-right: 4rem;
+}
+
 /* Specific responsiveness for Doge flip */
 @media (max-width: 1200px) {
   .meme-panel.doge-section .meme-panel__body {
     padding-left: 200px;
   }
   .meme-panel.metamask-section .meme-panel__body {
+    padding-left: 200px;
+  }
+  .meme-panel.phantom-section .meme-panel__body {
     padding-left: 200px;
   }
 }
@@ -1687,6 +1725,12 @@ h2 {
   .meme-panel.metamask-section .meme-panel__art {
     display: none;
   }
+  .meme-panel.phantom-section .meme-panel__body {
+     padding-left: 30px; /* Reset on mobile */
+  }
+  .meme-panel.phantom-section .meme-panel__art {
+    display: none;
+  }
 }
 
 .uniswap-section .progress-bar__fill {
@@ -1699,6 +1743,10 @@ h2 {
 
 .sushiswap-section .progress-bar__fill {
   background: linear-gradient(90deg, #7888ff, #c61ae7);
+}
+
+.phantom-section .progress-bar__fill {
+  background: linear-gradient(90deg, #ff3aff, #d33aff);
 }
 
 .yeti-section .progress-bar__fill {
