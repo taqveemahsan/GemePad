@@ -3,7 +3,7 @@ import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import { navigate } from '../../navigation'
 import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
-import heroDoge from '../../assets/doge.png'
+import heroDoge from '../../assets/explore/DOGE WORLD_Right_Side.png'
 
 import d1 from '../../assets/dogegames/Frame 64-card1.png'
 import d2 from '../../assets/dogegames/Frame 64-card2.png'
@@ -98,9 +98,9 @@ export default function DogeWorld() {
               <button className="dw-hero__cta" type="button">CREATE YOU OWN DOGE GAME</button>
             </div>
             <div className="dw-hero__right" aria-hidden="true">
-              <img className="dw-hero__side" src={heroDoge} alt="" loading="lazy" decoding="async" />
+              {/* <img className="dw-hero__side" src={heroDoge} alt="" loading="lazy" decoding="async" /> */}
               <img className="dw-hero__main" src={heroDoge} alt="" loading="eager" decoding="async" fetchPriority="high" />
-              <img className="dw-hero__side dw-hero__side--r" src={heroDoge} alt="" loading="lazy" decoding="async" />
+              {/* <img className="dw-hero__side dw-hero__side--r" src={heroDoge} alt="" loading="lazy" decoding="async" /> */}
             </div>
           </div>
         </div>

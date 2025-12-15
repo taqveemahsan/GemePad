@@ -2,10 +2,10 @@ import React, { useCallback, useMemo } from 'react'
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import { navigate } from '../../navigation'
 import Bg01 from '../../assets/herosection/Bg01.png'
-import heroBg from '../../assets/hero.png'
+import heroBg from '../../assets/hero.png' 
 
 // TODO: Replace with real Uniswap hero image when you provide assets
-import heroUniswap from '../../assets/explore/3.png'
+import heroUniswap from '../../assets/explore/UNISWAP WORLD_Right_Side.png'
 
 import g1 from '../../assets/explore/1.png'
 import g2 from '../../assets/explore/2.png'

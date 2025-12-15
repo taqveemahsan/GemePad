@@ -3,7 +3,7 @@ import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import { navigate } from '../../navigation'
 import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
-import heroYeti from '../../assets/yetidyorgames/Mask group (2).png'
+import heroYeti from '../../assets/explore/YETI DYOR WORLD_Right_Side.png'
 
 import y1 from '../../assets/yetidyorgames/Frame 65-card1.png'
 import y2 from '../../assets/yetidyorgames/Frame 65-card2.png'

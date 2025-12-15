@@ -5,7 +5,7 @@ import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
 
 // TODO: Replace with real Metamask hero image when you provide assets
-import heroMetamask from '../../assets/explore/4.png'
+import heroMetamask from '../../assets/explore/METAMASK WORLD_Right_Side.png'
 
 import g1 from '../../assets/explore/1.png'
 import g2 from '../../assets/explore/2.png'

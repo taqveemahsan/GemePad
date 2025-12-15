@@ -3,7 +3,7 @@ import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import { navigate } from '../../navigation'
 import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
-import heroPepe from '../../assets/pepe.png'
+import heroPepe from '../../assets/explore/PEPE WORLD_Right_Side.png'
 import heroSide from '../../assets/explore/7.png'
 
 import g1 from '../../assets/explore/1.png'
@@ -92,9 +92,9 @@ export default function PepeWorld() {
               <button className="pw-hero__cta" type="button">CREATE YOU OWN PEPE GAME</button>
             </div>
             <div className="pw-hero__right" aria-hidden="true">
-              <img className="pw-hero__side" src={heroSide} alt="" loading="lazy" decoding="async" />
+              {/* <img className="pw-hero__side" src={heroSide} alt="" loading="lazy" decoding="async" /> */}
               <img className="pw-hero__main" src={heroPepe} alt="" loading="eager" decoding="async" fetchPriority="high" />
-              <img className="pw-hero__side pw-hero__side--r" src={heroSide} alt="" loading="lazy" decoding="async" />
+              {/* <img className="pw-hero__side pw-hero__side--r" src={heroSide} alt="" loading="lazy" decoding="async" /> */}
             </div>
           </div>
         </div>

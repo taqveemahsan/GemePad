@@ -5,7 +5,7 @@ import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
 
 // TODO: Replace with real Link hero image when you provide assets
-import heroLink from '../../assets/explore/5.png'
+import heroLink from '../../assets/explore/LINK WORLD_Right_Side.png'
 
 import g1 from '../../assets/explore/1.png'
 import g2 from '../../assets/explore/2.png'

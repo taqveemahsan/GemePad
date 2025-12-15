@@ -5,7 +5,7 @@ import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
 
 // TODO: Replace with real Phantom hero image when you provide assets
-import heroPhantom from '../../assets/explore/2.png'
+import heroPhantom from '../../assets/explore/PHANTOM WORLD_Right_Side.png'
 
 import g1 from '../../assets/explore/1.png'
 import g2 from '../../assets/explore/2.png'
@@ -109,9 +109,9 @@ export default function PhantomWorld() {
               </button>
             </div>
             <div className="phw-hero__right" aria-hidden="true">
-              <img className="phw-hero__side" src={heroPhantom} alt="" loading="lazy" decoding="async" />
+              {/* <img className="phw-hero__side" src={heroPhantom} alt="" loading="lazy" decoding="async" /> */}
               <img className="phw-hero__main" src={heroPhantom} alt="" loading="eager" decoding="async" fetchPriority="high" />
-              <img className="phw-hero__side phw-hero__side--r" src={heroPhantom} alt="" loading="lazy" decoding="async" />
+              {/* <img className="phw-hero__side phw-hero__side--r" src={heroPhantom} alt="" loading="lazy" decoding="async" /> */}
             </div>
           </div>
         </div>

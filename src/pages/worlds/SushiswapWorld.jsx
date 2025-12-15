@@ -5,7 +5,7 @@ import Bg01 from '../../assets/herosection/Bg01.png'
 import heroBg from '../../assets/hero.png'
 
 // TODO: Replace with real Sushiswap hero image when you provide assets
-import heroSushiswap from '../../assets/explore/6.png'
+import heroSushiswap from '../../assets/explore/SUSHISWAP WORLD_Ride_Side.png'
 
 import g1 from '../../assets/explore/1.png'
 import g2 from '../../assets/explore/2.png'
