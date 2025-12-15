@@ -129,6 +129,19 @@ export default function GamePage() {
   const game = gameFromApi || gameFromNav;
   const loading = apiLoading && !gameFromNav;
 
+  const gameId = game?.id || game?.gameId || gameIdFromUrl;
+  const telegramMiniAppBaseUrl =
+    import.meta.env?.VITE_TELEGRAM_MINIAPP_URL || "https://t.me/geme_pad_bot/app";
+  const telegramMiniAppUrl = useMemo(() => {
+    try {
+      const url = new URL(telegramMiniAppBaseUrl);
+      if (gameId) url.searchParams.set("startapp", String(gameId));
+      return url.toString();
+    } catch {
+      return telegramMiniAppBaseUrl;
+    }
+  }, [telegramMiniAppBaseUrl, gameId]);
+
   const token = game?.tokens?.[0] || {};
   const gameName = game?.GameName || "Night Hunter";
   const gameImage = game?.GameThumbnail || top1;
@@ -564,19 +577,30 @@ export default function GamePage() {
                 </div>
               )}
               {activeView === 'game' && !isPlaying && (
-                <button
-                  className="gd-play"
-                  type="button"
-                  onClick={() => {
-                    if (loading) return;
-                    if (!embeddedUrl) return;
-                    setIsPlaying(true);
-                  }}
-                  disabled={loading || !embeddedUrl}
-                  style={{ opacity: loading || !embeddedUrl ? 0.5 : 1 }}
-                >
-                  {loading ? "LOADING..." : "PLAY GAME"}
-                </button>
+                <div className="gd-play-actions">
+                  <button
+                    className="gd-play gd-play--primary"
+                    type="button"
+                    onClick={() => {
+                      if (loading) return;
+                      if (!embeddedUrl) return;
+                      setIsPlaying(true);
+                    }}
+                    disabled={loading || !embeddedUrl}
+                    style={{ opacity: loading || !embeddedUrl ? 0.5 : 1 }}
+                  >
+                    {loading ? "LOADING..." : "PLAY HERE"}
+                  </button>
+                  <button
+                    className="gd-play gd-play--telegram"
+                    type="button"
+                    onClick={() => window.open(telegramMiniAppUrl, "_blank", "noopener,noreferrer")}
+                    disabled={loading || !gameId}
+                    style={{ opacity: loading || !gameId ? 0.5 : 1 }}
+                  >
+                    PLAY IN TELEGRAM
+                  </button>
+                </div>
               )}
             </div>
           </section>

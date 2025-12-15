@@ -51,7 +51,7 @@ export default function Header() {
         <button
           className="btn-telegram"
           type="button"
-          onClick={() => window.open('https://t.me/geme_pad_bot/app', '_blank')}
+          onClick={() => window.open('https://t.me/gemepad_bot/gemepad', '_blank')}
         >
           OPEN IN TELEGRAM
         </button>
@@ -96,7 +96,7 @@ export default function Header() {
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
-            
+
             {/* Search Bar in Mobile Menu */}
             <div className="mobile-search">
               <svg
@@ -116,9 +116,9 @@ export default function Header() {
             </div>
 
             {/* GEME World Button */}
-            <button 
-              className="mobile-btn-p2e" 
-              type="button" 
+            <button
+              className="mobile-btn-p2e"
+              type="button"
               onClick={() => {
                 navigate('/explore')
                 closeMenu()

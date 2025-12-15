@@ -231,14 +231,20 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   transform: translateY(1px);
 }
 
-.gd-play {
+.gd-play-actions {
   position: absolute;
   left: 50%;
   bottom: 26px;
   transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 2;
+}
+
+.gd-play {
   border: none;
   border-radius: 999px;
-  padding: 14px 54px;
+  padding: 14px 34px;
   font-weight: 800;
   letter-spacing: 0.06em;
   font-size: 14px;
@@ -246,7 +252,15 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   cursor: pointer;
   background: linear-gradient(90deg, #c433ff, #ff3aff);
   box-shadow: 0 0 22px rgba(211, 58, 255, 0.5);
-  z-index: 2;
+}
+
+.gd-play--telegram {
+  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  box-shadow: 0 0 18px rgba(36, 161, 222, 0.4);
+}
+
+.gd-play:disabled {
+  cursor: not-allowed;
 }
 
 .gd-right {
