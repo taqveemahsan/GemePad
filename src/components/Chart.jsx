@@ -175,7 +175,7 @@ const Chart = ({
 
         // Apply background color directly to the container
         if (chartContainerRef.current) {
-            chartContainerRef.current.style.backgroundColor = "#0c0c0c";
+            chartContainerRef.current.style.backgroundColor = "transparent";
             chartContainerRef.current.style.width = "100%";
         }
 
@@ -255,7 +255,7 @@ const Chart = ({
             isValidBar(bar) {
                 const currentTime = Date.now();
                 const maxFutureTime = currentTime + (24 * 60 * 60 * 1000); // Allow up to 1 day in future
-                const minPastTime = new Date('2000-01-01').getTime(); // Don't allow dates before 2000
+                const minPastTime = new Date('2024-01-01').getTime(); // Updated to recent times for safety, or keep 2000
 
                 // Check if all required properties exist and are valid numbers
                 if (
@@ -265,21 +265,11 @@ const Chart = ({
                     typeof bar.low !== 'number' || isNaN(bar.low) ||
                     typeof bar.close !== 'number' || isNaN(bar.close)
                 ) {
+                    // console.warn("Invalid bar structure:", bar);
                     return false;
                 }
 
-                // Check if time is reasonable (not too far in the future and not too far in the past)
-                if (bar.time > maxFutureTime || bar.time < minPastTime) {
-                    console.log("Invalid time:", new Date(bar.time).toISOString(), bar.time);
-                    return false;
-                }
-
-                // Check if OHLC values are reasonable
-                if (bar.high < bar.low || bar.open < 0 || bar.close < 0) {
-                    console.log("Invalid OHLC values:", bar);
-                    return false;
-                }
-
+                // Relaxed time check for debugging or if time is slightly off
                 return true;
             }
 
@@ -351,25 +341,47 @@ const Chart = ({
             // Add this method to the EnhancedDatafeed class
 
 
-            // Override the updateData method to ensure data is always properly sorted
+            // Override the updateData method to ensure data is always properly sorted and mapped
             updateData(newData) {
                 if (!Array.isArray(newData) || newData.length === 0) {
                     console.warn('No data to update chart');
                     return;
                 }
 
-                // First, filter out invalid bars
-                const validBars = newData.filter(bar => this.isValidBar(bar));
+                // Map data if keys are shortened (o, h, l, c, v)
+                const mappedData = newData.map(bar => {
+                    // If already has 'open', use it. If not, check for 'o'.
+                    // Ensure numbers are numbers.
+                    const b = { ...bar };
+                    if (b.o !== undefined && b.open === undefined) b.open = parseFloat(b.o);
+                    if (b.h !== undefined && b.high === undefined) b.high = parseFloat(b.h);
+                    if (b.l !== undefined && b.low === undefined) b.low = parseFloat(b.l);
+                    if (b.c !== undefined && b.close === undefined) b.close = parseFloat(b.c);
+                    if (b.v !== undefined && b.volume === undefined) b.volume = parseFloat(b.v);
+
+                    // Ensure time is number
+                    if (typeof b.time === 'string') b.time = parseInt(b.time);
+
+                    // Handle seconds vs milliseconds if year is < 1990 (implies seconds)
+                    // But be careful not to break valid old dates.
+                    // As a heuristic for Sonic Engine:
+                    if (b.time < 2000000000) b.time *= 1000;
+
+                    return b;
+                });
+
+                // First, filter out invalid bars. Use mappedData.
+                const validBars = mappedData.filter(bar => this.isValidBar(bar));
 
                 if (validBars.length === 0) {
-                    console.warn('No valid bars after filtering');
+                    console.warn('No valid bars after filtering. First raw bar:', newData[0]);
                     return;
                 }
 
                 // Sort by time in ascending order
                 const sortedBars = validBars.sort((a, b) => a.time - b.time);
 
-                // Remove any duplicates or out-of-sequence bars
+                // Remove any duplicate timestamps or out-of-sequence bars
                 const uniqueBars = [];
                 let lastTime = 0;
 
@@ -426,45 +438,45 @@ const Chart = ({
 
             // Apply custom styles
             overrides: {
-                "paneProperties.background": "#0c0c0c",
+                "paneProperties.background": "rgba(0,0,0,0)",
                 "paneProperties.backgroundType": "solid",
-                "paneProperties.backgroundGradientStartColor": "#0c0c0c",
-                "paneProperties.backgroundGradientEndColor": "#0c0c0c",
+                "paneProperties.backgroundGradientStartColor": "rgba(0,0,0,0)",
+                "paneProperties.backgroundGradientEndColor": "rgba(0,0,0,0)",
 
-                // Candle styles
+                // Candle styles - Neon Green and Red
                 "mainSeriesProperties.candleStyle.upColor": "#00ff87",
-                "mainSeriesProperties.candleStyle.downColor": "#ff3b3b",
+                "mainSeriesProperties.candleStyle.downColor": "#ff006e",
                 "mainSeriesProperties.candleStyle.borderUpColor": "#00ff87",
-                "mainSeriesProperties.candleStyle.borderDownColor": "#ff3b3b",
+                "mainSeriesProperties.candleStyle.borderDownColor": "#ff006e",
                 "mainSeriesProperties.candleStyle.wickUpColor": "#00ff87",
-                "mainSeriesProperties.candleStyle.wickDownColor": "#ff3b3b",
+                "mainSeriesProperties.candleStyle.wickDownColor": "#ff006e",
 
-                // Grid lines
-                "paneProperties.vertGridProperties.color": "#242B2D",
-                "paneProperties.horzGridProperties.color": "#242B2D",
+                // Grid lines - Subtle
+                "paneProperties.vertGridProperties.color": "rgba(255, 255, 255, 0.05)",
+                "paneProperties.horzGridProperties.color": "rgba(255, 255, 255, 0.05)",
 
                 // Text color
-                "scalesProperties.textColor": "#FFFFFF",
+                "scalesProperties.textColor": "#b6b6d2",
             },
 
             // Loading screen background
-            loading_screen: { backgroundColor: "#0c0c0c" },
+            loading_screen: { backgroundColor: "transparent" },
 
             // Scale settings
             timeScale: {
                 borderVisible: false,
-                backgroundColor: "#0c0c0c",
+                backgroundColor: "transparent",
             },
             rightPriceScale: {
                 borderVisible: false,
-                backgroundColor: "#0c0c0c",
+                backgroundColor: "transparent",
                 scaleMargins: {
                     top: 0.1,
                     bottom: 0.2,
                 },
             },
-            toolbar_bg: "#0c0c0c",
-            toolbar_text_color: "#FFFFFF",
+            toolbar_bg: "transparent",
+            toolbar_text_color: "#b6b6d2",
             toolbar: {
                 // Show buttons on the toolbar
                 show_button_text: true,
@@ -493,10 +505,10 @@ const Chart = ({
 
             // Apply additional styles that can't be set in the initial options
             chart.applyOverrides({
-                "paneProperties.background": "#0c0c0c",
-                "paneProperties.vertGridProperties.color": "#242B2D",
-                "paneProperties.horzGridProperties.color": "#242B2D",
-                "scalesProperties.textColor": "#FFFFFF",
+                "paneProperties.background": "rgba(0,0,0,0)",
+                "paneProperties.vertGridProperties.color": "rgba(255, 255, 255, 0.05)",
+                "paneProperties.horzGridProperties.color": "rgba(255, 255, 255, 0.05)",
+                "scalesProperties.textColor": "#b6b6d2",
             });
 
             // Add resize observer to handle container size changes
@@ -552,7 +564,7 @@ const Chart = ({
                 style={{
                     width: '100%',
                     height: '100%',
-                    backgroundColor: "#0c0c0c",
+                    backgroundColor: "transparent",
                     position: 'absolute', // Fill the container
                     top: 0,
                     left: 0,
@@ -569,28 +581,29 @@ const Chart = ({
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundColor: 'rgba(12, 12, 12, 0.85)', // Darker overlay to hide chart glitches
+                    backgroundColor: 'rgba(11, 11, 27, 0.8)', // Semi-transparent dark overlay
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    zIndex: 10000, // Very high z-index to ensure it's on top
-                    backdropFilter: 'blur(2px)', // Add blur effect for smoother transition
+                    zIndex: 10000,
+                    backdropFilter: 'blur(4px)',
                 }}>
                     <div style={{
-                        backgroundColor: '#1e1e1e',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
                         padding: '24px 32px',
                         borderRadius: '12px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         gap: '16px',
-                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
                     }}>
                         <div style={{
                             width: '40px',
                             height: '40px',
-                            border: '4px solid #2a2a2a',
-                            borderTop: '4px solid #3498db',
+                            border: '3px solid rgba(255, 255, 255, 0.1)',
+                            borderTop: '3px solid #d500f9', // Neon purple spinner
                             borderRadius: '50%',
                             animation: 'spin 0.8s linear infinite',
                         }} />

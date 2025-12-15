@@ -253,9 +253,9 @@ export default function GamePage() {
           </div>
 
           <div className="nav-right">
-            <button className="btn-p2e" type="button">
-              PLAY TO EARN
-            </button>
+            <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>
+                      GEME WORLD
+                    </button>
             <button className="btn-connect" type="button" onClick={() => tonConnectUI.openModal()}>
               {connectLabel}
             </button>
