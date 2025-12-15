@@ -1971,16 +1971,30 @@ h2 {
 }
 
 /* New Footer Design */
-.footer {
-  background: linear-gradient(180deg, rgba(11, 11, 27, 0.95), rgba(5, 5, 15, 0.98));
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 60px 40px 24px;
+.footer-section {
+  /* Background image is applied via inline style in React */
+  background-size: cover;
+  background-position: center;
+  /* Removed the dark gradient/background here as it's now on the inner container */
+  /* background: linear-gradient(180deg, rgba(11, 11, 27, 0.95), rgba(5, 5, 15, 0.98)); */
+  
+  /* Space outside for the floating effect */
+  padding: 1rem 2rem 2rem;
   margin-top: 80px;
 }
 
-.footer__container {
-  max-width: 1400px;
+.footer-inner {
+  /* The dark card look */
+  background: linear-gradient(180deg, rgba(11, 11, 27, 0.98), rgba(5, 5, 15, 0.99));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 40px; /* Medium rounded */
+  padding: 60px 40px 24px;
+  width: 98%; /* Match other sections like .meme-panel */
   margin: 0 auto;
+}
+
+.footer__container {
+  /* max-width handled by footer-inner now, but keeping grid layout */
   display: grid;
   grid-template-columns: 1.5fr 2fr;
   gap: 80px;
@@ -2072,7 +2086,7 @@ h2 {
 }
 
 .footer__bottom {
-  max-width: 1400px;
+  /* max-width: 1400px; handled by footer-inner */
   margin: 0 auto;
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -2122,8 +2136,15 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .footer {
+  /* Adjust outer section padding */
+  .footer-section {
+    padding: 24px 16px;
+  }
+
+  /* Adjust inner container padding and radius */
+  .footer-inner {
     padding: 40px 24px 20px;
+    border-radius: 24px;
   }
 
   .footer__container {
@@ -2146,6 +2167,7 @@ h2 {
     gap: 12px;
   }
 }
+
 
 @media (max-width: 1200px) {
   .hero__frame {
