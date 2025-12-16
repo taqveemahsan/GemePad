@@ -20,70 +20,70 @@ const worldsData = [
     {
         id: 'general',
         title: 'GENERAL WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#FFFFFF',
         image: generalWorld
     },
     {
         id: 'rocky',
         title: 'ROCKY RABBIT GAMES',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#00D1FF', // Cyan Blue
         image: card1
     },
     {
         id: 'phantom',
         title: 'PHANTOM WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#FF69B4', // Hot Pink
         image: card2
     },
     {
         id: 'uniswap',
         title: 'UNISWAP WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#00D1FF', // Cyan
         image: card3
     },
     {
         id: 'metamask',
         title: 'METAMASK WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#FF8800', // Orange
         image: card4
     },
     {
         id: 'link',
         title: 'LINK WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#00A3FF', // Light Blue
         image: card5
     },
     {
         id: 'sushiswap',
         title: 'SUSHISWAP',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#00D1FF', // Cyan
         image: card6
     },
     {
         id: 'pepe',
         title: 'PEPE WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#3EF4C0', // Green
         image: card7
     },
     {
         id: 'doge',
         title: 'DOGE WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#FFBF00', // Gold/Orange
         image: card8
     },
     {
         id: 'yeti',
         title: 'YETI WORLD',
-        description: 'Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id ia',
+        description: '',
         color: '#3EF4C0', // Greenish Cyan
         image: card9
     },

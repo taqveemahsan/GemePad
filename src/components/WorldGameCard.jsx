@@ -17,7 +17,7 @@ export default function WorldGameCard({
     >
       <div className="world-card__media">
         <img src={game.img} alt={game.title} loading="lazy" decoding="async" />
-        <div className="world-card__badge">{game.playCount ? `${game.playCount} Played` : '12k Played'}</div>
+        <div className="world-card__badge">{game.playCount ? `${game.playCount} Played` : '0 Played'}</div>
       </div>
       <div className="world-card__body">
         <div className="world-card__title">{game.title}</div>

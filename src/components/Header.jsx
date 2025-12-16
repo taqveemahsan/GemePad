@@ -187,8 +187,9 @@ export default function Header() {
             type="button"
             onClick={() => window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')}
             aria-label="Open in Telegram"
+            style={{ fontSize: '8px' }}
           >
-            TELEGRAM
+            Telegram bot
           </button>
         )}
         <button

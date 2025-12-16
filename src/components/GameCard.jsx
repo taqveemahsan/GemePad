@@ -21,7 +21,7 @@ export default React.memo(function GameCard({
           decoding="async"
           fetchPriority={imgFetchPriority}
         />
-        <div className="badge">{playCount ? `${playCount} Played` : '12k Played'}</div>
+        <div className="badge">{playCount ? `${playCount} Played` : '0 Played'}</div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>

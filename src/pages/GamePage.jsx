@@ -101,6 +101,7 @@ export default function GamePage() {
     totalSupply: null,
   });
   const tokenWsRef = useRef(null);
+  const [copiedAddress, setCopiedAddress] = useState(false);
 
 
   // Get game ID from URL query params
@@ -701,14 +702,71 @@ export default function GamePage() {
                     <StatRow label="FDV:" value={formatCurrency(liveTokenData.fdv)} />
                   )}
                   {token.mintPublicKey && (
-                    <StatRow
-                      label="Contract address:"
-                      value={`${token.mintPublicKey.slice(
-                        0,
-                        6
-                      )}...${token.mintPublicKey.slice(-6)}`}
-                      link
-                    />
+                    <div className="gd-stat">
+                      <span className="gd-stat__label">Contract address:</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <a
+                          className="gd-stat__value gd-link"
+                          href={`https://dexscreener.com/${token.chain?.toLowerCase() || 'ton'}/${token.mintPublicKey}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {`${token.mintPublicKey.slice(0, 6)}...${token.mintPublicKey.slice(-6)}`}
+                        </a>
+                        <div style={{ position: 'relative' }}>
+                          <svg
+                            onClick={() => {
+                              navigator.clipboard.writeText(token.mintPublicKey);
+                              setCopiedAddress(true);
+                              setTimeout(() => setCopiedAddress(false), 2000);
+                            }}
+                            style={{ cursor: 'pointer', minWidth: '16px' }}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M13.3333 6H7.33333C6.59695 6 6 6.59695 6 7.33333V13.3333C6 14.0697 6.59695 14.6667 7.33333 14.6667H13.3333C14.0697 14.6667 14.6667 14.0697 14.6667 13.3333V7.33333C14.6667 6.59695 14.0697 6 13.3333 6Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M3.33333 10H2.66667C2.31305 10 1.97391 9.85952 1.72386 9.60947C1.47381 9.35943 1.33333 9.02029 1.33333 8.66667V2.66667C1.33333 2.31305 1.47381 1.97391 1.72386 1.72386C1.97391 1.47381 2.31305 1.33333 2.66667 1.33333H8.66667C9.02029 1.33333 9.35943 1.47381 9.60948 1.72386C9.85952 1.97391 10 2.31305 10 2.66667V3.33333"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          {copiedAddress && (
+                            <div
+                              style={{
+                                position: 'absolute',
+                                bottom: '100%',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                marginBottom: '8px',
+                                padding: '4px 8px',
+                                background: '#10b981',
+                                color: 'white',
+                                borderRadius: '4px',
+                                fontSize: '12px',
+                                whiteSpace: 'nowrap',
+                                zIndex: 1000,
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                              }}
+                            >
+                              Copied!
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   )}
                   {token.chain && (
                     <StatRow label="Chain:" value={token.chain.toUpperCase()} />

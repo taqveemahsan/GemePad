@@ -83,7 +83,7 @@ export const worldsData = {
     id: "general",
     title: "GENERAL WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN GENERAL GAME",
     heroImage: heroGeneral,
     theme: "general",
@@ -101,7 +101,7 @@ export const worldsData = {
     id: "rocky",
     title: "ROCKY RABBIT WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN ROCKY GAME",
     heroImage: heroRocky,
     theme: "rocky",
@@ -120,7 +120,7 @@ export const worldsData = {
     id: "pepe",
     title: "PEPE WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN PEPE GAME",
     heroImage: heroPepe,
     theme: "pepe",
@@ -138,7 +138,7 @@ export const worldsData = {
     id: "doge",
     title: "DOGE WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN DOGE GAME",
     heroImage: heroDoge,
     theme: "doge",
@@ -155,7 +155,7 @@ export const worldsData = {
     id: "uniswap",
     title: "UNISWAP WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN UNISWAP GAME",
     heroImage: heroUniswap,
     theme: "uniswap",
@@ -173,7 +173,7 @@ export const worldsData = {
     id: "metamask",
     title: "METAMASK WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN METAMASK GAME",
     heroImage: heroMetamask,
     theme: "metamask",
@@ -191,7 +191,7 @@ export const worldsData = {
     id: "sushiswap",
     title: "SUSHISWAP WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN SUSHISWAP GAME",
     heroImage: heroSushiswap,
     theme: "sushiswap",
@@ -209,7 +209,7 @@ export const worldsData = {
     id: "phantom",
     title: "PHANTOM WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN PHANTOM GAME",
     heroImage: heroPhantom,
     theme: "phantom",
@@ -227,7 +227,7 @@ export const worldsData = {
     id: "link",
     title: "LINK WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN LINK GAME",
     heroImage: heroLink,
     theme: "link",
@@ -245,7 +245,7 @@ export const worldsData = {
     id: "yeti",
     title: "YETI WORLD",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Pulvinar egestas nec et egestas eu odio amet iaculis auctor. Rutrum sit aliquam id iaculis morbi quis ut enim.",
+      "",
     ctaText: "CREATE YOU OWN YETI GAME",
     heroImage: heroYeti,
     theme: "yeti",
