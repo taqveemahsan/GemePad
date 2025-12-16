@@ -326,9 +326,9 @@ const LeaderboardSection = React.memo(function LeaderboardSection({ footerBg, ga
         <h2 className="leaderboard-title">
           LEADER<span className="text-purple">BOARD</span>
         </h2>
-        {/* <p className="leaderboard-description">
+        <p className="leaderboard-description">
           Lorem ipsum dolor sit amet consectetur. Tellus magna habitant eleifend velit odio sem. Arcu neque nibh vitae eu et feugiat vel a nullam.
-        </p> */}
+        </p>
       </div>
 
       <div
