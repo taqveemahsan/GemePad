@@ -8,7 +8,8 @@ export default React.memo(function GameCard({
   onClick,
   playCount,
   imgLoading = 'lazy',
-  imgFetchPriority
+  imgFetchPriority,
+  isComingSoon = false
 }) {
   return (
     <div className="game-card">
@@ -44,8 +45,14 @@ export default React.memo(function GameCard({
           </div>
         </div>
 
-        <button className="btn-play" type="button" onClick={onClick}>
-          ▶ PLAY
+        <button
+          className="btn-play"
+          type="button"
+          onClick={onClick}
+          disabled={isComingSoon}
+          style={isComingSoon ? { opacity: 0.7, cursor: 'not-allowed', background: '#333', boxShadow: 'none' } : {}}
+        >
+          {isComingSoon ? 'COMING SOON' : '▶ PLAY'}
         </button>
       </div>
 
@@ -143,8 +150,13 @@ export default React.memo(function GameCard({
           border-radius: 0 999px 999px 0;
           border-left-width: 0.5px;
         }
+
         .btn-sell:hover {
           background: rgba(239, 68, 68, 0.1);
+        }
+
+        .btn-play {
+          margin-top: auto;
         }
 
         /* Responsive adjustments for narrow cards */

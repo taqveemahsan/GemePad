@@ -78,6 +78,7 @@ const memeSections = [
     mobileHeroImg: threeHorses,
     cards: [uniCard1, uniCard2, uniCard3, uniCard4, uniCard5],
     glow: 'rgba(104, 210, 255, 0.35)',
+    viewAllRoute: '/world/uniswap',
   },
   {
     id: 'metamask',
@@ -89,6 +90,7 @@ const memeSections = [
     mobileHeroImg: threeMetamask,
     cards: [metaCard1, metaCard2, metaCard3, metaCard4, metaCard5],
     glow: 'rgba(255, 133, 33, 0.35)',
+    viewAllRoute: '/world/metamask',
   },
   {
     id: 'sushiswap',
@@ -100,6 +102,7 @@ const memeSections = [
     mobileHeroImg: threeSushiSwamp,
     cards: [sushiCard1, sushiCard2, sushiCard3, sushiCard4, sushiCard5],
     glow: 'rgba(120, 136, 255, 0.35)',
+    viewAllRoute: '/world/sushiswap',
   },
   {
     id: 'phantom',
@@ -111,16 +114,19 @@ const memeSections = [
     mobileHeroImg: threePhantom,
     cards: [phantomCard1, phantomCard2, phantomCard3, phantomCard4, phantomCard5], // Repeating for scroll
     glow: 'rgba(255, 58, 255, 0.35)',
+    viewAllRoute: '/world/phantom',
   },
   {
     id: 'pepe',
     theme: 'pepe',
     label: 'Pepe Games',
-    titleImg: pepeTitle,
+    titleText: 'PEPE GAMES',
+    titleImg: null,
     heroImg: pepeHero,
     mobileHeroImg: threePepe,
     cards: [pepeCard1, pepeCard2, pepeCard3, pepeCard4, pepeCard5],
     glow: 'rgba(62, 244, 192, 0.4)',
+    viewAllRoute: '/world/pepe',
   },
 
 ]
@@ -245,7 +251,6 @@ const MemeSection = React.memo(function MemeSection({ section }) {
                 ) : (
                   <h2 className={`meme-title-text meme-title-text--${section.theme}`}>{section.titleText || section.label}</h2>
                 )}
-                <button className="meme-panel__view-all">View all ›</button>
               </div>
             </div>
             <div className="meme-panel__cards">
@@ -259,8 +264,15 @@ const MemeSection = React.memo(function MemeSection({ section }) {
                   playCount={null}
                   imgLoading="lazy"
                   onClick={() => handleStaticGameClick(card, idx)}
+                  isComingSoon={true}
                 />
               ))}
+            </div>
+            <div className="meme-panel__view-row desktop-only">
+              <button className="meme-panel__view-all" onClick={() => navigate(section.viewAllRoute)}>View all ›</button>
+            </div>
+            <div className="meme-panel__mobile-footer mobile-only">
+              <button className="meme-panel__view-all" onClick={() => navigate(section.viewAllRoute)}>View all ➜</button>
             </div>
             <div className="meme-panel__progress">
               <div className="progress-bar">
@@ -273,7 +285,7 @@ const MemeSection = React.memo(function MemeSection({ section }) {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   )
 })
 
@@ -339,7 +351,7 @@ export default function App() {
                 <img src={heroTitleImg} alt="GEMEPAD" className="hero-title-img" decoding="async" fetchPriority="high" />
               </div>
               <div className="hero__cta-container">
-                <button className="btn-cta-main">
+                <button className="btn-cta-main" onClick={() => window.location.href = 'https://editor.gemepad.fun/'}>
                   MAKE A GAME IN 5 MIN
                   <span className="sub-text">DEPLOY ON TON, PLAY ON TELEGRAM</span>
                 </button>
