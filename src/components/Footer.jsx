@@ -98,7 +98,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="footer__columns">
+          {/* Footer Links Section */}
+
+          {/* <div className="footer__columns">
             <div className="footer__column">
               <h3 className="footer__column-title">Sections</h3>
               <ul className="footer__links">
@@ -143,7 +145,7 @@ export default function Footer() {
                 </li>
               </ul>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="footer__bottom">
