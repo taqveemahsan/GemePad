@@ -1,49 +1,54 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { navigate } from '../navigation'
-import WalletConnectButton from './WalletConnectButton'
+import React, { useEffect, useRef, useState } from "react";
+import { navigate } from "../navigation";
+import WalletConnectButton from "./WalletConnectButton";
 
 export default function Header() {
-  const [isOpenMenuOpen, setIsOpenMenuOpen] = useState(false)
-  const openMenuRef = useRef(null)
+  const [isOpenMenuOpen, setIsOpenMenuOpen] = useState(false);
+  const openMenuRef = useRef(null);
 
-  const isInsideTelegram = Boolean(window?.Telegram?.WebApp) || /Telegram/i.test(navigator.userAgent)
+  const isInsideTelegram =
+    Boolean(window?.Telegram?.WebApp) || /Telegram/i.test(navigator.userAgent);
 
   useEffect(() => {
-    if (!isOpenMenuOpen) return
+    if (!isOpenMenuOpen) return;
 
     const onPointerDown = (e) => {
-      const root = openMenuRef.current
-      if (!root) return
-      if (root.contains(e.target)) return
-      setIsOpenMenuOpen(false)
-    }
+      const root = openMenuRef.current;
+      if (!root) return;
+      if (root.contains(e.target)) return;
+      setIsOpenMenuOpen(false);
+    };
 
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setIsOpenMenuOpen(false)
-    }
+      if (e.key === "Escape") setIsOpenMenuOpen(false);
+    };
 
-    document.addEventListener('mousedown', onPointerDown)
-    document.addEventListener('touchstart', onPointerDown, { passive: true })
-    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, { passive: true });
+    document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener('mousedown', onPointerDown)
-      document.removeEventListener('touchstart', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [isOpenMenuOpen])
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpenMenuOpen]);
 
   return (
     <div className="hero__topbar">
       {/* Left Group */}
       <div className="nav-left">
-        <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-          <span className="logo__full">GEMEPAD.FUN</span>
-          <span className="logo__short">GEMEPAD</span>
+        <div
+          className="logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        >
+          <span className="logo__full">GAMEPAD.WORLD</span>
+          <span className="logo__short">GAMEPAD</span>
         </div>
         <button
           className="btn-create"
           type="button"
-          onClick={() => window.open('https://editor.gemepad.fun/', '_blank')}
+          onClick={() => window.open("https://editor.gamepad.world/", "_blank")}
         >
           CREATE GAME
         </button>
@@ -69,8 +74,12 @@ export default function Header() {
 
       {/* Right Group */}
       <div className="nav-right">
-        <button className="btn-p2e" type="button" onClick={() => navigate('/explore')}>
-          GEME WORLD
+        <button
+          className="btn-p2e"
+          type="button"
+          onClick={() => navigate("/explore")}
+        >
+          GAME WORLD
         </button>
         <WalletConnectButton className="btn-connect" />
         <div className="open-menu" ref={openMenuRef}>
@@ -97,14 +106,22 @@ export default function Header() {
             </svg>
           </button>
           {isOpenMenuOpen && (
-            <div className="open-menu__dropdown" role="menu" aria-label="Open in">
+            <div
+              className="open-menu__dropdown"
+              role="menu"
+              aria-label="Open in"
+            >
               <button
                 className="open-menu__item"
                 type="button"
                 role="menuitem"
                 onClick={() => {
-                  setIsOpenMenuOpen(false)
-                  window.open('https://editor.gemepad.fun/', '_blank', 'noopener,noreferrer')
+                  setIsOpenMenuOpen(false);
+                  window.open(
+                    "https://editor.gamepad.world/",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
                 }}
               >
                 <svg
@@ -132,8 +149,12 @@ export default function Header() {
                   type="button"
                   role="menuitem"
                   onClick={() => {
-                    setIsOpenMenuOpen(false)
-                    window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')
+                    setIsOpenMenuOpen(false);
+                    window.open(
+                      "https://t.me/gamepadworld_bot/gamepad",
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
                   }}
                 >
                   <svg
@@ -161,12 +182,21 @@ export default function Header() {
 
       {/* Mobile Quick Actions */}
       <div className="mobile-actions" aria-label="Quick actions">
-        <WalletConnectButton className="btn-connect mobile-btn--small" disconnectedLabel="CONNECT" />
+        <WalletConnectButton
+          className="btn-connect mobile-btn--small"
+          disconnectedLabel="CONNECT"
+        />
         {!isInsideTelegram && (
           <button
             className="btn-telegram mobile-btn--small"
             type="button"
-            onClick={() => window.open('https://t.me/gemepad_bot/gemepad', '_blank', 'noopener,noreferrer')}
+            onClick={() =>
+              window.open(
+                "https://t.me/gamepadworld_bot/gamepad",
+                "_blank",
+                "noopener,noreferrer"
+              )
+            }
             aria-label="Open in Telegram"
           >
             TELEGRAM
@@ -175,12 +205,12 @@ export default function Header() {
         <button
           className="btn-p2e mobile-btn--small"
           type="button"
-          onClick={() => navigate('/explore')}
-          aria-label="GEME WORLD"
+          onClick={() => navigate("/explore")}
+          aria-label="GAME WORLD"
         >
           WORLD
         </button>
       </div>
     </div>
-  )
+  );
 }

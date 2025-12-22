@@ -9,7 +9,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -65,7 +64,9 @@ h6,
 .btn-cta-main,
 .btn-play,
 .btn-explore-worlds,
-button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__view-all),
+button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(
+    .meme-panel__view-all
+  ),
 .nav-left .logo,
 .section-title,
 .eyebrow,
@@ -91,7 +92,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   pointer-events: none;
 }
 
-.page> :not(.page__bg-container):not(.hero__topbar) {
+.page > :not(.page__bg-container):not(.hero__topbar) {
   position: relative;
   z-index: 1;
 }
@@ -139,12 +140,14 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   height: 100%;
   isolation: isolate;
   --cut: 35px;
-  clip-path: polygon(var(--cut) 0%,
-      100% 0%,
-      100% calc(100% - var(--cut)),
-      calc(100% - var(--cut)) 100%,
-      0% 100%,
-      0% var(--cut));
+  clip-path: polygon(
+    var(--cut) 0%,
+    100% 0%,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0% 100%,
+    0% var(--cut)
+  );
 }
 
 .gd-frame::before,
@@ -157,22 +160,28 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 
 .gd-frame::before {
   inset: 0;
-  background: linear-gradient(135deg,
-      rgba(255, 58, 255, 1),
-      rgba(169, 75, 255, 1),
-      rgba(255, 58, 255, 1));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 58, 255, 1),
+    rgba(169, 75, 255, 1),
+    rgba(255, 58, 255, 1)
+  );
   filter: drop-shadow(0 0 18px rgba(255, 77, 238, 0.55));
   z-index: 0;
 }
 
 .gd-frame::after {
   inset: 2px;
-  background: radial-gradient(1200px 600px at 20% 10%,
+  background: radial-gradient(
+      1200px 600px at 20% 10%,
       rgba(255, 76, 226, 0.08),
-      transparent 55%),
-    radial-gradient(900px 500px at 85% 20%,
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 500px at 85% 20%,
       rgba(120, 58, 255, 0.1),
-      transparent 55%),
+      transparent 55%
+    ),
     linear-gradient(180deg, rgba(20, 20, 55, 0.94), rgba(20, 20, 55, 0.84));
   opacity: 1;
   z-index: 1;
@@ -254,7 +263,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .gd-play--telegram {
-  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  background: linear-gradient(90deg, #24a1de, #66b5e6);
   box-shadow: 0 0 18px rgba(36, 161, 222, 0.4);
 }
 
@@ -279,12 +288,14 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   overflow: hidden;
   isolation: isolate;
   --cut: 35px;
-  clip-path: polygon(var(--cut) 0%,
-      100% 0%,
-      100% calc(100% - var(--cut)),
-      calc(100% - var(--cut)) 100%,
-      0% 100%,
-      0% var(--cut));
+  clip-path: polygon(
+    var(--cut) 0%,
+    100% 0%,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0% 100%,
+    0% var(--cut)
+  );
 }
 
 .gd-panel::before,
@@ -297,22 +308,28 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 
 .gd-panel::before {
   inset: 0;
-  background: linear-gradient(135deg,
-      rgba(255, 58, 255, 1),
-      rgba(169, 75, 255, 1),
-      rgba(255, 58, 255, 1));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 58, 255, 1),
+    rgba(169, 75, 255, 1),
+    rgba(255, 58, 255, 1)
+  );
   filter: drop-shadow(0 0 16px rgba(255, 77, 238, 0.45));
   z-index: 0;
 }
 
 .gd-panel::after {
   inset: 2px;
-  background: radial-gradient(800px 500px at 30% 10%,
+  background: radial-gradient(
+      800px 500px at 30% 10%,
       rgba(255, 76, 226, 0.08),
-      transparent 55%),
-    radial-gradient(700px 450px at 85% 25%,
+      transparent 55%
+    ),
+    radial-gradient(
+      700px 450px at 85% 25%,
       rgba(120, 58, 255, 0.1),
-      transparent 55%),
+      transparent 55%
+    ),
     linear-gradient(180deg, rgba(20, 20, 55, 0.95), rgba(20, 20, 55, 0.86));
   opacity: 1;
   z-index: 1;
@@ -350,9 +367,11 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg,
-      rgba(255, 58, 255, 0.85),
-      rgba(120, 58, 255, 0.85));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 58, 255, 0.85),
+    rgba(120, 58, 255, 0.85)
+  );
   box-shadow: 0 0 18px rgba(211, 58, 255, 0.35);
 }
 
@@ -943,7 +962,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .btn-telegram {
-  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  background: linear-gradient(90deg, #24a1de, #66b5e6);
   /* Telegram Blue gradient */
   color: white;
   border: none;
@@ -953,7 +972,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   font-size: 11px;
   cursor: pointer;
   box-shadow: 0 0 18px rgba(36, 161, 222, 0.4);
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   letter-spacing: 1px;
 }
 
@@ -962,7 +981,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .btn-open {
-  background: linear-gradient(90deg, #24A1DE, #66b5e6);
+  background: linear-gradient(90deg, #24a1de, #66b5e6);
   color: white;
   border: none;
   border-radius: 999px;
@@ -971,7 +990,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   font-size: 11px;
   cursor: pointer;
   box-shadow: 0 0 18px rgba(36, 161, 222, 0.35);
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
@@ -990,7 +1009,11 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   min-width: 200px;
   padding: 8px;
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(9, 9, 20, 0.98), rgba(5, 5, 14, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 20, 0.98),
+    rgba(5, 5, 14, 0.98)
+  );
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(10px);
@@ -999,7 +1022,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
 }
 
 .open-menu__title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-weight: 800;
   font-size: 9px;
   letter-spacing: 0.08em;
@@ -1016,7 +1039,7 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   gap: 10px;
   padding: 9px 10px;
   border-radius: 12px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-weight: 900;
   font-size: 10px;
   color: #fff;
@@ -1034,7 +1057,6 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   height: 18px;
   flex: 0 0 auto;
 }
-
 
 /* Hero Frame / Bordered Box with Cut Corner */
 .hero__frame {
@@ -1062,10 +1084,12 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   content: "";
   position: absolute;
   inset: 2px;
-  background-image: linear-gradient(90deg,
+  background-image: linear-gradient(
+      90deg,
       rgba(8, 6, 26, 0.98) 0%,
       rgba(121, 58, 255, 0.25) 50%,
-      rgba(8, 6, 26, 0.98) 100%),
+      rgba(8, 6, 26, 0.98) 100%
+    ),
     var(--hero-bg);
   background-size: cover;
   background-position: center bottom;
@@ -1152,15 +1176,18 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   }
 
   25% {
-    transform: translate(var(--move-x, 30px), var(--move-y, -20px)) rotate(var(--rot)) skew(-10deg);
+    transform: translate(var(--move-x, 30px), var(--move-y, -20px))
+      rotate(var(--rot)) skew(-10deg);
   }
 
   50% {
-    transform: translate(var(--move-x2, -25px), var(--move-y2, 15px)) rotate(var(--rot)) skew(-10deg);
+    transform: translate(var(--move-x2, -25px), var(--move-y2, 15px))
+      rotate(var(--rot)) skew(-10deg);
   }
 
   75% {
-    transform: translate(var(--move-x3, 20px), var(--move-y3, -30px)) rotate(var(--rot)) skew(-10deg);
+    transform: translate(var(--move-x3, 20px), var(--move-y3, -30px))
+      rotate(var(--rot)) skew(-10deg);
   }
 
   100% {
@@ -1202,12 +1229,14 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   inset: 0;
   z-index: -2;
   background: linear-gradient(180deg, #d02fd3, #8016ec);
-  clip-path: polygon(12px 0,
-      100% 0,
-      100% calc(100% - 12px),
-      calc(100% - 12px) 100%,
-      0 100%,
-      0 12px);
+  clip-path: polygon(
+    12px 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%,
+    0 12px
+  );
   border-radius: 2px;
   /* Slight rounding on other corners if supported by polygon? No, polygon is sharp. */
 }
@@ -1220,16 +1249,20 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   /* Border thickness */
   z-index: -1;
   /* Glass Effect Upgrade: Gradient opacity + Stronger Blur + Inner Glow */
-  background: linear-gradient(135deg,
-      rgba(60, 30, 90, 0.78),
-      rgba(20, 10, 40, 0.62));
+  background: linear-gradient(
+    135deg,
+    rgba(60, 30, 90, 0.78),
+    rgba(20, 10, 40, 0.62)
+  );
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.04);
-  clip-path: polygon(11px 0,
-      100% 0,
-      100% calc(100% - 11px),
-      calc(100% - 11px) 100%,
-      0 100%,
-      0 11px);
+  clip-path: polygon(
+    11px 0,
+    100% 0,
+    100% calc(100% - 11px),
+    calc(100% - 11px) 100%,
+    0 100%,
+    0 11px
+  );
   /* Adjusted clip path for inner to match outer roughly */
 }
 
@@ -1475,7 +1508,6 @@ button:not(.action-btn):not(.pagination-btn):not(.social-icon):not(.meme-panel__
   scroll-snap-align: start;
 }
 
-
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -1675,7 +1707,6 @@ h2 {
   }
 }
 
-
 .section-title {
   text-align: center;
   margin: 26px 0 12px;
@@ -1786,32 +1817,34 @@ h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-      rgba(var(--meme-border-rgb, 62, 244, 192), 0.95),
-      rgba(var(--meme-border-rgb, 62, 244, 192), 0.85));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--meme-border-rgb, 62, 244, 192), 0.95),
+    rgba(var(--meme-border-rgb, 62, 244, 192), 0.85)
+  );
   z-index: 0;
   pointer-events: none;
-  filter: drop-shadow(0 0 18px rgba(var(--meme-border-rgb, 62, 244, 192), 0.35)) drop-shadow(0 0 46px rgba(var(--meme-border-rgb, 62, 244, 192), 0.22));
+  filter: drop-shadow(0 0 18px rgba(var(--meme-border-rgb, 62, 244, 192), 0.35))
+    drop-shadow(0 0 46px rgba(var(--meme-border-rgb, 62, 244, 192), 0.22));
 
   /* Fix: Use hollow polygon instead of mask to ensure corners are visible */
   clip-path: polygon(
-      /* Outer Shape (Clockwise) */
-      var(--cut-size) 0,
-      100% 0,
-      100% calc(100% - var(--cut-size)),
-      calc(100% - var(--cut-size)) 100%,
-      0 100%,
-      0 var(--cut-size),
-      var(--cut-size) 0,
+    /* Outer Shape (Clockwise) */ var(--cut-size) 0,
+    100% 0,
+    100% calc(100% - var(--cut-size)),
+    calc(100% - var(--cut-size)) 100%,
+    0 100%,
+    0 var(--cut-size),
+    var(--cut-size) 0,
 
-      /* Inner Hole (Counter-Clockwise) */
-      var(--cut-size) var(--border-w),
-      var(--border-w) var(--cut-size),
-      var(--border-w) calc(100% - var(--border-w)),
-      calc(100% - var(--cut-size)) calc(100% - var(--border-w)),
-      calc(100% - var(--border-w)) calc(100% - var(--cut-size)),
-      calc(100% - var(--border-w)) var(--border-w),
-      var(--cut-size) var(--border-w));
+    /* Inner Hole (Counter-Clockwise) */ var(--cut-size) var(--border-w),
+    var(--border-w) var(--cut-size),
+    var(--border-w) calc(100% - var(--border-w)),
+    calc(100% - var(--cut-size)) calc(100% - var(--border-w)),
+    calc(100% - var(--border-w)) calc(100% - var(--cut-size)),
+    calc(100% - var(--border-w)) var(--border-w),
+    var(--cut-size) var(--border-w)
+  );
 }
 
 /* Removed ::after logic */
@@ -1875,32 +1908,38 @@ h2 {
   height: 100%;
   z-index: 1;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3);
-  clip-path: polygon(var(--cut-inner) 0,
-      100% 0,
-      100% calc(100% - var(--cut-inner)),
-      calc(100% - var(--cut-inner)) 100%,
-      0 100%,
-      0 var(--cut-inner));
+  clip-path: polygon(
+    var(--cut-inner) 0,
+    100% 0,
+    100% calc(100% - var(--cut-inner)),
+    calc(100% - var(--cut-inner)) 100%,
+    0 100%,
+    0 var(--cut-inner)
+  );
 }
 
 .meme-panel__body::after {
   content: "";
   position: absolute;
   inset: 0;
-  clip-path: polygon(var(--cut-inner) 0,
-      100% 0,
-      100% calc(100% - var(--cut-inner)),
-      calc(100% - var(--cut-inner)) 100%,
-      0 100%,
-      0 var(--cut-inner));
+  clip-path: polygon(
+    var(--cut-inner) 0,
+    100% 0,
+    100% calc(100% - var(--cut-inner)),
+    calc(100% - var(--cut-inner)) 100%,
+    0 100%,
+    0 var(--cut-inner)
+  );
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 52%,
-      rgba(255, 255, 255, 0.06) 0 45%,
-      rgba(255, 255, 255, 0) 75%);
+  background: radial-gradient(
+    circle at 50% 52%,
+    rgba(255, 255, 255, 0.06) 0 45%,
+    rgba(255, 255, 255, 0) 75%
+  );
 }
 
-.meme-panel__body>* {
+.meme-panel__body > * {
   position: relative;
   z-index: 2;
 }
@@ -1941,7 +1980,8 @@ h2 {
   --meme-border-rgb: 255, 58, 255;
 }
 
-.meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
+.meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section)
+  .meme-panel__body {
   padding-right: clamp(260px, 30vw, 460px);
 }
 
@@ -1952,9 +1992,11 @@ h2 {
 }
 
 .meme-panel .game-card {
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.06) 0%,
-      rgba(19, 19, 42, 0.84) 70%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(19, 19, 42, 0.84) 70%
+  );
   border-color: rgba(var(--meme-border-rgb, 198, 26, 231), 0.26);
   backdrop-filter: blur(14px);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35),
@@ -2094,7 +2136,7 @@ h2 {
   scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
-.meme-panel__cards>.game-card {
+.meme-panel__cards > .game-card {
   scroll-snap-align: start;
 }
 
@@ -2115,9 +2157,11 @@ h2 {
 
 .progress-bar__fill {
   height: 100%;
-  background: linear-gradient(90deg,
-      rgba(var(--meme-border-rgb, 62, 244, 192), 1),
-      rgba(var(--meme-border-rgb, 62, 244, 192), 0.72));
+  background: linear-gradient(
+    90deg,
+    rgba(var(--meme-border-rgb, 62, 244, 192), 1),
+    rgba(var(--meme-border-rgb, 62, 244, 192), 0.72)
+  );
   border-radius: 999px;
   width: 40%;
   transition: width 0.3s ease;
@@ -2276,7 +2320,7 @@ h2 {
   content: none;
 }
 
-.leaderboard-section>* {
+.leaderboard-section > * {
   position: relative;
   z-index: 1;
 }
@@ -2709,7 +2753,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-
   /* Adjust outer section padding */
   .footer-section {
     padding: 24px 16px;
@@ -2895,7 +2938,6 @@ h2 {
 }
 
 @media (max-width: 1200px) {
-
   .hero__frame {
     min-height: 460px;
   }
@@ -2985,7 +3027,6 @@ h2 {
 }
 
 @media (max-width: 720px) {
-
   .nav,
   .hero__actions {
     flex-direction: column;
@@ -3131,7 +3172,8 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
+  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section)
+    .meme-panel__body {
     padding-right: 0;
   }
 
@@ -3175,7 +3217,8 @@ h2 {
   }
 
   /* Meme panel responsive styles */
-  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section) .meme-panel__body {
+  .meme-panel:not(.doge-section):not(.metamask-section):not(.phantom-section)
+    .meme-panel__body {
     padding-right: 0;
   }
 
@@ -3276,7 +3319,6 @@ h2 {
 
 /* Responsive Styles for Hero Section < 1220px */
 @media (max-width: 1220px) {
-
   /* Scale down the robot image */
   /* Scale down the robot image */
   .hero__bot-large {
@@ -3285,7 +3327,7 @@ h2 {
     bottom: 3%;
   }
 
-  /* Scale down the main title image (GEMEPAD) */
+  /* Scale down the main title image (GAMEPAD) */
   .hero-title-img {
     height: 48px;
   }
@@ -3350,7 +3392,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-
   /* Remove visual frame from the first section (Hero Section) */
   .hero {
     padding: 0 !important;
