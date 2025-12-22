@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import Header from "./components/Header";
-import { isTelegramMiniApp } from "./utils/telegram";
+import { isTelegramMiniApp, openTelegramLink } from "./utils/telegram";
 import footerBg from "./assets/Component_Bg.png";
 import heroBg from "./assets/herosection/Mask group (3).png";
 import Bg01 from "./assets/herosection/Bg01.png";
@@ -414,7 +414,7 @@ export default function App() {
 
   const handleMakeGameClick = useCallback(() => {
     if (isTelegramMiniApp()) {
-      openTelegramLink("https://t.me/gemepad_bot/gemepadeditor");
+      openTelegramLink("https://t.me/gamepadworld_bot/editor");
       return;
     }
     window.open(
