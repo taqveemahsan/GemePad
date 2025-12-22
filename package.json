@@ -1,5 +1,5 @@
 {
-  "name": "gemepad-frontend",
+  "name": "gamepad-frontend",
   "private": true,
   "type": "module",
   "scripts": {

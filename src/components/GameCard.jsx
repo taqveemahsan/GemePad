@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default React.memo(function GameCard({
   title,
@@ -12,7 +12,11 @@ export default React.memo(function GameCard({
   isComingSoon = false
 }) {
   return (
-    <div className="game-card" onClick={onClick}>
+    <div
+      className={`game-card ${disabled ? "coming-soon" : ""}`}
+      onClick={disabled ? undefined : onClick}
+      style={{ cursor: disabled ? "default" : "pointer" }}
+    >
       <div className="game-card__media">
         <img
           src={img}
@@ -34,14 +38,18 @@ export default React.memo(function GameCard({
               <div className="token-icon-placeholder" />
             )}
             <div className="token-details">
-              <span className="token-name">{tokenName || 'Token Name'}</span>
+              <span className="token-name">{tokenName || "Token Name"}</span>
               <span className="token-price">$0.058</span>
             </div>
           </div>
 
           <div className="game-card__trade-actions">
-            <button className="btn-trade btn-buy" type="button">Buy</button>
-            <button className="btn-trade btn-sell" type="button">Sell</button>
+            <button className="btn-trade btn-buy" type="button">
+              Buy
+            </button>
+            <button className="btn-trade btn-sell" type="button">
+              Sell
+            </button>
           </div>
         </div>
 
@@ -62,7 +70,7 @@ export default React.memo(function GameCard({
           /* Assuming existing global styles for .game-card handling basic layout/bg */
           cursor: pointer;
         }
-        
+
         .game-card__row {
           display: flex;
           align-items: center;
@@ -89,11 +97,11 @@ export default React.memo(function GameCard({
         }
 
         .token-icon-placeholder {
-           width: 28px; /* Reduced size */
-           height: 28px;
-           border-radius: 50%;
-           background: rgba(255, 255, 255, 0.1);
-           flex-shrink: 0;
+          width: 28px; /* Reduced size */
+          height: 28px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.1);
+          flex-shrink: 0;
         }
 
         .token-details {
@@ -102,7 +110,7 @@ export default React.memo(function GameCard({
           gap: 0px; /* Tighter leading */
           min-width: 0;
         }
-        
+
         .token-name {
           font-size: 11px; /* Smaller font */
           color: #fff;
@@ -124,7 +132,7 @@ export default React.memo(function GameCard({
         }
 
         .btn-trade {
-          font-family: 'Inter', system-ui, sans-serif !important;
+          font-family: "Inter", system-ui, sans-serif !important;
           background: transparent;
           border: 1px solid;
           padding: 6px 10px; /* Reduced padding */
@@ -165,32 +173,38 @@ export default React.memo(function GameCard({
           .game-card__row {
             gap: 8px;
           }
-          
+
           .game-card__token-info {
             flex: 0 1 100%;
             max-width: 100%;
           }
-          
+
           .game-card__trade-actions {
             flex: 0 1 100%;
             justify-content: center;
             margin-top: 4px;
           }
-          
+
           .token-name {
             font-size: 10px;
           }
-          
+
           .token-price {
             font-size: 9px;
           }
-          
+
           .btn-trade {
             padding: 5px 12px;
             font-size: 10px;
           }
         }
+
+        .game-card.coming-soon .btn-play {
+          background: rgb(68, 68, 68);
+          color: rgb(170, 170, 170);
+          cursor: default;
+        }
       `}</style>
     </div>
-  )
-})
+  );
+});
