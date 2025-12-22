@@ -7,15 +7,15 @@ export default React.memo(function GameCard({
   tokenImg,
   onClick,
   playCount,
-  imgLoading = 'lazy',
+  imgLoading = "lazy",
   imgFetchPriority,
-  isComingSoon = false
+  isComingSoon = false,
 }) {
   return (
     <div
-      className={`game-card ${disabled ? "coming-soon" : ""}`}
-      onClick={disabled ? undefined : onClick}
-      style={{ cursor: disabled ? "default" : "pointer" }}
+      className={`game-card ${isComingSoon ? "coming-soon" : ""}`}
+      onClick={isComingSoon ? undefined : onClick}
+      style={{ cursor: isComingSoon ? "default" : "pointer" }}
     >
       <div className="game-card__media">
         <img
@@ -23,9 +23,11 @@ export default React.memo(function GameCard({
           alt={title}
           loading={imgLoading}
           decoding="async"
-          fetchPriority={imgFetchPriority}
+          {...(imgFetchPriority && { fetchPriority: imgFetchPriority })}
         />
-        <div className="badge">{playCount ? `${playCount} Played` : '0 Played'}</div>
+        <div className="badge">
+          {playCount ? `${playCount} Played` : "0 Played"}
+        </div>
       </div>
       <div className="game-card__body">
         <h4>{title}</h4>
@@ -58,9 +60,18 @@ export default React.memo(function GameCard({
           type="button"
           onClick={onClick}
           disabled={isComingSoon}
-          style={isComingSoon ? { opacity: 0.7, cursor: 'not-allowed', background: '#333', boxShadow: 'none' } : {}}
+          style={
+            isComingSoon
+              ? {
+                  opacity: 0.7,
+                  cursor: "not-allowed",
+                  background: "#333",
+                  boxShadow: "none",
+                }
+              : {}
+          }
         >
-          {isComingSoon ? 'COMING SOON' : '▶ PLAY'}
+          {isComingSoon ? "COMING SOON" : "▶ PLAY"}
         </button>
       </div>
 
